@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Manages players units. 
@@ -10,26 +9,22 @@ public class PlayerManager : MonoBehaviour
     private UnitFactory unitFactory;
     [SerializeField]
     private TowerFactory towerFactory;
-
-    // Not sure that I will need this.
-    private List<Unit> playersUnits;
-    private List<Tower> playerTowers;
-
-    private void Awake()
-    {
-        playersUnits = new List<Unit>();
-        playerTowers = new List<Tower>();
-    }
+    [SerializeField]
+    private Alignment alignment;
 
     /// <summary>
     /// Spawns a unit on a given spawnpoint and gives him a path.
     /// </summary>
     public void SpawnUnit(SpawnTile spawn)
     {
-        playersUnits.Add(unitFactory.GetUnit(spawn));
+        unitFactory.CreateUnit().SpawnOn(spawn, Alignment.Computer);
     }
-    public void SpawnTower(TowerTile tile)
+    public void SpawnLaserTower(TowerTile tile)
     {
-        playerTowers.Add(towerFactory.GetTower(tile));
+        towerFactory.CreateLaserTower().SpawnOn(tile, alignment);
+    }
+    public void SpawnMGTower(TowerTile tile)
+    {
+        towerFactory.CreateMGTower().SpawnOn(tile, alignment);
     }
 }

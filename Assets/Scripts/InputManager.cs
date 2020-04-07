@@ -14,7 +14,9 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private Ghost unitGhostPrefab;
     [SerializeField]
-    private Ghost towerGhostPrefab;
+    private Ghost laserTowerGhostPrefab;
+    [SerializeField]
+    private Ghost mgTowerGhostPrefab;
     [SerializeField]
     private LayerMask ghostWorldPlacementMask;
     /// <summary>
@@ -37,8 +39,16 @@ public class InputManager : MonoBehaviour
     public void TowerButtonClicked()
     {
         ClearGhost();
-        currentGhost = Instantiate(towerGhostPrefab, Input.mousePosition, Quaternion.identity);
-        mouseClickLeft = PlaceTower;
+        currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+        mouseClickLeft = PlaceLaserTower;
+        mouseClickRight = Refresh;
+        updateGhost = MoveGhostAfterCursor<TowerTile>;
+    }
+    public void MGTowerButtonClicked()
+    {
+        ClearGhost();
+        currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+        mouseClickLeft = PlaceMGTower;
         mouseClickRight = Refresh;
         updateGhost = MoveGhostAfterCursor<TowerTile>;
     }
@@ -107,7 +117,7 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// Places a tower on mouse cursor.
     /// </summary>
-    private void PlaceTower()
+    private void PlaceLaserTower()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         TowerTile tile;
@@ -117,7 +127,28 @@ public class InputManager : MonoBehaviour
             {
                 if (!tile.IsOccupied)
                 {
-                    playerManager.SpawnTower(tile);
+                    playerManager.SpawnLaserTower(tile);
+                    Refresh();
+                    return;
+                }
+            }
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(wrongPlace);
+            }
+        }
+    }
+    private void PlaceMGTower()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        TowerTile tile;
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if ((tile = hit.collider.gameObject.GetComponentInParent<TowerTile>()) != null)
+            {
+                if (!tile.IsOccupied)
+                {
+                    playerManager.SpawnMGTower(tile);
                     Refresh();
                     return;
                 }
