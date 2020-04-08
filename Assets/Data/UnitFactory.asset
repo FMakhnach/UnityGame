@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6062fe86bb6cfa14c83b5ef9837e01a1, type: 3}
   m_Name: UnitFactory
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 5301445435050769754, guid: d1646daa8f87bf34b806430e7e3de2da,
+  unitPrefab: {fileID: 5702925070984716128, guid: b53b7ddb52af6f34080b992e7b8e5643,
     type: 3}

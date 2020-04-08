@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 483b0cff56635c649ad8c8fc1a37244f,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -846,7 +847,7 @@ GameObject:
   - component: {fileID: 1092820723}
   - component: {fileID: 1092820722}
   m_Layer: 5
-  m_Name: TowerButton
+  m_Name: LaserTowerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -915,7 +916,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1985889891}
-        m_MethodName: TowerButtonClicked
+        m_MethodName: LaserTowerButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1354,7 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5475899453b6acd43a03037e3f94252d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitGhostPrefab: {fileID: 1782472695802956683, guid: c47866eb141c84245b53a8c5efeb3472,
+  unitGhostPrefab: {fileID: 3580836793703185949, guid: a60801b3225d06a43bb9186125f927c0,
     type: 3}
   laserTowerGhostPrefab: {fileID: 6153050571176969339, guid: 0f3e7e5fd8e7f7e448ecc01919cc8626,
     type: 3}

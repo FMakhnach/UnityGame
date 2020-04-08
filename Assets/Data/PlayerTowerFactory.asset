@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afffbb6f0dd1e1418e34faadcf01b8b, type: 3}
   m_Name: PlayerTowerFactory
   m_EditorClassIdentifier: 
-  laserTowerPrefab: {fileID: 3092981721333003890, guid: 26c0d62ea8f328f418bc5d1a0abfb759,
+  laserTowerPrefab: {fileID: 6669055361960079837, guid: 26c0d62ea8f328f418bc5d1a0abfb759,
     type: 3}
   mgTowerPrefab: {fileID: 4263874516405033047, guid: 71224d3adeb10664d85cd5c046d110c2,
     type: 3}

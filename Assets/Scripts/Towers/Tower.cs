@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 
-public class Tower : MonoBehaviour, ISpawnable<TowerTile>, ITarget
+public abstract class Tower : MonoBehaviour, ISpawnable<TowerTile>, ITarget
 {
     [SerializeField]
     protected TowerConfiguration config;
     [SerializeField]
     private GameObject ownTarget;
-    private LayerMask targetableMask;
-    private AudioSource audioSource;
+    protected LayerMask targetableMask;
+    protected AudioSource audioSource;
     private Alignment alignment;
 
     public Transform TargetPoint => ownTarget.transform;
-    protected LayerMask TargetableMask => targetableMask;
     public Alignment Alignment => alignment;
 
     private void Awake()
@@ -21,9 +20,10 @@ public class Tower : MonoBehaviour, ISpawnable<TowerTile>, ITarget
     }
     public void SpawnOn(TowerTile tile, Alignment alignment)
     {
-        audioSource.PlayOneShot(config.spawnSound, 0.3f);
         transform.position = tile.transform.position;
         this.alignment = alignment;
+        tile.RecieveTower(this);
+        audioSource.PlayOneShot(config.spawnSound, 0.3f);
     }
 
 #if UNITY_EDITOR

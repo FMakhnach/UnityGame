@@ -23,6 +23,7 @@ public class InputManager : MonoBehaviour
     /// Current placeable object ghost in game.
     /// </summary>
     private Ghost currentGhost;
+    private Tile currentTile;
 
     private AudioSource audioSource;
     [SerializeField]
@@ -36,7 +37,7 @@ public class InputManager : MonoBehaviour
         mouseClickRight = Refresh;
         updateGhost = MoveGhostAfterCursor<SpawnTile>;
     }
-    public void TowerButtonClicked()
+    public void LaserTowerButtonClicked()
     {
         ClearGhost();
         currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
@@ -96,22 +97,14 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void PlaceUnit()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (currentTile != null && currentTile is SpawnTile)
         {
-            SpawnTile tile = hit.collider.gameObject.GetComponentInParent<SpawnTile>();
-            if (tile != null)
-            {
-                playerManager.SpawnUnit(tile);
-                Refresh();
-            }
-            else
-            {
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.PlayOneShot(wrongPlace);
-                }
-            }
+            playerManager.SpawnUnit(currentTile as SpawnTile);
+            Refresh();
+        }
+        else if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
         }
     }
     /// <summary>
@@ -119,44 +112,36 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void PlaceLaserTower()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        TowerTile tile;
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (currentTile != null && currentTile is TowerTile)
         {
-            if ((tile = hit.collider.gameObject.GetComponentInParent<TowerTile>()) != null)
+            TowerTile tile = currentTile as TowerTile;
+            if (!tile.IsOccupied)
             {
-                if (!tile.IsOccupied)
-                {
-                    playerManager.SpawnLaserTower(tile);
-                    Refresh();
-                    return;
-                }
+                playerManager.SpawnLaserTower(tile);
+                Refresh();
+                return;
             }
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(wrongPlace);
-            }
+        }
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
         }
     }
     private void PlaceMGTower()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        TowerTile tile;
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (currentTile != null && currentTile is TowerTile)
         {
-            if ((tile = hit.collider.gameObject.GetComponentInParent<TowerTile>()) != null)
+            TowerTile tile = currentTile as TowerTile;
+            if (!tile.IsOccupied)
             {
-                if (!tile.IsOccupied)
-                {
-                    playerManager.SpawnMGTower(tile);
-                    Refresh();
-                    return;
-                }
+                playerManager.SpawnMGTower(tile);
+                Refresh();
+                return;
             }
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(wrongPlace);
-            }
+        }
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
         }
     }
     /// <summary>
@@ -169,10 +154,10 @@ public class InputManager : MonoBehaviour
         // 1f is for sphere cast radius
         if (Physics.SphereCast(ray, 1f, out RaycastHit hit, float.MaxValue, ghostWorldPlacementMask))
         {
-            TargetTile tile = hit.collider.gameObject.GetComponentInParent<TargetTile>();
-            if (tile != null)
+            currentTile = hit.collider.gameObject.GetComponentInParent<TargetTile>();
+            if (currentTile != null)
             {
-                currentGhost.transform.position = tile.transform.position;
+                currentGhost.transform.position = currentTile.transform.position;
                 currentGhost.SetFit(true);
             }
             else
@@ -189,7 +174,7 @@ public class InputManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Debug.Log(hit.collider.gameObject.GetComponentInParent<Tile>()?.ToString());
+            Debug.Log(hit.collider.transform.parent.position);
         }
     }
 }

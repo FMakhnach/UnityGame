@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, ITarget
 {
@@ -8,49 +9,54 @@ public class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, ITarget
     [SerializeField]
     private UnitConfiguration config;
     /// <summary>
-    /// Current destination. Null indicates absence of destination.
+    /// Unit's own target point.
     /// </summary>
-    private Vector3? destination;
+    [SerializeField]
+    private Transform ownTarget;
     /// <summary>
-    /// Path of the unit. 
+    /// Current destination.
+    /// </summary>
+    private Tile destination;
+    /// <summary>
+    /// Path that the unit is following
     /// </summary>
     private Tile[] path;
-    private int currentDestinationTileId = 0;
+    /// <summary>
+    /// Current destination point index in array.
+    /// </summary>
+    private int curDestId;
     /// <summary>
     /// Audio source for sound effects.
     /// </summary>
     private AudioSource audioSource;
-
     private float currentHealth;
     private float currentSpeed;
-
+    private bool pathIsNotComplete;
     private Alignment alignment;
+
     public Alignment Alignment => alignment;
+    public Transform TargetPoint => ownTarget;
 
-    public Transform TargetPoint => transform;
-
-    /// <summary>
-    /// Is called when stepping into a new tile collider.
-    /// </summary>
-    public void UpdateDestination(Tile reachedTile)
-    {
-        // If we really stepped onto the wanted tile.
-        if (reachedTile == path[currentDestinationTileId])
-        {
-            Tile nextTile = GetNextTileOnPath();
-            if (nextTile != null)
-            {
-                destination = nextTile.transform.position;
-            }
-        }
-    }
     public void SpawnOn(SpawnTile spawn, Alignment alignment)
     {
         this.alignment = alignment;
         path = spawn.Path;
-        destination = path[0].transform.position;
+        destination = path[0];
+        pathIsNotComplete = true;
         transform.position = spawn.transform.position;
+        transform.LookAt(destination.transform);
         audioSource.PlayOneShot(config.spawnSound, 0.3f);
+        curDestId = 0;
+    }
+    public void RecieveDamage(float damage)
+    {
+        Debug.LogError(currentHealth);
+        if (gameObject != null && damage >= currentHealth)
+        {
+            gameObject.SetActive(false);
+            Destroy(this.gameObject);
+        }
+        currentHealth -= damage;
     }
 
     private void Awake()
@@ -61,7 +67,7 @@ public class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, ITarget
     }
     private void Update()
     {
-        if (destination != null)
+        if (pathIsNotComplete)
         {
             MoveToDestination();
         }
@@ -71,27 +77,22 @@ public class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, ITarget
     /// </summary>
     private void MoveToDestination()
     {
-        Vector3 deltaPath = (Vector3)destination - transform.position;
+        Vector3 deltaPath = destination.transform.position - transform.position;
         deltaPath.y = 0;
-        deltaPath = deltaPath.normalized * currentSpeed * Time.deltaTime;
-        transform.Translate(deltaPath);
-        // This looks pretty shitty.
-        if ((transform.position - (Vector3)destination).sqrMagnitude < 0.001f)
-        {
-            destination = null;
-            Debug.Log("Quest Completed!");
-        }
-    }
-    private Tile GetNextTileOnPath()
-        => currentDestinationTileId == (path.Length - 1) ? null : path[++currentDestinationTileId];
+        transform.position += deltaPath.normalized * currentSpeed * Time.deltaTime;
 
-    public void RecieveDamage(float damage)
-    {
-        if (gameObject != null && damage >= currentHealth)
+        if ((transform.position - destination.transform.position).sqrMagnitude < 0.001f)
         {
-            gameObject.SetActive(false);
-            Destroy(this.gameObject);
+            if (destination == path[path.Length - 1])
+            {
+                pathIsNotComplete = false;
+                Debug.Log("Quest Completed!");
+            }
+            else
+            {
+                destination = path[++curDestId];
+                transform.LookAt(destination.transform);
+            }
         }
-        currentHealth -= damage;
     }
 }
