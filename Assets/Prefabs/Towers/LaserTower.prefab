@@ -19200,13 +19200,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: c2b4e040a977bfb47bb00efcf82c2f18, type: 2}
-  ownTarget: {fileID: 2605118556912285527}
-  turret: {fileID: 3994287861495576395}
-  firePoint: {fileID: 6577577134302343877}
-  attackSound: {fileID: 8300000, guid: 84e74b559d684a74dbb0516d93de1e17, type: 3}
+  ownTarget: {fileID: 368063863415472371}
   projectilePrefab: {fileID: 6293376491632174810, guid: 0ce7baf332eff724885785c47504096e,
     type: 3}
   fireParticles: {fileID: 1048719627603256766}
+  turret: {fileID: 3997564956590871103}
+  firePoint: {fileID: 805144116260952143}
+  attackSound: {fileID: 8300000, guid: 84e74b559d684a74dbb0516d93de1e17, type: 3}
 --- !u!1 &3994560021560205837
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MachineGunConfiguration
   m_EditorClassIdentifier: 
   spawnSound: {fileID: 8300000, guid: e4421b8ca4d37d541b87515d95cbf5d3, type: 3}
+  attackSound: {fileID: 8300000, guid: 42df9271cb69574408fc5a753cbf30fb, type: 3}
   radius: 5
   damage: 4
   attackingInterval: 0.4
-  projectileSpeed: 9
+  health: 100

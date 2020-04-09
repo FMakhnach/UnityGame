@@ -12,7 +12,9 @@ public class InputManager : MonoBehaviour
     private Action updateGhost;
 
     [SerializeField]
-    private Ghost unitGhostPrefab;
+    private Ghost buggyGhostPrefab;
+    [SerializeField]
+    private Ghost copterGhostPrefab;
     [SerializeField]
     private Ghost laserTowerGhostPrefab;
     [SerializeField]
@@ -29,29 +31,51 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private AudioClip wrongPlace;
 
-    public void UnitButtonClicked()
+    public void BuggyButtonClicked()
     {
         ClearGhost();
-        currentGhost = Instantiate(unitGhostPrefab, Input.mousePosition, Quaternion.identity);
-        mouseClickLeft = PlaceUnit;
+        currentGhost = Instantiate(buggyGhostPrefab, Input.mousePosition, Quaternion.identity);
+        mouseClickLeft = PlaceBuggy;
+        mouseClickRight = Refresh;
+        updateGhost = MoveGhostAfterCursor<SpawnTile>;
+    }
+    public void CopterButtonClicked()
+    {
+        ClearGhost();
+        currentGhost = Instantiate(copterGhostPrefab, Input.mousePosition, Quaternion.identity);
+        mouseClickLeft = PlaceCopter;
         mouseClickRight = Refresh;
         updateGhost = MoveGhostAfterCursor<SpawnTile>;
     }
     public void LaserTowerButtonClicked()
     {
         ClearGhost();
-        currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
-        mouseClickLeft = PlaceLaserTower;
-        mouseClickRight = Refresh;
-        updateGhost = MoveGhostAfterCursor<TowerTile>;
+        if(playerManager.Currency >= LaserTower.Cost)
+        {
+            currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+            mouseClickLeft = PlaceLaserTower;
+            mouseClickRight = Refresh;
+            updateGhost = MoveGhostAfterCursor<TowerTile>;
+        }
+        else
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
     }
     public void MGTowerButtonClicked()
     {
         ClearGhost();
-        currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
-        mouseClickLeft = PlaceMGTower;
-        mouseClickRight = Refresh;
-        updateGhost = MoveGhostAfterCursor<TowerTile>;
+        if(playerManager.Currency >= MachineGunTower.Cost)
+        {
+            currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+            mouseClickLeft = PlaceMGTower;
+            mouseClickRight = Refresh;
+            updateGhost = MoveGhostAfterCursor<TowerTile>;
+        }
+        else
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
     }
 
     private void Awake()
@@ -91,59 +115,16 @@ public class InputManager : MonoBehaviour
         ClearGhost();
         mouseClickLeft = null;
         mouseClickRight = null;
+        currentTile = null;
     }
-    /// <summary>
-    /// Places a unit on mouse cursor.
-    /// </summary>
-    private void PlaceUnit()
-    {
-        if (currentTile != null && currentTile is SpawnTile)
-        {
-            playerManager.SpawnUnit(currentTile as SpawnTile);
-            Refresh();
-        }
-        else if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
-    /// <summary>
-    /// Places a tower on mouse cursor.
-    /// </summary>
+    private void PlaceBuggy()
+        => PlaceUnit(playerManager.SpawnBuggy);
+    private void PlaceCopter()
+        => PlaceUnit(playerManager.SpawnCopter);
     private void PlaceLaserTower()
-    {
-        if (currentTile != null && currentTile is TowerTile)
-        {
-            TowerTile tile = currentTile as TowerTile;
-            if (!tile.IsOccupied)
-            {
-                playerManager.SpawnLaserTower(tile);
-                Refresh();
-                return;
-            }
-        }
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
+        => PlaceTower(playerManager.PlaceLaserTower);
     private void PlaceMGTower()
-    {
-        if (currentTile != null && currentTile is TowerTile)
-        {
-            TowerTile tile = currentTile as TowerTile;
-            if (!tile.IsOccupied)
-            {
-                playerManager.SpawnMGTower(tile);
-                Refresh();
-                return;
-            }
-        }
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
+        => PlaceTower(playerManager.PlaceMGTower);
     /// <summary>
     /// Makes current ghost object follow mouse cursor.
     /// </summary>
@@ -165,6 +146,46 @@ public class InputManager : MonoBehaviour
                 currentGhost.transform.position = hit.point;
                 currentGhost.SetFit(false);
             }
+        }
+    }
+
+    private void PlaceUnit(Action<SpawnTile> placingMethod)
+    {
+        if(currentTile == null)
+        {
+            return;
+        }
+
+        if (currentTile is SpawnTile)
+        {
+            placingMethod(currentTile as SpawnTile);
+            Refresh();
+        }
+        else if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
+    }
+    private void PlaceTower(Action<TowerTile> placingMethod)
+    {
+        if (currentTile == null)
+        {
+            return;
+        }
+
+        if (currentTile is TowerTile)
+        {
+            TowerTile tile = currentTile as TowerTile;
+            if (!tile.IsOccupied)
+            {
+                placingMethod(tile);
+                Refresh();
+                return;
+            }
+        }
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
         }
     }
 

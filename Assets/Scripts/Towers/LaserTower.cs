@@ -2,5 +2,5 @@
 
 public class LaserTower : AttackingTower
 {
-    // Lol idk how this happened
+    public const int Cost = 15;
 }

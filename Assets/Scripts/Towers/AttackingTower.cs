@@ -9,11 +9,9 @@ public abstract class AttackingTower : Tower
     [SerializeField]
     private ParticleSystem fireParticles;
     [SerializeField]
-    private GameObject turret;
+    private Transform turret;
     [SerializeField]
-    private GameObject firePoint;
-    [SerializeField]
-    private AudioClip attackSound;
+    private Transform firePoint;
     private ITarget currentTarget;
     private float timer;
 
@@ -71,20 +69,17 @@ public abstract class AttackingTower : Tower
     }
     private void Aim()
     {
-        turret.transform.LookAt(currentTarget.TargetPoint.position);
-        var curRot = turret.transform.rotation.eulerAngles;
-        turret.transform.rotation = Quaternion.Euler(Mathf.Min(curRot.x, maxTurretSlope), curRot.y, 0f);
+        turret.LookAt(currentTarget.TargetPoint.position);
+        var curRot = turret.rotation.eulerAngles;
+        if (curRot.x > 180f) curRot.x -= 360f;
+        turret.rotation = Quaternion.Euler(Mathf.Clamp(curRot.x, -maxTurretSlope, maxTurretSlope), curRot.y, 0f);
     }
     private void Fire()
     {
-        var rot = fireParticles.transform.rotation.eulerAngles;
-        fireParticles.transform.LookAt(currentTarget.TargetPoint);
-        fireParticles.transform.rotation = Quaternion.Euler(rot.x, turret.transform.rotation.eulerAngles.y, rot.z);
-
         fireParticles.Play();
-        audioSource.PlayOneShot(attackSound, 0.3f);
+        audioSource.PlayOneShot(config.attackSound, 0.3f);
 
-        Projectile proj = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform);
+        Projectile proj = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation, firePoint);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
         proj.Initialize(direction, config.damage, Alignment);
     }

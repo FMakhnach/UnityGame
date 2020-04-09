@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa014fd777369643992f9d21b7b2f67, type: 3}
+  m_Name: BuggyConfiguration
+  m_EditorClassIdentifier: 
+  spawnSound: {fileID: 8300000, guid: 8d2ec53ab22ee284f8d4e26b741e2d51, type: 3}
+  attackSound: {fileID: 8300000, guid: 42df9271cb69574408fc5a753cbf30fb, type: 3}
+  radius: 4
+  damage: 7
+  attackingInterval: 0.8
+  health: 100
+  speed: 2

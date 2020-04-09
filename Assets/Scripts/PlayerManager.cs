@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 /// <summary>
 /// Manages players units. 
@@ -11,20 +12,49 @@ public class PlayerManager : MonoBehaviour
     private TowerFactory towerFactory;
     [SerializeField]
     private Alignment alignment;
+    [SerializeField]
+    private TextMeshProUGUI currencyText;
+    private int startingCurrency = 100;
+    private int currency;
 
-    /// <summary>
-    /// Spawns a unit on a given spawnpoint and gives him a path.
-    /// </summary>
-    public void SpawnUnit(SpawnTile spawn)
+    public int Currency
     {
-        unitFactory.CreateUnit().SpawnOn(spawn, Alignment.Computer);
+        get => currency;
+        private set
+        {
+            Debug.Assert(value <= currency, "Trying to put negative to currency!");
+            currency = value;
+            UpdateCurrencyText();
+        }
     }
-    public void SpawnLaserTower(TowerTile tile)
+
+    private void Awake()
+    {
+        currency = startingCurrency;
+        UpdateCurrencyText();
+    }
+
+    public void SpawnBuggy(SpawnTile spawn)
+    {
+        unitFactory.CreateBuggy().SpawnOn(spawn, Alignment.Computer);
+    }
+    public void SpawnCopter(SpawnTile spawn)
+    {
+        unitFactory.CreateCopter().SpawnOn(spawn, Alignment.Computer);
+    }
+    public void PlaceLaserTower(TowerTile tile)
     {
         towerFactory.CreateLaserTower().SpawnOn(tile, alignment);
+        Currency -= LaserTower.Cost;
     }
-    public void SpawnMGTower(TowerTile tile)
+    public void PlaceMGTower(TowerTile tile)
     {
         towerFactory.CreateMGTower().SpawnOn(tile, alignment);
+        Currency -= MachineGunTower.Cost;
+    }
+
+    private void UpdateCurrencyText()
+    {
+        currencyText.text = Currency.ToString();
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4930691851182074}
   - component: {fileID: 33599152738070450}
   - component: {fileID: 23024684552693346}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Base_MachineGun_L01_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4795219791600268}
   - component: {fileID: 4263874516405033047}
   - component: {fileID: 1620151807061731514}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: MachineGunTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,8 +108,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4024196668781704}
   - {fileID: 4877050138446582}
+  - {fileID: 4024196668781704}
   - {fileID: 1330558451856559845}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -127,12 +127,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 3d372b5fae604034a8b7e827083af97c, type: 2}
-  ownTarget: {fileID: 8700175859603520484}
+  ownTarget: {fileID: 1330558451856559845}
   projectilePrefab: {fileID: 7971827179346002810, guid: a0bbc4816dd39e045a25e124aa31b1b6,
     type: 3}
   fireParticles: {fileID: 963203522233258243}
-  turret: {fileID: 1589316105556366}
-  firePoint: {fileID: 5962562180719444126}
+  turret: {fileID: 4877050138446582}
+  firePoint: {fileID: 8508765533460654058}
   attackSound: {fileID: 8300000, guid: 42df9271cb69574408fc5a753cbf30fb, type: 3}
 --- !u!82 &1620151807061731514
 AudioSource:
@@ -241,7 +241,8 @@ GameObject:
   - component: {fileID: 4877050138446582}
   - component: {fileID: 33162234213751724}
   - component: {fileID: 23411862511571598}
-  m_Layer: 10
+  - component: {fileID: 8157951407648135398}
+  m_Layer: 9
   m_Name: Turret_MachineGun_L01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +263,7 @@ Transform:
   - {fileID: 4104818651648934}
   - {fileID: 8508765533460654058}
   m_Father: {fileID: 4795219791600268}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33162234213751724
 MeshFilter:
@@ -311,6 +312,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &8157951407648135398
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589316105556366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: ca1b398fbc1a64abaaf160449dab6c93, type: 3}
 --- !u!1 &1599602213529788
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +337,8 @@ GameObject:
   - component: {fileID: 4024196668781704}
   - component: {fileID: 33547097576749248}
   - component: {fileID: 23502624491662810}
-  m_Layer: 10
+  - component: {fileID: 5977198193301416080}
+  m_Layer: 9
   m_Name: Base_MachineGun_L01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +358,7 @@ Transform:
   m_Children:
   - {fileID: 4930691851182074}
   m_Father: {fileID: 4795219791600268}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33547097576749248
 MeshFilter:
@@ -391,6 +407,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &5977198193301416080
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599602213529788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: dd040609d7aef419b9c85fc5bfa91345, type: 3}
 --- !u!1 &1860257489135870
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +432,7 @@ GameObject:
   - component: {fileID: 4104818651648934}
   - component: {fileID: 33214187930424904}
   - component: {fileID: 23374357788599828}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Turret_MachineGun_L01_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +511,7 @@ GameObject:
   - component: {fileID: 502992623555529238}
   - component: {fileID: 4524453536042535207}
   - component: {fileID: 3121479049423862830}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Desktop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5172,7 +5202,7 @@ GameObject:
   - component: {fileID: 1943178506029889321}
   - component: {fileID: 7976451088449112924}
   - component: {fileID: 6443782202351481214}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BigFlare1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9876,7 +9906,7 @@ GameObject:
   - component: {fileID: 5731631023456868382}
   - component: {fileID: 4682594794357264664}
   - component: {fileID: 7607140197355637040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14589,7 +14619,7 @@ GameObject:
   - component: {fileID: 5635328671679058472}
   - component: {fileID: 6254883015123791975}
   - component: {fileID: 1107983679796054751}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BigFlare2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19293,7 +19323,7 @@ GameObject:
   - component: {fileID: 8914596090739807896}
   - component: {fileID: 963203522233258243}
   - component: {fileID: 5649098331004517186}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: MachineGunLvl1Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24005,7 +24035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8508765533460654058}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24038,7 +24068,7 @@ GameObject:
   - component: {fileID: 1342979626952993900}
   - component: {fileID: 9088453916737118449}
   - component: {fileID: 5472196598782795022}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FireFlare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28742,7 +28772,7 @@ GameObject:
   - component: {fileID: 2153486604246692793}
   - component: {fileID: 3691241999157686484}
   - component: {fileID: 280418336716711747}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tracer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33435,7 +33465,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1330558451856559845}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TargetPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

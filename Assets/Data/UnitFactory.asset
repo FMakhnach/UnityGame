@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6062fe86bb6cfa14c83b5ef9837e01a1, type: 3}
   m_Name: UnitFactory
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 5702925070984716128, guid: b53b7ddb52af6f34080b992e7b8e5643,
+  buggyPrefab: {fileID: 1915636167648838805, guid: b53b7ddb52af6f34080b992e7b8e5643,
+    type: 3}
+  copterPrefab: {fileID: 5645066298251432066, guid: acbc140f83cd5d443bbbf40b70b16c64,
     type: 3}

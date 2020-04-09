@@ -4,11 +4,18 @@
 public class UnitFactory : ScriptableObject
 {
     [SerializeField]
-    private Unit unitPrefab;
+    private Buggy buggyPrefab;
+    [SerializeField]
+    private Copter copterPrefab;
 
-    public Unit CreateUnit()
+    public Buggy CreateBuggy()
     {
-        Unit unit = Instantiate(unitPrefab);
-        return unit;
+        Buggy buggy = Instantiate(buggyPrefab);
+        return buggy;
+    }
+    public Copter CreateCopter()
+    {
+        Copter copter = Instantiate(copterPrefab);
+        return copter;
     }
 }
