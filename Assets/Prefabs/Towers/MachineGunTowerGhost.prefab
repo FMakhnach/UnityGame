@@ -169,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2586217395313007283}
-  - component: {fileID: 7703470945874080917}
+  - component: {fileID: 6366785297197303351}
   m_Layer: 10
   m_Name: MachineGunTowerGhost
   m_TagString: Untagged
@@ -194,7 +194,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7703470945874080917
+--- !u!114 &6366785297197303351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,6 +208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   good: {fileID: 2612710915722320441}
   bad: {fileID: 2612710915835870539}
+  baseRadius: 0.65
+  placementMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  numOfBaseTrackingPoints: 24
 --- !u!1 &2590561382706030785
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2612710915835870536
 Transform:
   m_ObjectHideFlags: 0

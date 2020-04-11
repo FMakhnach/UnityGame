@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnSound: {fileID: 8300000, guid: e4421b8ca4d37d541b87515d95cbf5d3, type: 3}
   attackSound: {fileID: 8300000, guid: 84e74b559d684a74dbb0516d93de1e17, type: 3}
-  radius: 8
+  radius: 9
   damage: 10
   attackingInterval: 1
   health: 100

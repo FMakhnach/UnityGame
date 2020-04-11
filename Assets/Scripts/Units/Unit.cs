@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public abstract class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, ITarget
+public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 {
     /// <summary>
     /// Unit's stats and stuff.
@@ -19,45 +19,46 @@ public abstract class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, 
     private Projectile projectilePrefab;
     [SerializeField]
     private ParticleSystem fireParticles;
-    /// <summary>
-    /// Current destination.
-    /// </summary>
-    private Tile destination;
-    /// <summary>
-    /// Path that the unit is following
-    /// </summary>
-    private Tile[] path;
-    /// <summary>
-    /// Current destination point index in array.
-    /// </summary>
-    private int curDestId;
+    protected ITarget currentTarget;
+    private float timer;
+    private LayerMask targetableMask;
+    private Alignment alignment;
+
     /// <summary>
     /// Audio source for sound effects.
     /// </summary>
     private AudioSource audioSource;
     private float currentHealth;
-    private float currentSpeed;
-    private bool pathIsNotComplete;
-    private Alignment alignment;
 
+    private bool pathIsNotComplete;
     private Action currentBehavior;
-    protected ITarget currentTarget;
-    private float timer;
-    private LayerMask targetableMask;
+    /// <summary>
+    /// Path that the unit is following
+    /// </summary>
+    private Vector3[] path;
+    /// <summary>
+    /// Current destination point index in array.
+    /// </summary>
+    private int curDestId;
+    private float currentSpeed;
+    private Collider previousColliderHit;
 
     public Alignment Alignment => alignment;
     public Transform TargetPoint => ownTarget;
 
-    public void SpawnOn(SpawnTile spawn, Alignment alignment)
+    /// <summary>
+    /// Moves to the spawn point and takes path info from it.
+    /// </summary> 
+    public void SpawnOn(Spawn spawn, Alignment alignment)
     {
         this.alignment = alignment;
-        path = spawn.Path;
-        destination = path[0];
-        pathIsNotComplete = true;
         transform.position = spawn.transform.position;
-        transform.LookAt(destination.transform);
         audioSource.PlayOneShot(config.spawnSound, 0.3f);
+
+        path = spawn.GetRoad();
+        currentBehavior = MovingBehavior;
         curDestId = 0;
+        pathIsNotComplete = true;
     }
     public void RecieveDamage(float damage)
     {
@@ -74,8 +75,6 @@ public abstract class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, 
         audioSource = GetComponent<AudioSource>();
         currentHealth = config.health;
         currentSpeed = config.speed;
-
-        currentBehavior = MovingBehavior;
         targetableMask = LayerMask.GetMask("Targetables");
         timer = config.attackingInterval;
     }
@@ -90,26 +89,11 @@ public abstract class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, 
     {
         if (pathIsNotComplete)
         {
-            Vector3 deltaPath = destination.transform.position - transform.position;
-            deltaPath.y = 0;
+            transform.rotation = Quaternion.LookRotation(path[curDestId] - transform.position);
+            Vector3 deltaPath = path[curDestId] - transform.position;
             transform.position += deltaPath.normalized * currentSpeed * Time.deltaTime;
-
-            if ((transform.position - destination.transform.position).sqrMagnitude < 0.001f)
-            {
-                if (destination == path[path.Length - 1])
-                {
-                    pathIsNotComplete = false;
-                    Debug.Log("Quest Completed!");
-                }
-                else
-                {
-                    destination = path[++curDestId];
-                    transform.LookAt(destination.transform);
-                }
-            }
         }
     }
-
     private void ScanTerritory()
     {
         float dist, minDistance = float.MaxValue;
@@ -138,6 +122,9 @@ public abstract class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, 
             }
         }
     }
+    /// <summary>
+    /// Aims at the target.
+    /// </summary>
     protected abstract void Aim();
     private void Fire()
     {
@@ -180,8 +167,22 @@ public abstract class Unit : MonoBehaviour, ISpawnable<SpawnTile>, IDamageable, 
         }
         else
         {
-            transform.LookAt(destination.transform);
+            transform.rotation = Quaternion.LookRotation(path[curDestId], Vector3.up);
             currentBehavior = MovingBehavior;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<RoadNode>() != null && previousColliderHit != other)
+        {
+            curDestId++;
+            // Just not to double-update index.
+            previousColliderHit = other;
+            if (curDestId == path.Length)
+            {
+                pathIsNotComplete = false;
+                Debug.Log("Quest Completed!");
+            }
         }
     }
 }

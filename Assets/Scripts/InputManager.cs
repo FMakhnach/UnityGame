@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System;
 
-/// <summary>
-/// For tests mostly.
-/// </summary>
 public class InputManager : MonoBehaviour
 {
+    /// <summary>
+    /// Handles entities creating, so we need it.
+    /// </summary>
     private PlayerManager playerManager;
+    /// <summary>
+    /// Action that should be happened on left mouse click.
+    /// </summary>
     private Action mouseClickLeft;
+    /// <summary>
+    /// Action that should be happened on left mouse click.
+    /// </summary>
     private Action mouseClickRight;
-    private Action updateGhost;
 
     [SerializeField]
     private Ghost buggyGhostPrefab;
@@ -19,13 +24,14 @@ public class InputManager : MonoBehaviour
     private Ghost laserTowerGhostPrefab;
     [SerializeField]
     private Ghost mgTowerGhostPrefab;
-    [SerializeField]
+    /// <summary>
+    /// The layer that the ghost floats on.
+    /// </summary>
     private LayerMask ghostWorldPlacementMask;
     /// <summary>
     /// Current placeable object ghost in game.
     /// </summary>
     private Ghost currentGhost;
-    private Tile currentTile;
 
     private AudioSource audioSource;
     [SerializeField]
@@ -37,7 +43,6 @@ public class InputManager : MonoBehaviour
         currentGhost = Instantiate(buggyGhostPrefab, Input.mousePosition, Quaternion.identity);
         mouseClickLeft = PlaceBuggy;
         mouseClickRight = Refresh;
-        updateGhost = MoveGhostAfterCursor<SpawnTile>;
     }
     public void CopterButtonClicked()
     {
@@ -45,17 +50,15 @@ public class InputManager : MonoBehaviour
         currentGhost = Instantiate(copterGhostPrefab, Input.mousePosition, Quaternion.identity);
         mouseClickLeft = PlaceCopter;
         mouseClickRight = Refresh;
-        updateGhost = MoveGhostAfterCursor<SpawnTile>;
     }
     public void LaserTowerButtonClicked()
     {
         ClearGhost();
-        if(playerManager.Currency >= LaserTower.Cost)
+        if (playerManager.Currency >= LaserTower.Cost)
         {
             currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
             mouseClickLeft = PlaceLaserTower;
             mouseClickRight = Refresh;
-            updateGhost = MoveGhostAfterCursor<TowerTile>;
         }
         else
         {
@@ -65,12 +68,11 @@ public class InputManager : MonoBehaviour
     public void MGTowerButtonClicked()
     {
         ClearGhost();
-        if(playerManager.Currency >= MachineGunTower.Cost)
+        if (playerManager.Currency >= MachineGunTower.Cost)
         {
             currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
             mouseClickLeft = PlaceMGTower;
             mouseClickRight = Refresh;
-            updateGhost = MoveGhostAfterCursor<TowerTile>;
         }
         else
         {
@@ -80,6 +82,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+        ghostWorldPlacementMask = LayerMask.GetMask("Environment", "TowerPlacement", "UnitPlacement");
         playerManager = GetComponent<PlayerManager>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -95,7 +98,7 @@ public class InputManager : MonoBehaviour
         }
         else if (currentGhost != null)
         {
-            updateGhost?.Invoke();
+            MoveGhostAfterCursor();
         }
     }
     /// <summary>
@@ -107,7 +110,6 @@ public class InputManager : MonoBehaviour
         {
             Destroy(currentGhost.gameObject);
             currentGhost = null;
-            updateGhost = null;
         }
     }
     private void Refresh()
@@ -115,50 +117,43 @@ public class InputManager : MonoBehaviour
         ClearGhost();
         mouseClickLeft = null;
         mouseClickRight = null;
-        currentTile = null;
     }
+
     private void PlaceBuggy()
-        => PlaceUnit(playerManager.SpawnBuggy);
+        => Spawn(playerManager.SpawnBuggy);
     private void PlaceCopter()
-        => PlaceUnit(playerManager.SpawnCopter);
+        => Spawn(playerManager.SpawnCopter);
     private void PlaceLaserTower()
-        => PlaceTower(playerManager.PlaceLaserTower);
+        => Place(playerManager.PlaceLaserTower);
     private void PlaceMGTower()
-        => PlaceTower(playerManager.PlaceMGTower);
+        => Place(playerManager.PlaceMGTower);
+
     /// <summary>
     /// Makes current ghost object follow mouse cursor.
     /// </summary>
     /// <typeparam name="TargetTile"> Target tile type, on which we want our object to be placed. </typeparam>
-    private void MoveGhostAfterCursor<TargetTile>() where TargetTile : Tile
+    private void MoveGhostAfterCursor()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         // 1f is for sphere cast radius
         if (Physics.SphereCast(ray, 1f, out RaycastHit hit, float.MaxValue, ghostWorldPlacementMask))
         {
-            currentTile = hit.collider.gameObject.GetComponentInParent<TargetTile>();
-            if (currentTile != null)
-            {
-                currentGhost.transform.position = currentTile.transform.position;
-                currentGhost.SetFit(true);
-            }
-            else
-            {
-                currentGhost.transform.position = hit.point;
-                currentGhost.SetFit(false);
-            }
+            currentGhost.transform.position = hit.point;
+            currentGhost.transform.rotation
+                = Quaternion.FromToRotation(Vector3.up, hit.normal);
+            currentGhost.CheckIfFits();
         }
     }
 
-    private void PlaceUnit(Action<SpawnTile> placingMethod)
+    /// <summary>
+    /// Places a particular tower.
+    /// </summary>
+    /// <param name="placingMethod"></param>
+    private void Place(Action<Vector3, Quaternion> placingMethod)
     {
-        if(currentTile == null)
+        if (currentGhost.IsFit)
         {
-            return;
-        }
-
-        if (currentTile is SpawnTile)
-        {
-            placingMethod(currentTile as SpawnTile);
+            placingMethod(currentGhost.transform.position, currentGhost.transform.rotation);
             Refresh();
         }
         else if (!audioSource.isPlaying)
@@ -166,36 +161,19 @@ public class InputManager : MonoBehaviour
             audioSource.PlayOneShot(wrongPlace);
         }
     }
-    private void PlaceTower(Action<TowerTile> placingMethod)
+    /// <summary>
+    /// Spawns a particular unit.
+    /// </summary>
+    private void Spawn(Action<Spawn> spawningMethod)
     {
-        if (currentTile == null)
+        if (currentGhost.IsFit)
         {
-            return;
+            spawningMethod(((UnitGhost)currentGhost).Spawn);
+            Refresh();
         }
-
-        if (currentTile is TowerTile)
-        {
-            TowerTile tile = currentTile as TowerTile;
-            if (!tile.IsOccupied)
-            {
-                placingMethod(tile);
-                Refresh();
-                return;
-            }
-        }
-        if (!audioSource.isPlaying)
+        else if (!audioSource.isPlaying)
         {
             audioSource.PlayOneShot(wrongPlace);
-        }
-    }
-
-    // DEBUG
-    private void ShowCoordinates()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Debug.Log(hit.collider.transform.parent.position);
         }
     }
 }

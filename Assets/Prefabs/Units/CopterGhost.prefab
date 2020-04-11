@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &126812258293875141
 Transform:
   m_ObjectHideFlags: 0
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1235873116201369145}
-  - component: {fileID: 1239074715307767840}
+  - component: {fileID: 6101567125302829906}
   m_Layer: 14
   m_Name: CopterGhost
   m_TagString: Untagged
@@ -112,7 +112,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1239074715307767840
+--- !u!114 &6101567125302829906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,11 +121,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1239074715307767843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbf8f1eabc7a16146ac57a3047c4f01c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6532e997c262b4a8eae70b66d66395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   good: {fileID: 1239724015098271663}
   bad: {fileID: 126812258293875142}
+  baseRadius: 0.5
+  placementMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  numOfBaseTrackingPoints: 24
 --- !u!1 &1239724015098271663
 GameObject:
   m_ObjectHideFlags: 0

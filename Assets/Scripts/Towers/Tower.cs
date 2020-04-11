@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Tower : MonoBehaviour, ISpawnable<TowerTile>, ITarget, IDamageable
+public abstract class Tower : MonoBehaviour, ITarget, IDamageable
 {
     [SerializeField]
     protected TowerConfiguration config;
@@ -11,7 +11,6 @@ public abstract class Tower : MonoBehaviour, ISpawnable<TowerTile>, ITarget, IDa
     private Alignment alignment;
 
     private float currentHealth;
-    private TowerTile tile;
 
     public Transform TargetPoint => ownTarget;
     public Alignment Alignment => alignment;
@@ -22,19 +21,17 @@ public abstract class Tower : MonoBehaviour, ISpawnable<TowerTile>, ITarget, IDa
         targetableMask = LayerMask.GetMask("Targetables");
         currentHealth = config.health;
     }
-    public void SpawnOn(TowerTile tile, Alignment alignment)
+    public void PlaceOn(Vector3 placePoint, Quaternion rotation, Alignment alignment)
     {
-        transform.position = tile.transform.position;
         this.alignment = alignment;
-        tile.IsOccupied = true;
-        this.tile = tile;
+        transform.position = placePoint;
+        transform.rotation = rotation;
         audioSource.PlayOneShot(config.spawnSound, 0.3f);
     }
     public void RecieveDamage(float damage)
     {
         if (gameObject != null && damage >= currentHealth)
         {
-            tile.IsOccupied = false;
             gameObject.SetActive(false);
             Destroy(this.gameObject);
         }

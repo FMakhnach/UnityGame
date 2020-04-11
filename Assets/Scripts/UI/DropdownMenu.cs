@@ -8,8 +8,6 @@ public class DropdownMenu : MonoBehaviour
 
     private void Awake()
     {
-        //dropdownBackground.gameObject.SetActive(false);
-        //isActive = false;
         dropdownBackground.gameObject.SetActive(true);
         isActive = true;
     }
