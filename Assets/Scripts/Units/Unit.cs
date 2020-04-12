@@ -53,6 +53,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         this.alignment = alignment;
         transform.position = spawn.transform.position;
+        transform.rotation = spawn.transform.rotation;
         audioSource.PlayOneShot(config.spawnSound, 0.3f);
 
         path = spawn.GetRoad();
@@ -89,7 +90,10 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         if (pathIsNotComplete)
         {
-            transform.rotation = Quaternion.LookRotation(path[curDestId] - transform.position);
+            if (path[curDestId] != transform.position)
+            {
+                transform.rotation = Quaternion.LookRotation(path[curDestId] - transform.position);
+            }
             Vector3 deltaPath = path[curDestId] - transform.position;
             transform.position += deltaPath.normalized * currentSpeed * Time.deltaTime;
         }
@@ -126,6 +130,9 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// Aims at the target.
     /// </summary>
     protected abstract void Aim();
+    /// <summary>
+    /// Attacks the target.
+    /// </summary>
     private void Fire()
     {
         var rot = fireParticles.transform.rotation.eulerAngles;
@@ -175,14 +182,24 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         if (other.GetComponent<RoadNode>() != null && previousColliderHit != other)
         {
-            curDestId++;
-            // Just not to double-update index.
-            previousColliderHit = other;
-            if (curDestId == path.Length)
+            if (curDestId == path.Length - 1)
             {
                 pathIsNotComplete = false;
                 Debug.Log("Quest Completed!");
             }
+            else
+            {
+                curDestId++;
+                // Just not to double-update index.
+                previousColliderHit = other;
+            }
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, config.radius);
+    }
+#endif
 }

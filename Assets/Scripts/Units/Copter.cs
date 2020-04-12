@@ -2,6 +2,7 @@
 
 public class Copter : Unit
 {
+    public const int Cost = 15;
     private const float maxCopterSlope = 8f;
 
     protected override void Aim()

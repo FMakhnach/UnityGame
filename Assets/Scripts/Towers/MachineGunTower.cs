@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class MachineGunTower : AttackingTower
+﻿public class MachineGunTower : AttackingTower
 {
-    public const int Cost = 10;
+    public const int Cost = 20;
 }

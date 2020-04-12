@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c2b79a57b0a2647af8cf3a9a08fe5c, type: 3}
+  m_Name: RoadSouthBlueConfig
+  m_EditorClassIdentifier: 
+  nodes:
+  - {x: 0.25, y: 0, z: 1}
+  - {x: 2.75, y: 0, z: 0.5}
+  - {x: 8, y: 0, z: 0}
+  - {x: 14, y: 0, z: 0}
+  - {x: 20, y: 0, z: 0}
+  - {x: 26, y: 0, z: 0}
+  - {x: 27.75, y: 0, z: 1.25}
+  - {x: 29, y: 0, z: 0}
+  - {x: 30.25, y: 0, z: 5}
+  - {x: 32, y: 0, z: 7}
+  - {x: 38, y: 0, z: 13}
+  - {x: 44, y: 0, z: 19}
+  - {x: 50, y: 0, z: 25}
+  - {x: 56, y: 0, z: 31}
+  - {x: 62, y: 0, z: 37}
+  - {x: 68, y: 0, z: 43}
+  - {x: 69.5, y: 0, z: 45}
+  - {x: 70.25, y: 0, z: 47}
+  - {x: 70.5, y: 0, z: 49}
+  - {x: 70.5, y: 0, z: 51}
+  - {x: 70, y: 0, z: 53}
+  - {x: 68, y: 0, z: 57}
+  - {x: 66.25, y: 0, z: 61.25}
+  - {x: 65, y: 0, z: 64.5}

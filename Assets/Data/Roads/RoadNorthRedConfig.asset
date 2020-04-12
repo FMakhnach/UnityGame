@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c2b79a57b0a2647af8cf3a9a08fe5c, type: 3}
+  m_Name: RoadNorthRedConfig
+  m_EditorClassIdentifier: 
+  nodes:
+  - {x: 54.5, y: 0, z: 74.5}
+  - {x: 52, y: 0, z: 75.35}
+  - {x: 47, y: 0, z: 77.25}
+  - {x: 40, y: 0, z: 80}
+  - {x: 38, y: 0, z: 80.75}
+  - {x: 36, y: 0, z: 81}
+  - {x: 34, y: 0, z: 80}
+  - {x: 32.25, y: 0, z: 78.75}
+  - {x: 31, y: 0, z: 77}
+  - {x: 30, y: 0, z: 75}
+  - {x: 24, y: 0, z: 69}
+  - {x: 18, y: 0, z: 63}
+  - {x: 12, y: 0, z: 57}
+  - {x: 6, y: 0, z: 51}
+  - {x: 0, y: 0, z: 45}
+  - {x: -4, y: 0, z: 42}
+  - {x: -6, y: 0, z: 40.5}
+  - {x: -7.5, y: 0, z: 39}
+  - {x: -8.5, y: 0, z: 37}
+  - {x: -9, y: 0, z: 35}
+  - {x: -9, y: 0, z: 29}
+  - {x: -9, y: 0, z: 23}
+  - {x: -9, y: 0, z: 17}
+  - {x: -9, y: 0, z: 10.5}

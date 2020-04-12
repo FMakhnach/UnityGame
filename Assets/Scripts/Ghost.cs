@@ -59,6 +59,7 @@ public class Ghost : MonoBehaviour
             }
         }
     }
+    public Alignment Alignment { get; set; }
 
     /// <summary>
     /// Checks if the object can be placed in the ghost position.

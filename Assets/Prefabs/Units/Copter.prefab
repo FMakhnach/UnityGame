@@ -34,7 +34,7 @@ Transform:
   - {fileID: 6425288544149700770}
   - {fileID: 4147061605537532}
   m_Father: {fileID: 4844500266223364}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33797944444314978
 MeshFilter:
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 32726b1311fc023478359952409fcf9b, type: 2}
+  - {fileID: 2100000, guid: 1ef4de32a478cfa43ba3368321a297c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19013,8 +19013,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4580695780041326}
   - {fileID: 4510550251865804}
+  - {fileID: 4580695780041326}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19148,7 +19148,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4801642130568788861, guid: 412fb7a31f3818a4a90f114652492fe6,
     type: 3}
   fireParticles: {fileID: 198235514516507754}
-  body: {fileID: 4510550251865804}
 --- !u!1 &1571846842962730
 GameObject:
   m_ObjectHideFlags: 0
@@ -33315,7 +33314,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4844500266223364}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33123051492259242
 MeshFilter:
