@@ -7,6 +7,10 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     private float currentHealth;
     [SerializeField]
     private PlayerManager playerManager;
+    [SerializeField]
+    private AudioClip destroySound;
+    [SerializeField]
+    private ParticleSystem destroyParticles;
 
     public float Health => currentHealth;
     public Transform TargetPoint => transform;
@@ -18,8 +22,12 @@ public class Base : MonoBehaviour, ITarget, IDamageable
         if (damage >= currentHealth)
         {
             currentHealth = 0;
-            Time.timeScale = 0;
+            var ps = Instantiate(destroyParticles, transform.position, transform.rotation);
+            ps.Play();
+            ps.GetComponent<AudioSource>().PlayOneShot(destroySound, 0.5f);
+            Destroy(ps.gameObject, destroySound.length + 0.2f);
             playerManager.LoseGame();
+            Destroy(this.gameObject);
         }
         else
         {

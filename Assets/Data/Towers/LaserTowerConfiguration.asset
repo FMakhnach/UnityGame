@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9d0d92268f4dd40980a0a7805c470f, type: 3}
   m_Name: LaserTowerConfiguration
   m_EditorClassIdentifier: 
-  spawnSound: {fileID: 8300000, guid: e4421b8ca4d37d541b87515d95cbf5d3, type: 3}
+  spawnSound: {fileID: 8300000, guid: 1a07036bf2ddb2044b12992ecfc54a9e, type: 3}
   attackSound: {fileID: 8300000, guid: 84e74b559d684a74dbb0516d93de1e17, type: 3}
+  destroySound: {fileID: 8300000, guid: 59fdf902693584b4381b5a1d63eab1c5, type: 3}
   radius: 9
-  damage: 10
+  damage: 0
   attackingInterval: 1
   health: 100
+  destroyParticles: {fileID: 198059975614214484, guid: 7a0476686964e41ac8320b7cf37868c2,
+    type: 3}

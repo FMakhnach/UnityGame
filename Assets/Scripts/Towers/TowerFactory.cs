@@ -16,13 +16,26 @@ public class TowerFactory : ScriptableObject
     public Tower CreateLaserTower()
     {
         Tower tower = Instantiate(laserTowerPrefab);
-        tower.gameObject.GetComponentInChildren<Renderer>().material = laserTowerMaterial;
+        foreach (var renderer in tower.gameObject.GetComponentsInChildren<Renderer>())
+        {
+            if (renderer.material.name == "Default-Material (Instance)")
+            {
+                renderer.material = laserTowerMaterial;
+            }
+
+        }
         return tower;
     }
     public Tower CreateMGTower()
     {
         Tower tower = Instantiate(mgTowerPrefab);
-        tower.gameObject.GetComponentInChildren<Renderer>().material = mgTowerMaterial;
+        foreach (var renderer in tower.gameObject.GetComponentsInChildren<Renderer>())
+        {
+            if (renderer.material.name == "Default-Material (Instance)")
+            {
+                renderer.material = mgTowerMaterial;
+            }
+        }
         return tower;
     }
 }

@@ -15,7 +15,7 @@ public abstract class Tower : MonoBehaviour, ITarget, IDamageable
     public Transform TargetPoint => ownTarget;
     public Alignment Alignment => alignment;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         targetableMask = LayerMask.GetMask("Targetables");
@@ -32,7 +32,10 @@ public abstract class Tower : MonoBehaviour, ITarget, IDamageable
     {
         if (gameObject != null && damage >= currentHealth)
         {
-            gameObject.SetActive(false);
+            var ps = Instantiate(config.destroyParticles, transform.position, transform.rotation);
+            ps.Play();
+            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.5f);
+            Destroy(ps.gameObject, config.destroySound.length + 0.2f);
             Destroy(this.gameObject);
         }
         currentHealth -= damage;

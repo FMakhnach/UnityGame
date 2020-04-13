@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Assert(value >= 0, "Putting negative to currency!");
             currency = value;
-            if(currencyText != null)
+            if (currencyText != null)
             {
                 currencyText.text = Currency.ToString();
             }

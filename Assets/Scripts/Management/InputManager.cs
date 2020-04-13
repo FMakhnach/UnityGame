@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
@@ -37,9 +38,16 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private AudioClip wrongPlace;
 
+    /// <summary>
+    /// Need it to avoid two ghosts at the same time.
+    /// </summary>
+    [SerializeField]
+    private EnemyInput enemyInput;
+
     public void BuggyButtonClicked()
     {
         ClearGhost();
+        enemyInput.Refresh();
         if (playerManager.Currency >= Buggy.Cost)
         {
             currentGhost = Instantiate(buggyGhostPrefab, Input.mousePosition, Quaternion.identity);
@@ -55,6 +63,7 @@ public class InputManager : MonoBehaviour
     public void CopterButtonClicked()
     {
         ClearGhost();
+        enemyInput.Refresh();
         if (playerManager.Currency >= Copter.Cost)
         {
             currentGhost = Instantiate(copterGhostPrefab, Input.mousePosition, Quaternion.identity);
@@ -70,6 +79,7 @@ public class InputManager : MonoBehaviour
     public void LaserTowerButtonClicked()
     {
         ClearGhost();
+        enemyInput.Refresh();
         if (playerManager.Currency >= LaserTower.Cost)
         {
             currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
@@ -85,6 +95,7 @@ public class InputManager : MonoBehaviour
     public void MGTowerButtonClicked()
     {
         ClearGhost();
+        enemyInput.Refresh();
         if (playerManager.Currency >= MachineGunTower.Cost)
         {
             currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
@@ -108,6 +119,10 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
             mouseClickLeft?.Invoke();
         }
         else if (Input.GetMouseButtonDown(1))
@@ -130,7 +145,7 @@ public class InputManager : MonoBehaviour
             currentGhost = null;
         }
     }
-    private void Refresh()
+    public void Refresh()
     {
         ClearGhost();
         mouseClickLeft = null;

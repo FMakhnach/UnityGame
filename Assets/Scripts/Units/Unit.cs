@@ -41,6 +41,9 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// </summary>
     private int curDestId;
     private float currentSpeed;
+    /// <summary>
+    /// Using it to avoid double-counting the same collider on the road.
+    /// </summary>
     private Collider previousColliderHit;
 
     public Alignment Alignment => alignment;
@@ -65,7 +68,10 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         if (gameObject != null && damage >= currentHealth)
         {
-            gameObject.SetActive(false);
+            var ps = Instantiate(config.destroyParticles, transform.position, transform.rotation);
+            ps.Play();
+            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.5f);
+            Destroy(ps.gameObject, config.destroySound.length + 0.2f);
             Destroy(this.gameObject);
         }
         currentHealth -= damage;
@@ -131,7 +137,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// </summary>
     protected abstract void Aim();
     /// <summary>
-    /// Attacks the target.
+    /// Fires the projectile at the target with particles and sfx.
     /// </summary>
     private void Fire()
     {
@@ -144,7 +150,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 
         Projectile proj = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
-        proj.Initialize(direction, config.damage, Alignment);
+        proj.Initialize(direction, Alignment);
     }
     private void MovingBehavior()
     {
@@ -185,7 +191,6 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
             if (curDestId == path.Length - 1)
             {
                 pathIsNotComplete = false;
-                Debug.Log("Quest Completed!");
             }
             else
             {
