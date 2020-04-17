@@ -18996,6 +18996,7 @@ GameObject:
   - component: {fileID: 54135300629997764}
   - component: {fileID: 82899973237940640}
   - component: {fileID: 5645066298251432066}
+  - component: {fileID: 985699099410988409}
   m_Layer: 9
   m_Name: Copter
   m_TagString: Untagged
@@ -19143,12 +19144,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: e57353ccddddc6b43806b68da3f64baa, type: 2}
-  visuals: {fileID: 1091185308118674}
   ownTarget: {fileID: 6425288544149700770}
   firePoint: {fileID: 4147061605537532}
   projectilePrefab: {fileID: 4167555646443569107, guid: cd18e4396e895ed429b8a0e234f27e2c,
     type: 3}
   fireParticles: {fileID: 198235514516507754}
+--- !u!114 &985699099410988409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567776943554846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397b4b5c71f86264e822baadc2f788ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1571846842962730
 GameObject:
   m_ObjectHideFlags: 0

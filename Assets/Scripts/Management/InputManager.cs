@@ -18,6 +18,9 @@ public class InputManager : MonoBehaviour
     private Action mouseClickRight;
 
     [SerializeField]
+    private Camera mainCamera;
+
+    [SerializeField]
     private Ghost buggyGhostPrefab;
     [SerializeField]
     private Ghost copterGhostPrefab;
@@ -117,12 +120,12 @@ public class InputManager : MonoBehaviour
     }
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
             mouseClickLeft?.Invoke();
         }
         else if (Input.GetMouseButtonDown(1))
@@ -167,7 +170,7 @@ public class InputManager : MonoBehaviour
     /// <typeparam name="TargetTile"> Target tile type, on which we want our object to be placed. </typeparam>
     private void MoveGhostAfterCursor()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         // 1f is for sphere cast radius
         if (Physics.SphereCast(ray, 1f, out RaycastHit hit, float.MaxValue, ghostWorldPlacementMask))
         {

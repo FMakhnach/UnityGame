@@ -57,20 +57,19 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         this.alignment = alignment;
         transform.position = spawn.transform.position;
         transform.rotation = spawn.transform.rotation;
-        audioSource.PlayOneShot(config.spawnSound, 0.3f);
+        audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
 
         path = spawn.GetRoad();
         currentBehavior = MovingBehavior;
         curDestId = 0;
         pathIsNotComplete = true;
     }
-    public void RecieveDamage(float damage)
+    public void ReceiveDamage(float damage)
     {
         if (gameObject != null && damage >= currentHealth)
         {
             var ps = Instantiate(config.destroyParticles, transform.position, transform.rotation);
             ps.Play();
-            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.5f);
             Destroy(ps.gameObject, config.destroySound.length + 0.2f);
             Destroy(this.gameObject);
         }
@@ -146,7 +145,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         fireParticles.transform.rotation = Quaternion.Euler(rot.x, transform.rotation.eulerAngles.y, rot.z);
 
         fireParticles.Play();
-        audioSource.PlayOneShot(config.attackSound, 0.3f);
+        audioSource.PlayOneShot(config.attackSound, 0.3f * audioSource.volume);
 
         Projectile proj = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;

@@ -68,6 +68,7 @@ public class PlayerManager : MonoBehaviour
     public void SpawnBuggy(Spawn spawn)
     {
         unitFactory.CreateBuggy().SpawnOn(spawn, alignment);
+        Currency -= Buggy.Cost;
     }
     /// <summary>
     /// Creates a new instance of copter and places on spawn.
@@ -75,6 +76,7 @@ public class PlayerManager : MonoBehaviour
     public void SpawnCopter(Spawn spawn)
     {
         unitFactory.CreateCopter().SpawnOn(spawn, alignment);
+        Currency -= Copter.Cost;
     }
     /// <summary>
     /// Creates a new instance of laser tower and places on given point.

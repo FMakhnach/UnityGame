@@ -18,7 +18,7 @@ public class TowerFactory : ScriptableObject
         Tower tower = Instantiate(laserTowerPrefab);
         foreach (var renderer in tower.gameObject.GetComponentsInChildren<Renderer>())
         {
-            if (renderer.material.name == "Default-Material (Instance)")
+            if (renderer.gameObject.CompareTag("MaterialChange"))
             {
                 renderer.material = laserTowerMaterial;
             }
@@ -31,7 +31,7 @@ public class TowerFactory : ScriptableObject
         Tower tower = Instantiate(mgTowerPrefab);
         foreach (var renderer in tower.gameObject.GetComponentsInChildren<Renderer>())
         {
-            if (renderer.material.name == "Default-Material (Instance)")
+            if (renderer.gameObject.CompareTag("MaterialChange"))
             {
                 renderer.material = mgTowerMaterial;
             }

@@ -165,7 +165,7 @@ public abstract class AttackingTower : Tower
     private void Fire()
     {
         fireParticles.Play();
-        audioSource.PlayOneShot(config.attackSound, 0.3f);
+        audioSource.PlayOneShot(config.attackSound, 0.3f * audioSource.volume);
 
         Projectile proj = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation, firePoint);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;

@@ -2,11 +2,16 @@
 
 public class CameraMovement : MonoBehaviour
 {
-    public float wasdSpeed;
-    public float scrollSpeed;
-    public float draggingSpeed;
-    public float rotationSpeed;
-    public new Transform camera;
+    [SerializeField]
+    private float wasdSpeed;
+    [SerializeField]
+    private float scrollSpeed;
+    [SerializeField]
+    private float draggingSpeed;
+    [SerializeField]
+    private float rotationSpeed;
+    [SerializeField]
+    private new Transform camera;
 
     private void Update()
     {

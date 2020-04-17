@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7b1e99dd5c10f40b3a65af5b09ba88, type: 3}
+  m_Name: LanguageVocabulary
+  m_EditorClassIdentifier: 
+  englishValues:
+  - PLAY
+  - OPTIONS
+  - EXIT
+  - VOLUME
+  - BACK
+  - LANGUAGE
+  - PAUSE
+  - RESUME
+  - MAIN MENU
+  russianValues:
+  - "\u041D\u0410\u0427\u0410\u0422\u042C"
+  - "\u041D\u0410\u0421\u0422\u0420\u041E\u0419\u041A\u0418"
+  - "\u0412\u042B\u0425\u041E\u0414"
+  - "\u0413\u0420\u041E\u041C\u041A\u041E\u0421\u0422\u042C"
+  - "\u041D\u0410\u0417\u0410\u0414"
+  - "\u042F\u0417\u042B\u041A"
+  - "\u041F\u0410\u0423\u0417\u0410"
+  - "\u041F\u0420\u041E\u0414\u041E\u041B\u0416\u0418\u0422\u042C"
+  - "\u0413\u041B\u0410\u0412\u041D\u041E\u0415 \u041C\u0415\u041D\u042E"

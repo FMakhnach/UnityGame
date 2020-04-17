@@ -3,6 +3,6 @@
 /// </summary>
 public interface IDamageable
 {
-    void RecieveDamage(float damage);
+    void ReceiveDamage(float damage);
     Alignment Alignment { get; }
 }

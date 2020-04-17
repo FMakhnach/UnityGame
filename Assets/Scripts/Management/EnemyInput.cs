@@ -27,6 +27,12 @@ public class EnemyInput : MonoBehaviour
     [SerializeField]
     private Spawn southSpawn;
 
+    /// <summary>
+    /// To not use Camera.main
+    /// </summary>
+    [SerializeField]
+    private Camera mainCamera;
+
     public void SpawnBuggy()
     {
         Refresh();
@@ -149,7 +155,7 @@ public class EnemyInput : MonoBehaviour
         => Place(enemyManager.PlaceMGTower);
     private void MoveGhostAfterCursor()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         // 1f is for sphere cast radius
         if (Physics.SphereCast(ray, 1f, out RaycastHit hit, float.MaxValue, ghostWorldPlacementMask))
         {

@@ -19078,6 +19078,7 @@ GameObject:
   - component: {fileID: 82094088292764670}
   - component: {fileID: 1915636167648838805}
   - component: {fileID: 7352898935947665557}
+  - component: {fileID: 838469985162158017}
   m_Layer: 9
   m_Name: Buggy
   m_TagString: Untagged
@@ -19209,7 +19210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: fe84d55d88a6e4c4cb8609b0e8776215, type: 2}
-  visuals: {fileID: 1063560731155098}
   ownTarget: {fileID: 3383132954868602551}
   firePoint: {fileID: 4013251577074370}
   projectilePrefab: {fileID: 4801642130568788861, guid: 412fb7a31f3818a4a90f114652492fe6,
@@ -19231,6 +19231,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &838469985162158017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511114609136056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397b4b5c71f86264e822baadc2f788ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1513377180020570
 GameObject:
   m_ObjectHideFlags: 0
