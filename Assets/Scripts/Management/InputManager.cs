@@ -28,6 +28,8 @@ public class InputManager : MonoBehaviour
     private Ghost laserTowerGhostPrefab;
     [SerializeField]
     private Ghost mgTowerGhostPrefab;
+    [SerializeField]
+    private Ghost plantGhostPrefab;
     /// <summary>
     /// The layer that the ghost floats on.
     /// </summary>
@@ -40,6 +42,7 @@ public class InputManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private AudioClip wrongPlace;
+    private EventSystem eventSystem;
 
     /// <summary>
     /// Need it to avoid two ghosts at the same time.
@@ -51,7 +54,7 @@ public class InputManager : MonoBehaviour
     {
         ClearGhost();
         enemyInput.Refresh();
-        if (playerManager.Currency >= Buggy.Cost)
+        if (playerManager.Money >= Buggy.Cost)
         {
             currentGhost = Instantiate(buggyGhostPrefab, Input.mousePosition, Quaternion.identity);
             currentGhost.Alignment = playerManager.Alignment;
@@ -67,7 +70,7 @@ public class InputManager : MonoBehaviour
     {
         ClearGhost();
         enemyInput.Refresh();
-        if (playerManager.Currency >= Copter.Cost)
+        if (playerManager.Money >= Copter.Cost)
         {
             currentGhost = Instantiate(copterGhostPrefab, Input.mousePosition, Quaternion.identity);
             currentGhost.Alignment = playerManager.Alignment;
@@ -83,7 +86,7 @@ public class InputManager : MonoBehaviour
     {
         ClearGhost();
         enemyInput.Refresh();
-        if (playerManager.Currency >= LaserTower.Cost)
+        if (playerManager.Money >= LaserTower.Cost)
         {
             currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
             currentGhost.Alignment = playerManager.Alignment;
@@ -99,11 +102,27 @@ public class InputManager : MonoBehaviour
     {
         ClearGhost();
         enemyInput.Refresh();
-        if (playerManager.Currency >= MachineGunTower.Cost)
+        if (playerManager.Money >= MachineGunTower.Cost)
         {
             currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
             currentGhost.Alignment = playerManager.Alignment;
             mouseClickLeft = PlaceMGTower;
+            mouseClickRight = Refresh;
+        }
+        else
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
+    }
+    public void PlantButtonClicked()
+    {
+        ClearGhost();
+        enemyInput.Refresh();
+        if (playerManager.Money >= Plant.Cost)
+        {
+            currentGhost = Instantiate(plantGhostPrefab, Input.mousePosition, Quaternion.identity);
+            currentGhost.Alignment = playerManager.Alignment;
+            mouseClickLeft = PlacePlant;
             mouseClickRight = Refresh;
         }
         else
@@ -117,13 +136,15 @@ public class InputManager : MonoBehaviour
         ghostWorldPlacementMask = LayerMask.GetMask("Environment", "TowerPlacement", "UnitPlacement");
         playerManager = GetComponent<PlayerManager>();
         audioSource = GetComponent<AudioSource>();
+        eventSystem = EventSystem.current;
     }
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (eventSystem.IsPointerOverGameObject())
         {
             return;
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             mouseClickLeft?.Invoke();
@@ -163,6 +184,8 @@ public class InputManager : MonoBehaviour
         => Place(playerManager.PlaceLaserTower);
     private void PlaceMGTower()
         => Place(playerManager.PlaceMGTower);
+    private void PlacePlant()
+        => Place(playerManager.PlacePlant);
 
     /// <summary>
     /// Makes current ghost object follow mouse cursor.

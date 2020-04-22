@@ -3,18 +3,18 @@
 public class DropdownMenu : MonoBehaviour
 {
     [SerializeField]
-    private RectTransform dropdownBackground;
+    private GameObject dropdownBackground;
     private bool isActive;
 
     private void Awake()
     {
-        dropdownBackground.gameObject.SetActive(true);
+        dropdownBackground.SetActive(true);
         isActive = true;
     }
 
     public void OpenOrClose()
     {
         isActive = !isActive;
-        dropdownBackground.gameObject.SetActive(isActive);
+        dropdownBackground.SetActive(isActive);
     }
 }

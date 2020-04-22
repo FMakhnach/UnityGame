@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using TMPro;
 
 public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 {
@@ -28,7 +29,6 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// Audio source for sound effects.
     /// </summary>
     private AudioSource audioSource;
-    private float currentHealth;
 
     private bool pathIsNotComplete;
     private Action currentBehavior;
@@ -45,6 +45,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// Using it to avoid double-counting the same collider on the road.
     /// </summary>
     private Collider previousColliderHit;
+    private DamageableBehaviour damageableBehaviour;
 
     public Alignment Alignment => alignment;
     public Transform TargetPoint => ownTarget;
@@ -64,22 +65,14 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         curDestId = 0;
         pathIsNotComplete = true;
     }
+
     public void ReceiveDamage(float damage)
-    {
-        if (gameObject != null && damage >= currentHealth)
-        {
-            var ps = Instantiate(config.destroyParticles, transform.position, transform.rotation);
-            ps.Play();
-            Destroy(ps.gameObject, config.destroySound.length + 0.2f);
-            Destroy(this.gameObject);
-        }
-        currentHealth -= damage;
-    }
+        => damageableBehaviour.ReceiveDamage(damage);
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        currentHealth = config.health;
+        damageableBehaviour = GetComponent<DamageableBehaviour>();
         currentSpeed = config.speed;
         targetableMask = LayerMask.GetMask("Targetables");
         timer = config.attackingInterval;

@@ -39,9 +39,9 @@ public class CameraMovement : MonoBehaviour
         // Dragging rotation
         if (Input.GetMouseButton(1))
         {
-            var rotParent = transform.rotation.eulerAngles;
-            rotParent.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.Euler(rotParent);
+            var rot = transform.rotation.eulerAngles;
+            rot.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(rot);
         }
 
         // Dragging movement

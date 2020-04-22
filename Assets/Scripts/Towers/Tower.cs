@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public abstract class Tower : MonoBehaviour, ITarget, IDamageable
 {
@@ -9,17 +10,16 @@ public abstract class Tower : MonoBehaviour, ITarget, IDamageable
     protected LayerMask targetableMask;
     protected AudioSource audioSource;
     private Alignment alignment;
-
-    private float currentHealth;
+    private DamageableBehaviour damageableBehaviour;
 
     public Transform TargetPoint => ownTarget;
     public Alignment Alignment => alignment;
 
     protected virtual void Awake()
     {
+        damageableBehaviour = GetComponent<DamageableBehaviour>();
         audioSource = GetComponent<AudioSource>();
         targetableMask = LayerMask.GetMask("Targetables");
-        currentHealth = config.health;
     }
     public void PlaceOn(Vector3 placePoint, Quaternion rotation, Alignment alignment)
     {
@@ -28,17 +28,9 @@ public abstract class Tower : MonoBehaviour, ITarget, IDamageable
         transform.rotation = rotation;
         audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
     }
+
     public void ReceiveDamage(float damage)
-    {
-        if (gameObject != null && damage >= currentHealth)
-        {
-            var ps = Instantiate(config.destroyParticles, transform.position, transform.rotation);
-            ps.Play();
-            Destroy(ps.gameObject, 2f);
-            Destroy(this.gameObject);
-        }
-        currentHealth -= damage;
-    }
+        => damageableBehaviour.ReceiveDamage(damage);
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

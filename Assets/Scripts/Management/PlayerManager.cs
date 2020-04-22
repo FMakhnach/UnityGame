@@ -16,6 +16,8 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private TowerFactory towerFactory;
+    [SerializeField]
+    private BuildingFactory buildingFactory;
     /// <summary>
     /// The "team" of the player.
     /// </summary>
@@ -25,30 +27,31 @@ public class PlayerManager : MonoBehaviour
     /// UI text element that shows current money to the player.
     /// </summary>
     [SerializeField]
-    private TextMeshProUGUI currencyText;
+    private TextMeshProUGUI moneyText;
     /// <summary>
     /// The amount of money the player has at the beggining.
     /// </summary>
     [SerializeField]
-    private int startingCurrency;
+    private int startingMoney;
     /// <summary>
     /// The sum that the player can spend on buying stuff.
     /// </summary>
-    private int currency;
+    private float money;
+    private float incomePerSecond;
 
     /// <summary>
     /// The sum that the player can spend on buying stuff.
     /// </summary>
-    public int Currency
+    public float Money
     {
-        get => currency;
+        get => money;
         private set
         {
-            Debug.Assert(value >= 0, "Putting negative to currency!");
-            currency = value;
-            if (currencyText != null)
+            Debug.Assert(value >= 0, $"Putting negative {value} to money!");
+            money = value;
+            if (moneyText != null)
             {
-                currencyText.text = Currency.ToString();
+                moneyText.text = ((int)money).ToString();
             }
         }
     }
@@ -59,7 +62,20 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        Currency = startingCurrency;
+        Money = startingMoney;
+        incomePerSecond = 0;
+    }
+    private void Update()
+    {
+        Money += incomePerSecond * Time.deltaTime;
+    }
+    public void AddIncome(float value)
+    {
+        incomePerSecond += value;
+    }
+    public void DecreaseIncome(float value)
+    {
+        incomePerSecond -= value;
     }
 
     /// <summary>
@@ -68,7 +84,7 @@ public class PlayerManager : MonoBehaviour
     public void SpawnBuggy(Spawn spawn)
     {
         unitFactory.CreateBuggy().SpawnOn(spawn, alignment);
-        Currency -= Buggy.Cost;
+        Money -= Buggy.Cost;
     }
     /// <summary>
     /// Creates a new instance of copter and places on spawn.
@@ -76,7 +92,7 @@ public class PlayerManager : MonoBehaviour
     public void SpawnCopter(Spawn spawn)
     {
         unitFactory.CreateCopter().SpawnOn(spawn, alignment);
-        Currency -= Copter.Cost;
+        Money -= Copter.Cost;
     }
     /// <summary>
     /// Creates a new instance of laser tower and places on given point.
@@ -84,7 +100,7 @@ public class PlayerManager : MonoBehaviour
     public void PlaceLaserTower(Vector3 placePoint, Quaternion rotation)
     {
         towerFactory.CreateLaserTower().PlaceOn(placePoint, rotation, alignment);
-        Currency -= LaserTower.Cost;
+        Money -= LaserTower.Cost;
     }
     /// <summary>
     /// Creates a new instance of machine gun tower and places on given point.
@@ -92,7 +108,12 @@ public class PlayerManager : MonoBehaviour
     public void PlaceMGTower(Vector3 placePoint, Quaternion rotation)
     {
         towerFactory.CreateMGTower().PlaceOn(placePoint, rotation, alignment);
-        Currency -= MachineGunTower.Cost;
+        Money -= MachineGunTower.Cost;
+    }
+    public void PlacePlant(Vector3 placePoint, Quaternion rotation)
+    {
+        buildingFactory.CreatePlant().PlaceOn(placePoint, rotation, this);
+        Money -= Plant.Cost;
     }
     public void LoseGame()
     {
