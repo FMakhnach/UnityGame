@@ -212,6 +212,9 @@ MonoBehaviour:
   placementMask:
     serializedVersion: 2
     m_Bits: 2048
+  obstaclesMask:
+    serializedVersion: 2
+    m_Bits: 512
   numOfBaseTrackingPoints: 24
 --- !u!1 &2590561382706030785
 GameObject:

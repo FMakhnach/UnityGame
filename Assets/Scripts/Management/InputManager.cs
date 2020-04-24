@@ -33,15 +33,16 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// The layer that the ghost floats on.
     /// </summary>
+    [SerializeField]
     private LayerMask ghostWorldPlacementMask;
+    [SerializeField]
+    private AudioClip wrongPlace;
+
     /// <summary>
     /// Current placeable object ghost in game.
     /// </summary>
     private Ghost currentGhost;
-
     private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip wrongPlace;
     private EventSystem eventSystem;
 
     /// <summary>
@@ -133,7 +134,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        ghostWorldPlacementMask = LayerMask.GetMask("Environment", "TowerPlacement", "UnitPlacement");
+        
         playerManager = GetComponent<PlayerManager>();
         audioSource = GetComponent<AudioSource>();
         eventSystem = EventSystem.current;
@@ -177,15 +178,15 @@ public class InputManager : MonoBehaviour
     }
 
     private void PlaceBuggy()
-        => Spawn(playerManager.SpawnBuggy);
+        => Place<Spawn>(playerManager.SpawnBuggy);
     private void PlaceCopter()
-        => Spawn(playerManager.SpawnCopter);
+        => Place<Spawn>(playerManager.SpawnCopter);
     private void PlaceLaserTower()
-        => Place(playerManager.PlaceLaserTower);
+        => Place<TowerPlacement>(playerManager.PlaceLaserTower);
     private void PlaceMGTower()
-        => Place(playerManager.PlaceMGTower);
+        => Place<TowerPlacement>(playerManager.PlaceMGTower);
     private void PlacePlant()
-        => Place(playerManager.PlacePlant);
+        => Place<PlantPlacement>(playerManager.PlacePlant);
 
     /// <summary>
     /// Makes current ghost object follow mouse cursor.
@@ -195,7 +196,7 @@ public class InputManager : MonoBehaviour
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         // 1f is for sphere cast radius
-        if (Physics.SphereCast(ray, 1f, out RaycastHit hit, float.MaxValue, ghostWorldPlacementMask))
+        if (Physics.SphereCast(ray, 1f, out RaycastHit hit, 1000f, ghostWorldPlacementMask))
         {
             currentGhost.transform.position = hit.point;
             currentGhost.transform.rotation
@@ -208,26 +209,11 @@ public class InputManager : MonoBehaviour
     /// Places a particular tower.
     /// </summary>
     /// <param name="placingMethod"></param>
-    private void Place(Action<Vector3, Quaternion> placingMethod)
+    private void Place<T>(Action<T> placingMethod) where T : PlaceArea
     {
         if (currentGhost.IsFit)
         {
-            placingMethod(currentGhost.transform.position, currentGhost.transform.rotation);
-            Refresh();
-        }
-        else if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
-    /// <summary>
-    /// Spawns a particular unit.
-    /// </summary>
-    private void Spawn(Action<Spawn> spawningMethod)
-    {
-        if (currentGhost.IsFit)
-        {
-            spawningMethod(((UnitGhost)currentGhost).Spawn);
+            placingMethod(currentGhost.PlaceArea as T);
             Refresh();
         }
         else if (!audioSource.isPlaying)

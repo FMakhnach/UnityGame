@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a ghost of the object.
 /// </summary>
-public class Ghost : MonoBehaviour
+public class Ghost : MonoBehaviour 
 {
     /// <summary>
     /// Green ghost.
@@ -19,29 +19,31 @@ public class Ghost : MonoBehaviour
     /// Radius of the base of the ghost. Need it to check if ghost fits.
     /// </summary>
     [SerializeField]
-    protected float baseRadius;
+    private float baseRadius;
     /// <summary>
     /// Layer mask on which we can place the particular object that the ghost represents.
     /// </summary>
     [SerializeField]
-    protected LayerMask placementMask;
+    private LayerMask placementMask;
     /// <summary>
     /// Layers of obstacles [Targetables].
     /// </summary>
-    protected LayerMask obstaclesMask;
+    [SerializeField]
+    private LayerMask obstaclesMask;
     /// <summary>
     /// List of points around the base circle. Actually, its X and Z coordinates.
     /// </summary>
-    protected Vector2[] trackingPoints;
+    private Vector2[] trackingPoints;
     /// <summary>
     /// Number of tracking points.
     /// </summary>
     [SerializeField]
-    protected int numOfBaseTrackingPoints;
+    private int numOfBaseTrackingPoints;
     /// <summary>
     /// Indicates if the object can be placed in this position.
     /// </summary>
     private bool isFit;
+    private PlaceArea currentPlaceArea;
 
     /// <summary>
     /// Indicates if the object can be placed in this position.
@@ -60,43 +62,44 @@ public class Ghost : MonoBehaviour
         }
     }
     public Alignment Alignment { get; set; }
+    public PlaceArea PlaceArea => currentPlaceArea;
 
     /// <summary>
     /// Checks if the object can be placed in the ghost position.
     /// </summary>
-    public virtual void CheckIfFits()
+    public void CheckIfFits()
     {
-        // Checks for obstacles to avoid collision. 
-        if (Physics.OverlapSphere(transform.position, baseRadius, obstaclesMask).Length != 0)
-        {
-            IsFit = false;
-            return;
-        }
-
-        // Casting a ray downwards from each point around the ghost base.
         foreach (var point in trackingPoints)
         {
             var x = transform.position.x + point.x;
             var z = transform.position.z + point.y;
-            if (!Physics.Raycast(
+
+            if (Physics.Raycast(
                 origin: new Vector3(x, transform.position.y + 0.1f, z),
                 direction: Vector3.down,
                 hitInfo: out RaycastHit hit,
                 maxDistance: 10f,
                 layerMask: placementMask))
             {
-
-                IsFit = false;
-                return;
+                PlaceArea area = hit.collider.GetComponent<PlaceArea>();
+                // Check for 1) area existance 2) alignment 3) obstacles
+                if (area != null && area.Alignment == this.Alignment
+                    && Physics.OverlapSphere(area.transform.position, baseRadius, obstaclesMask).Length == 0)
+                {
+                    transform.position = area.transform.position;
+                    transform.rotation = area.Rotation;
+                    IsFit = true;
+                    currentPlaceArea = area;
+                    return;
+                }
             }
         }
 
-        IsFit = true;
+        IsFit = false;
     }
 
     private void Awake()
     {
-        obstaclesMask = LayerMask.GetMask("Targetables");
         IsFit = false;
 
         if (numOfBaseTrackingPoints > 0)

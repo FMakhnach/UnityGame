@@ -15,17 +15,13 @@ public class EnemyInput : MonoBehaviour
     [SerializeField]
     private InputManager playerInput;
     [SerializeField]
-    private Toggle northRoad;
+    private Toggle westRoad;
     [SerializeField]
-    private Toggle middleRoad;
+    private Toggle eastRoad;
     [SerializeField]
-    private Toggle southRoad;
+    private Spawn westSpawn;
     [SerializeField]
-    private Spawn northSpawn;
-    [SerializeField]
-    private Spawn middleSpawn;
-    [SerializeField]
-    private Spawn southSpawn;
+    private Spawn eastSpawn;
 
     /// <summary>
     /// To not use Camera.main
@@ -36,33 +32,25 @@ public class EnemyInput : MonoBehaviour
     public void SpawnBuggy()
     {
         Refresh();
-        if (northRoad.isOn)
+        if (westRoad.isOn)
         {
-            enemyManager.SpawnBuggy(northSpawn);
+            enemyManager.SpawnBuggy(westSpawn);
         }
-        else if (middleRoad.isOn)
+        else if (eastRoad.isOn)
         {
-            enemyManager.SpawnBuggy(middleSpawn);
-        }
-        else if (southRoad.isOn)
-        {
-            enemyManager.SpawnBuggy(southSpawn);
+            enemyManager.SpawnBuggy(eastSpawn);
         }
     }
     public void SpawnCopter()
     {
         Refresh();
-        if (northRoad.isOn)
+        if (westRoad.isOn)
         {
-            enemyManager.SpawnCopter(northSpawn);
+            enemyManager.SpawnCopter(westSpawn);
         }
-        else if (middleRoad.isOn)
+        else if (eastRoad.isOn)
         {
-            enemyManager.SpawnCopter(middleSpawn);
-        }
-        else if (southRoad.isOn)
-        {
-            enemyManager.SpawnCopter(southSpawn);
+            enemyManager.SpawnCopter(eastSpawn);
         }
     }
 
@@ -150,7 +138,7 @@ public class EnemyInput : MonoBehaviour
         }
     }
     private void PlaceLaserTower()
-    => Place(enemyManager.PlaceLaserTower);
+        => Place(enemyManager.PlaceLaserTower);
     private void PlaceMGTower()
         => Place(enemyManager.PlaceMGTower);
     private void MoveGhostAfterCursor()
@@ -165,11 +153,11 @@ public class EnemyInput : MonoBehaviour
             currentGhost.CheckIfFits();
         }
     }
-    private void Place(Action<Vector3, Quaternion> placingMethod)
+    private void Place(Action<TowerPlacement> placingMethod)
     {
         if (currentGhost.IsFit)
         {
-            placingMethod(currentGhost.transform.position, currentGhost.transform.rotation);
+            placingMethod(currentGhost.PlaceArea as TowerPlacement);
             Refresh();
         }
         else if (!audioSource.isPlaying)

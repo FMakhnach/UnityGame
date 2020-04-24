@@ -10,8 +10,6 @@ public class CameraMovement : MonoBehaviour
     private float draggingSpeed;
     [SerializeField]
     private float rotationSpeed;
-    [SerializeField]
-    private new Transform camera;
 
     private void Update()
     {
@@ -34,7 +32,7 @@ public class CameraMovement : MonoBehaviour
         }
 
         // Scrolling for scaling
-        camera.Translate(Input.mouseScrollDelta.y * Vector3.forward * scrollSpeed * Time.deltaTime);
+        transform.Translate(Input.mouseScrollDelta.y * Vector3.forward * scrollSpeed * Time.deltaTime);
 
         // Dragging rotation
         if (Input.GetMouseButton(1))

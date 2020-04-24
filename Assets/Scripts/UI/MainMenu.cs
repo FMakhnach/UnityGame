@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void PlayButtonClicked()
     {
-        SceneManager.LoadScene("NewScene");
+        SceneManager.LoadScene("Level0");
     }
     /// <summary>
     /// Opens options window.

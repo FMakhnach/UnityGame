@@ -16,7 +16,7 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     public Alignment Alignment => playerManager.Alignment;
 
     /// <summary>
-    /// Recieves damage, if loses all heath - triggers game over.
+    /// Recieves damage.
     /// </summary>
     public void ReceiveDamage(float damage)
         => damageableBehaviour.ReceiveDamage(damage);
@@ -24,7 +24,7 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     private void Start()
     {
         damageableBehaviour = GetComponent<DamageableBehaviour>();
-        playerManager.AddIncome(incomePerSecond);
+        playerManager.IncreaseIncome(incomePerSecond);
     }
     private void OnDestroy()
     {

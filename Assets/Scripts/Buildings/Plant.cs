@@ -27,7 +27,7 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
         transform.position = placePoint;
         transform.rotation = rotation;
         this.owner = owner;
-        owner.AddIncome(incomePerSecond);
+        owner.IncreaseIncome(incomePerSecond);
         GetComponent<AudioSource>().PlayOneShot(placingSound, 0.3f);
     }
 

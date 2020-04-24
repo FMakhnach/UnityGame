@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using TMPro;
+using UnityEngine.AI;
 
 public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 {
@@ -24,13 +24,12 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     private float timer;
     private LayerMask targetableMask;
     private Alignment alignment;
-
+    private DamageableBehaviour damageableBehaviour;
     /// <summary>
     /// Audio source for sound effects.
     /// </summary>
     private AudioSource audioSource;
 
-    private bool pathIsNotComplete;
     private Action currentBehavior;
     /// <summary>
     /// Path that the unit is following
@@ -40,12 +39,9 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// Current destination point index in array.
     /// </summary>
     private int curDestId;
-    private float currentSpeed;
-    /// <summary>
-    /// Using it to avoid double-counting the same collider on the road.
-    /// </summary>
-    private Collider previousColliderHit;
-    private DamageableBehaviour damageableBehaviour;
+
+
+    private NavMeshAgent agent;
 
     public Alignment Alignment => alignment;
     public Transform TargetPoint => ownTarget;
@@ -63,7 +59,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         path = spawn.GetRoad();
         currentBehavior = MovingBehavior;
         curDestId = 0;
-        pathIsNotComplete = true;
+        agent.SetDestination(path[curDestId]);
     }
 
     public void ReceiveDamage(float damage)
@@ -73,28 +69,14 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         audioSource = GetComponent<AudioSource>();
         damageableBehaviour = GetComponent<DamageableBehaviour>();
-        currentSpeed = config.speed;
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = config.speed;
         targetableMask = LayerMask.GetMask("Targetables");
         timer = config.attackingInterval;
     }
     private void Update()
     {
         currentBehavior?.Invoke();
-    }
-    /// <summary>
-    /// Moves the unit towards the destination point.
-    /// </summary>
-    private void MoveToDestination()
-    {
-        if (pathIsNotComplete)
-        {
-            if (path[curDestId] != transform.position)
-            {
-                transform.rotation = Quaternion.LookRotation(path[curDestId] - transform.position);
-            }
-            Vector3 deltaPath = path[curDestId] - transform.position;
-            transform.position += deltaPath.normalized * currentSpeed * Time.deltaTime;
-        }
     }
     private void ScanTerritory()
     {
@@ -118,9 +100,9 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
             }
             if (currentTarget != null)
             {
-                Aim();
                 timer = config.attackingInterval;
                 currentBehavior = AttackingBehavior;
+                agent.enabled = false;
             }
         }
     }
@@ -146,7 +128,17 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     }
     private void MovingBehavior()
     {
-        MoveToDestination();
+        if ((transform.position - path[curDestId]).sqrMagnitude < 0.5f)
+        {
+            if (curDestId == path.Length - 1)
+            {
+                agent.isStopped = true;
+            }
+            else
+            {
+                agent.SetDestination(path[++curDestId]);
+            }
+        }
         ScanTerritory();
     }
     private void AttackingBehavior()
@@ -155,7 +147,8 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         {
             // Super fucking weird thing lol
             // There's something wrong with object destroying
-            if (currentTarget.ToString() == "null")
+            if (currentTarget.ToString() == "null"
+                || (currentTarget.TargetPoint.position - transform.position).magnitude > config.radius)
             {
                 currentTarget = null;
                 return;
@@ -167,29 +160,15 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
             else
             {
                 timer -= config.attackingInterval;
+                Aim();
                 Fire();
             }
         }
         else
         {
-            transform.rotation = Quaternion.LookRotation(path[curDestId], Vector3.up);
             currentBehavior = MovingBehavior;
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<RoadNode>() != null && previousColliderHit != other)
-        {
-            if (curDestId == path.Length - 1)
-            {
-                pathIsNotComplete = false;
-            }
-            else
-            {
-                curDestId++;
-                // Just not to double-update index.
-                previousColliderHit = other;
-            }
+            agent.enabled = true;
+            agent.SetDestination(path[curDestId]);
         }
     }
 

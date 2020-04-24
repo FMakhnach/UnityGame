@@ -69,7 +69,7 @@ public class PlayerManager : MonoBehaviour
     {
         Money += incomePerSecond * Time.deltaTime;
     }
-    public void AddIncome(float value)
+    public void IncreaseIncome(float value)
     {
         incomePerSecond += value;
     }
@@ -97,26 +97,22 @@ public class PlayerManager : MonoBehaviour
     /// <summary>
     /// Creates a new instance of laser tower and places on given point.
     /// </summary>
-    public void PlaceLaserTower(Vector3 placePoint, Quaternion rotation)
+    public void PlaceLaserTower(TowerPlacement place)
     {
-        towerFactory.CreateLaserTower().PlaceOn(placePoint, rotation, alignment);
+        towerFactory.CreateLaserTower().PlaceOn(place.transform.position, place.Rotation, alignment);
         Money -= LaserTower.Cost;
     }
     /// <summary>
     /// Creates a new instance of machine gun tower and places on given point.
     /// </summary>
-    public void PlaceMGTower(Vector3 placePoint, Quaternion rotation)
+    public void PlaceMGTower(TowerPlacement place)
     {
-        towerFactory.CreateMGTower().PlaceOn(placePoint, rotation, alignment);
+        towerFactory.CreateMGTower().PlaceOn(place.transform.position, place.Rotation, alignment);
         Money -= MachineGunTower.Cost;
     }
-    public void PlacePlant(Vector3 placePoint, Quaternion rotation)
+    public void PlacePlant(PlantPlacement place)
     {
-        buildingFactory.CreatePlant().PlaceOn(placePoint, rotation, this);
+        buildingFactory.CreatePlant().PlaceOn(place.transform.position, place.Rotation, this);
         Money -= Plant.Cost;
-    }
-    public void LoseGame()
-    {
-        Debug.Log("Game Over");
     }
 }
