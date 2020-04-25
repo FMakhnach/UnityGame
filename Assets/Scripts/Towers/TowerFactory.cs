@@ -13,9 +13,11 @@ public class TowerFactory : ScriptableObject
     [SerializeField]
     private Material mgTowerMaterial;
 
+    private Vector3 spawnPosition = new Vector3(0f, 100f, 0f);
+
     public Tower CreateLaserTower()
     {
-        Tower tower = Instantiate(laserTowerPrefab);
+        Tower tower = Instantiate(laserTowerPrefab, spawnPosition, Quaternion.identity);
         foreach (var renderer in tower.gameObject.GetComponentsInChildren<Renderer>())
         {
             if (renderer.gameObject.CompareTag("MaterialChange"))
@@ -28,7 +30,7 @@ public class TowerFactory : ScriptableObject
     }
     public Tower CreateMGTower()
     {
-        Tower tower = Instantiate(mgTowerPrefab);
+        Tower tower = Instantiate(mgTowerPrefab, spawnPosition, Quaternion.identity);
         foreach (var renderer in tower.gameObject.GetComponentsInChildren<Renderer>())
         {
             if (renderer.gameObject.CompareTag("MaterialChange"))

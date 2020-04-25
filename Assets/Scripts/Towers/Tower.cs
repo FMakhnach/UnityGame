@@ -21,16 +21,21 @@ public abstract class Tower : MonoBehaviour, ITarget, IDamageable
         audioSource = GetComponent<AudioSource>();
         targetableMask = LayerMask.GetMask("Targetables");
     }
-    public void PlaceOn(Vector3 placePoint, Quaternion rotation, Alignment alignment)
+    public void PlaceOn(TowerPlacement place, Alignment alignment)
     {
         this.alignment = alignment;
-        transform.position = placePoint;
-        transform.rotation = rotation;
+        transform.position = place.transform.position;
+        transform.rotation = place.Rotation;
         audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
     }
 
     public void ReceiveDamage(float damage)
-        => damageableBehaviour.ReceiveDamage(damage);
+    {
+        if (damageableBehaviour.ReceiveDamage(damage))
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

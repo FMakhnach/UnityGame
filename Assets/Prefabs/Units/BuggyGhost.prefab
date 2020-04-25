@@ -50,7 +50,7 @@ MonoBehaviour:
   baseRadius: 0.5
   placementMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 1024
   obstaclesMask:
     serializedVersion: 2
     m_Bits: 512

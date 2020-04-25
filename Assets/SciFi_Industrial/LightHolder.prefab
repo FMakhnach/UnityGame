@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: 6089962175185118875}
   - component: {fileID: 6119197776667388667}
   - component: {fileID: 6107079498256014255}
-  - component: {fileID: 6084476082533901587}
   m_Layer: 8
   m_Name: LightHolder
   m_TagString: Untagged
@@ -269,17 +268,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &6084476082533901587
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6095543883698798783}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 7b79fe2053abba84e856ee9f253da0b5, type: 2}

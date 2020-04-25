@@ -20,7 +20,10 @@ public class DamageableBehaviour : MonoBehaviour
         healthBar.text = ((int)currentHealth).ToString();
     }
 
-    public void ReceiveDamage(float damage)
+    /// <summary>
+    /// Recieves damage, returns true if the object lost all its health. Updates health bar also.
+    /// </summary>
+    public bool ReceiveDamage(float damage)
     {
         if (gameObject != null && damage >= currentHealth)
         {
@@ -28,13 +31,14 @@ public class DamageableBehaviour : MonoBehaviour
             ps.Play();
             ps.GetComponent<AudioSource>().PlayOneShot(destroySound, 0.3f);
             Destroy(ps.gameObject, destroySound.length + 0.5f);
-            Destroy(this.gameObject);
+            return true;
         }
         else
         {
             currentHealth -= damage;
             int health = (int)(currentHealth);
             healthBar.text = (health == 0 ? 1 : health).ToString();
+            return false;
         }
     }
 }

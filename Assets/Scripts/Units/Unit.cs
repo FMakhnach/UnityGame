@@ -59,11 +59,16 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         path = spawn.GetRoad();
         currentBehavior = MovingBehavior;
         curDestId = 0;
+        agent.enabled = true;
         agent.SetDestination(path[curDestId]);
     }
-
     public void ReceiveDamage(float damage)
-        => damageableBehaviour.ReceiveDamage(damage);
+    {
+        if (damageableBehaviour.ReceiveDamage(damage))
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     private void Awake()
     {
@@ -147,8 +152,8 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         {
             // Super fucking weird thing lol
             // There's something wrong with object destroying
-            if (currentTarget.ToString() == "null"
-                || (currentTarget.TargetPoint.position - transform.position).magnitude > config.radius)
+            if (currentTarget.ToString() == "null"/*
+                || (currentTarget.TargetPoint.position - transform.position).magnitude > (config.radius + 0.25f)*/)
             {
                 currentTarget = null;
                 return;

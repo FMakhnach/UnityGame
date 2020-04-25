@@ -53,13 +53,6 @@ public class PauseMenu : MonoBehaviour
     {
         gameIsPaused = false;
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseMenuTrigger();
-        }
-    }
     private void ResumeGame()
     {
         pauseMenu.SetActive(false);

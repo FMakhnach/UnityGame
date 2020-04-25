@@ -99,7 +99,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void PlaceLaserTower(TowerPlacement place)
     {
-        towerFactory.CreateLaserTower().PlaceOn(place.transform.position, place.Rotation, alignment);
+        towerFactory.CreateLaserTower().PlaceOn(place, alignment);
         Money -= LaserTower.Cost;
     }
     /// <summary>
@@ -107,12 +107,12 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void PlaceMGTower(TowerPlacement place)
     {
-        towerFactory.CreateMGTower().PlaceOn(place.transform.position, place.Rotation, alignment);
+        towerFactory.CreateMGTower().PlaceOn(place, alignment);
         Money -= MachineGunTower.Cost;
     }
     public void PlacePlant(PlantPlacement place)
     {
-        buildingFactory.CreatePlant().PlaceOn(place.transform.position, place.Rotation, this);
+        buildingFactory.CreatePlant().PlaceOn(place, this);
         Money -= Plant.Cost;
     }
 }

@@ -16,18 +16,21 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     public Alignment Alignment => playerManager.Alignment;
 
     /// <summary>
-    /// Recieves damage.
+    /// Recieves damage. If destroyed, the owner loses.
     /// </summary>
     public void ReceiveDamage(float damage)
-        => damageableBehaviour.ReceiveDamage(damage);
+    {
+        if (damageableBehaviour.ReceiveDamage(damage))
+        {
+            playerManager.DecreaseIncome(incomePerSecond);
+            GameManager.Instance.LoseGame(playerManager);
+            Destroy(this.gameObject);
+        }
+    }
 
     private void Start()
     {
         damageableBehaviour = GetComponent<DamageableBehaviour>();
         playerManager.IncreaseIncome(incomePerSecond);
-    }
-    private void OnDestroy()
-    {
-        playerManager.DecreaseIncome(incomePerSecond);
     }
 }

@@ -22,20 +22,21 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
         damageableBehaviour = GetComponent<DamageableBehaviour>();
     }
 
-    public void PlaceOn(Vector3 placePoint, Quaternion rotation, PlayerManager owner)
+    public void PlaceOn(PlantPlacement place, PlayerManager owner)
     {
-        transform.position = placePoint;
-        transform.rotation = rotation;
+        transform.position = place.transform.position;
+        transform.rotation = place.Rotation;
         this.owner = owner;
         owner.IncreaseIncome(incomePerSecond);
         GetComponent<AudioSource>().PlayOneShot(placingSound, 0.3f);
     }
 
     public void ReceiveDamage(float damage)
-        => damageableBehaviour.ReceiveDamage(damage);
-
-    private void OnDestroy()
     {
-        owner.DecreaseIncome(incomePerSecond);
+        if (damageableBehaviour.ReceiveDamage(damage))
+        {
+            owner.DecreaseIncome(incomePerSecond);
+            Destroy(this.gameObject);
+        }
     }
 }

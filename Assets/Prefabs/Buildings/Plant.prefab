@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c8b2014e55e1c4c9ff652185734e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  incomePerSecond: 0.25
+  incomePerSecond: 0.5
   targetPoint: {fileID: 4101059199140546822}
   placingSound: {fileID: 8300000, guid: db5b153c440dd2e459dc407251b20022, type: 3}
 --- !u!114 &3972627531580244404
