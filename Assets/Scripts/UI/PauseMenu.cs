@@ -4,10 +4,6 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     /// <summary>
-    /// Indicates if the game is paused.
-    /// </summary>
-    private bool gameIsPaused;
-    /// <summary>
     /// The pause menu itself.
     /// </summary>
     [SerializeField]
@@ -17,21 +13,9 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     [SerializeField]
     private DisableGroup disableGroup;
+    [SerializeField]
+    private ExitToMainMenuPopup exitToMainMenuPopup;
 
-    /// <summary>
-    /// Opens or closes pause menu.
-    /// </summary>
-    public void PauseMenuTrigger()
-    {
-        if (gameIsPaused)
-        {
-            ResumeGame();
-        }
-        else
-        {
-            PauseGame();
-        }
-    }
     /// <summary>
     /// Opens options window.
     /// </summary>
@@ -45,26 +29,19 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     public void MainMenuButtonClicked()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        exitToMainMenuPopup.gameObject.SetActive(true);
+        pauseMenu.SetActive(false);
     }
-
-    private void Awake()
-    {
-        gameIsPaused = false;
-    }
-    private void ResumeGame()
+    public void ResumeGame()
     {
         pauseMenu.SetActive(false);
         disableGroup.SetEnabled(true);
         Time.timeScale = 1f;
-        gameIsPaused = false;
     }
-    private void PauseGame()
+    public void PauseGame()
     {
         pauseMenu.SetActive(transform);
         disableGroup.SetEnabled(false);
         Time.timeScale = 0f;
-        gameIsPaused = true;
     }
 }

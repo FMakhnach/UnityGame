@@ -3,10 +3,10 @@
 public abstract class PlaceArea : MonoBehaviour
 {
     [SerializeField]
-    private Alignment alignment;
+    private PlayerManager owner;
     [SerializeField]
     private Transform rotObject;
 
     public Quaternion Rotation => rotObject.rotation;
-    public Alignment Alignment => alignment;
+    public PlayerManager Owner => owner;
 }

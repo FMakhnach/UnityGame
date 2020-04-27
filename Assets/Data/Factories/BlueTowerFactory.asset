@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7afffbb6f0dd1e1418e34faadcf01b8b, type: 3}
+  m_Script: {fileID: 0}
   m_Name: BlueTowerFactory
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower/Factory
   laserTowerPrefab: {fileID: 6669055361960079837, guid: 26c0d62ea8f328f418bc5d1a0abfb759,
     type: 3}
   mgTowerPrefab: {fileID: 4263874516405033047, guid: 71224d3adeb10664d85cd5c046d110c2,
     type: 3}
-  laserTowerMaterial: {fileID: 2100000, guid: 598379f6c9c423f458685dab19987b21, type: 2}
+  laserTowerMaterial: {fileID: 2100000, guid: 6a0e9a8aa0e66414f9ed90466c62b1d1, type: 2}
   mgTowerMaterial: {fileID: 2100000, guid: dca02e20b466a184591feef335e85a67, type: 2}

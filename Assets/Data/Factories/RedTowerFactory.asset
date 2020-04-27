@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7afffbb6f0dd1e1418e34faadcf01b8b, type: 3}
+  m_Script: {fileID: 0}
   m_Name: RedTowerFactory
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tower/Factory
   laserTowerPrefab: {fileID: 6669055361960079837, guid: 26c0d62ea8f328f418bc5d1a0abfb759,
     type: 3}
   mgTowerPrefab: {fileID: 4263874516405033047, guid: 71224d3adeb10664d85cd5c046d110c2,

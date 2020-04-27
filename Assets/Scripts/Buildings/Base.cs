@@ -1,5 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Base : MonoBehaviour, ITarget, IDamageable
 {
@@ -7,13 +6,13 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     /// Base owner.
     /// </summary>
     [SerializeField]
-    private PlayerManager playerManager;
+    private PlayerManager owner;
     [SerializeField]
     private float incomePerSecond;
     private DamageableBehaviour damageableBehaviour;
 
     public Transform TargetPoint => transform;
-    public Alignment Alignment => playerManager.Alignment;
+    public PlayerManager Owner => owner;
 
     /// <summary>
     /// Recieves damage. If destroyed, the owner loses.
@@ -22,8 +21,8 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
-            playerManager.DecreaseIncome(incomePerSecond);
-            GameManager.Instance.LoseGame(playerManager);
+            owner.DecreaseIncome(incomePerSecond);
+            GameManager.Instance.LoseGame(owner);
             Destroy(this.gameObject);
         }
     }
@@ -31,6 +30,6 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     private void Start()
     {
         damageableBehaviour = GetComponent<DamageableBehaviour>();
-        playerManager.IncreaseIncome(incomePerSecond);
+        owner.IncreaseIncome(incomePerSecond);
     }
 }

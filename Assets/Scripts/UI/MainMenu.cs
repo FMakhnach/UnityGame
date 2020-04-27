@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private ExitGamePopup exitGamePopup;
     /// <summary>
     /// Starts the game.
     /// </summary>
@@ -23,6 +25,6 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void ExitButtonClicked()
     {
-        Application.Quit();
+        exitGamePopup.gameObject.SetActive(true);
     }
 }

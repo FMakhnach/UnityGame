@@ -10,19 +10,14 @@ public class PlayerManager : MonoBehaviour
     /// The object that is responsible for creating units. 
     /// </summary>
     [SerializeField]
-    private UnitFactory unitFactory;
+    private Unit.Factory unitFactory;
     /// <summary>
     /// The object that is responsible for creating units. 
     /// </summary>
     [SerializeField]
-    private TowerFactory towerFactory;
+    private Tower.Factory towerFactory;
     [SerializeField]
-    private BuildingFactory buildingFactory;
-    /// <summary>
-    /// The "team" of the player.
-    /// </summary>
-    [SerializeField]
-    private Alignment alignment;
+    private Plant.Factory plantFactory;
     /// <summary>
     /// UI text element that shows current money to the player.
     /// </summary>
@@ -55,10 +50,6 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    /// <summary>
-    /// The "team" of the player.
-    /// </summary>
-    public Alignment Alignment => alignment;
 
     private void Awake()
     {
@@ -83,7 +74,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void SpawnBuggy(Spawn spawn)
     {
-        unitFactory.CreateBuggy().SpawnOn(spawn, alignment);
+        unitFactory.CreateBuggy(this).SpawnOn(spawn);
         Money -= Buggy.Cost;
     }
     /// <summary>
@@ -91,7 +82,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void SpawnCopter(Spawn spawn)
     {
-        unitFactory.CreateCopter().SpawnOn(spawn, alignment);
+        unitFactory.CreateCopter(this).SpawnOn(spawn);
         Money -= Copter.Cost;
     }
     /// <summary>
@@ -99,7 +90,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void PlaceLaserTower(TowerPlacement place)
     {
-        towerFactory.CreateLaserTower().PlaceOn(place, alignment);
+        towerFactory.CreateLaserTower(this).PlaceOn(place);
         Money -= LaserTower.Cost;
     }
     /// <summary>
@@ -107,12 +98,12 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void PlaceMGTower(TowerPlacement place)
     {
-        towerFactory.CreateMGTower().PlaceOn(place, alignment);
+        towerFactory.CreateMGTower(this).PlaceOn(place);
         Money -= MachineGunTower.Cost;
     }
     public void PlacePlant(PlantPlacement place)
     {
-        buildingFactory.CreatePlant().PlaceOn(place, this);
+        plantFactory.CreatePlant(this).PlaceOn(place, this);
         Money -= Plant.Cost;
     }
 }

@@ -4,6 +4,37 @@ using UnityEngine.AI;
 
 public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 {
+    [CreateAssetMenu(menuName = "Unit Factory")]
+    public class Factory : ScriptableObject
+    {
+        [SerializeField]
+        private Buggy buggyPrefab;
+        [SerializeField]
+        private Copter copterPrefab;
+
+        [SerializeField]
+        private Material buggyMaterial;
+        [SerializeField]
+        private Material copterMaterial;
+
+        private Vector3 spawnPosition = new Vector3(0f, 100f, 0f);
+
+        public Buggy CreateBuggy(PlayerManager owner)
+        {
+            Buggy buggy = Instantiate(buggyPrefab, spawnPosition, Quaternion.identity);
+            buggy.owner = owner;
+            buggy.gameObject.GetComponentInChildren<Renderer>().material = buggyMaterial;
+            return buggy;
+        }
+        public Copter CreateCopter(PlayerManager owner)
+        {
+            Copter copter = Instantiate(copterPrefab, spawnPosition, Quaternion.identity);
+            copter.owner = owner;
+            copter.gameObject.GetComponentInChildren<Renderer>().material = copterMaterial;
+            return copter;
+        }
+    }
+
     /// <summary>
     /// Unit's stats and stuff.
     /// </summary>
@@ -23,8 +54,8 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     protected ITarget currentTarget;
     private float timer;
     private LayerMask targetableMask;
-    private Alignment alignment;
-    private DamageableBehaviour damageableBehaviour;
+    private PlayerManager owner;
+    protected DamageableBehaviour damageableBehaviour;
     /// <summary>
     /// Audio source for sound effects.
     /// </summary>
@@ -39,19 +70,17 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// Current destination point index in array.
     /// </summary>
     private int curDestId;
-
-
     private NavMeshAgent agent;
 
-    public Alignment Alignment => alignment;
+    public PlayerManager Owner => owner;
     public Transform TargetPoint => ownTarget;
+    public UnitInfoPanel Panel { get; protected set; }
 
     /// <summary>
     /// Moves to the spawn point and takes path info from it.
     /// </summary> 
-    public void SpawnOn(Spawn spawn, Alignment alignment)
+    public void SpawnOn(Spawn spawn)
     {
-        this.alignment = alignment;
         transform.position = spawn.transform.position;
         transform.rotation = spawn.transform.rotation;
         audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
@@ -93,7 +122,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
             foreach (var col in colliders)
             {
                 current = col.gameObject.GetComponentInParent<ITarget>();
-                if (current != null && current.Alignment != Alignment)
+                if (current != null && current.Owner != Owner)
                 {
                     dist = Vector3.Distance(current.TargetPoint.position, transform.position);
                     if (dist < minDistance)
@@ -129,7 +158,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 
         Projectile proj = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
-        proj.Initialize(direction, Alignment);
+        proj.Initialize(direction, config.damage, owner);
     }
     private void MovingBehavior()
     {

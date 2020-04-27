@@ -99,7 +99,7 @@ public abstract class AttackingTower : Tower
             foreach (var col in colliders)
             {
                 current = col.gameObject.GetComponentInParent<ITarget>();
-                if (current != null && current.Alignment != Alignment
+                if (current != null && current.Owner != Owner
                     // TODELETE someday
                     && col.gameObject.GetComponentInParent<Base>() == null
                     )
@@ -169,6 +169,6 @@ public abstract class AttackingTower : Tower
 
         Projectile proj = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation, firePoint);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
-        proj.Initialize(direction, Alignment);
+        proj.Initialize(direction, config.damage, Owner);
     }
 }

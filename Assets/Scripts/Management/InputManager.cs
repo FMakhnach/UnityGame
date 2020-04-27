@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour
         if (playerManager.Money >= Buggy.Cost)
         {
             currentGhost = Instantiate(buggyGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Alignment = playerManager.Alignment;
+            currentGhost.Owner = playerManager;
             mouseClickLeft = PlaceBuggy;
             mouseClickRight = Refresh;
         }
@@ -74,7 +74,7 @@ public class InputManager : MonoBehaviour
         if (playerManager.Money >= Copter.Cost)
         {
             currentGhost = Instantiate(copterGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Alignment = playerManager.Alignment;
+            currentGhost.Owner = playerManager;
             mouseClickLeft = PlaceCopter;
             mouseClickRight = Refresh;
         }
@@ -90,7 +90,7 @@ public class InputManager : MonoBehaviour
         if (playerManager.Money >= LaserTower.Cost)
         {
             currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Alignment = playerManager.Alignment;
+            currentGhost.Owner = playerManager;
             mouseClickLeft = PlaceLaserTower;
             mouseClickRight = Refresh;
         }
@@ -106,7 +106,7 @@ public class InputManager : MonoBehaviour
         if (playerManager.Money >= MachineGunTower.Cost)
         {
             currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Alignment = playerManager.Alignment;
+            currentGhost.Owner = playerManager;
             mouseClickLeft = PlaceMGTower;
             mouseClickRight = Refresh;
         }
@@ -122,7 +122,7 @@ public class InputManager : MonoBehaviour
         if (playerManager.Money >= Plant.Cost)
         {
             currentGhost = Instantiate(plantGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Alignment = playerManager.Alignment;
+            currentGhost.Owner = playerManager;
             mouseClickLeft = PlacePlant;
             mouseClickRight = Refresh;
         }

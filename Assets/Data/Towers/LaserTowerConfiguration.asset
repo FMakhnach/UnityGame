@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnSound: {fileID: 8300000, guid: 1a07036bf2ddb2044b12992ecfc54a9e, type: 3}
   attackSound: {fileID: 8300000, guid: 84e74b559d684a74dbb0516d93de1e17, type: 3}
-  destroySound: {fileID: 8300000, guid: 59fdf902693584b4381b5a1d63eab1c5, type: 3}
   radius: 9
-  damage: 0
+  damage: 10
   attackingInterval: 1
-  health: 100
+  startHealth: 75
   destroyParticles: {fileID: 198059975614214484, guid: 7a0476686964e41ac8320b7cf37868c2,
     type: 3}
+  destroySound: {fileID: 8300000, guid: 59fdf902693584b4381b5a1d63eab1c5, type: 3}

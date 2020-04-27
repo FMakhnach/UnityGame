@@ -61,8 +61,8 @@ public class Ghost : MonoBehaviour
             }
         }
     }
-    public Alignment Alignment { get; set; }
     public PlaceArea PlaceArea => currentPlaceArea;
+    public PlayerManager Owner { get; set; }
 
     /// <summary>
     /// Checks if the object can be placed in the ghost position.
@@ -83,7 +83,7 @@ public class Ghost : MonoBehaviour
             {
                 PlaceArea area = hit.collider.GetComponent<PlaceArea>();
                 // Check for 1) area existance 2) alignment 3) obstacles
-                if (area != null && area.Alignment == this.Alignment
+                if (area != null && area.Owner == this.Owner
                     && Physics.OverlapSphere(area.transform.position, baseRadius, obstaclesMask).Length == 0)
                 {
                     transform.position = area.transform.position;

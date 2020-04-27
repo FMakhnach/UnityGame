@@ -4,5 +4,5 @@
 public interface IDamageable
 {
     void ReceiveDamage(float damage);
-    Alignment Alignment { get; }
+    PlayerManager Owner { get; }
 }

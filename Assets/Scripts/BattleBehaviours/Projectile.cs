@@ -15,8 +15,8 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// Damage that the projectile causes.
     /// </summary>
-    [SerializeField]
     private float damage;
+    private PlayerManager owner;
 
     /// <summary>
     /// The direction in which the projectile will fly.
@@ -24,17 +24,13 @@ public class Projectile : MonoBehaviour
     private Vector3 direction;
 
     /// <summary>
-    /// We don't want to harm ourselves I guess.
-    /// </summary>
-    private Alignment alignment;
-
-    /// <summary>
     /// Initializing a projectile by giving it a direction and an alignment.
     /// </summary>
-    public void Initialize(Vector3 direction, Alignment alignment)
+    public void Initialize(Vector3 direction, float damage, PlayerManager owner)
     {
         this.direction = direction.normalized;
-        this.alignment = alignment;
+        this.owner = owner;
+        this.damage = damage;
         Destroy(gameObject, lifeTime);
     }
 
@@ -47,7 +43,7 @@ public class Projectile : MonoBehaviour
     {
         var damageable = other.GetComponentInParent<IDamageable>();
         // Check if we hit an enemy
-        if (damageable != null && damageable.Alignment != alignment)
+        if (damageable != null && damageable.Owner != owner)
         {
             damageable.ReceiveDamage(damage);
             gameObject.SetActive(false);

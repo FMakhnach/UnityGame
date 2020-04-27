@@ -10,7 +10,7 @@ public class PrimitiveAI : MonoBehaviour
     private float incomePerSecond;
 
     [SerializeField]
-    private TowerFactory towerFactory;
+    private Tower.Factory towerFactory;
     [SerializeField]
     private TowerPlacement[] towerPlacements;
     [SerializeField]
@@ -24,7 +24,7 @@ public class PrimitiveAI : MonoBehaviour
     private float mgProbability;
 
     [SerializeField]
-    private UnitFactory unitFactory;
+    private Unit.Factory unitFactory;
     [SerializeField]
     private Spawn[] spawns;
     [SerializeField]
@@ -35,14 +35,14 @@ public class PrimitiveAI : MonoBehaviour
     private float copterProbability;
 
     private float cooldown;
-    private Alignment alignment;
     private Action currentAction;
     private System.Random sysRand;
+    private PlayerManager owner;
 
     private void Awake()
     {
         sysRand = new System.Random();
-        alignment = Alignment.Computer;
+        owner = GetComponent<PlayerManager>();
         towers = new Tower[towerPlacements.Length];
         numberOfStartTowers = Math.Min(numberOfStartTowers, towerPlacements.Length);
 
@@ -82,13 +82,13 @@ public class PrimitiveAI : MonoBehaviour
             int id = startTowerPositions[i];
             if (sysRand.Next(2) == 0)
             {
-                towers[id] = towerFactory.CreateLaserTower();
+                towers[id] = towerFactory.CreateLaserTower(owner);
             }
             else
             {
-                towers[id] = towerFactory.CreateMGTower();
+                towers[id] = towerFactory.CreateMGTower(owner);
             }
-            towers[id].PlaceOn(towerPlacements[id], alignment);
+            towers[id].PlaceOn(towerPlacements[id]);
         }
     }
     private Action GetRandomAction()
@@ -122,7 +122,7 @@ public class PrimitiveAI : MonoBehaviour
             id--;
         }
         money -= Buggy.Cost;
-        unitFactory.CreateBuggy().SpawnOn(spawns[id], alignment);
+        unitFactory.CreateBuggy(owner).SpawnOn(spawns[id]);
         currentAction = null;
     }
     private void SpawnCopter()
@@ -137,7 +137,7 @@ public class PrimitiveAI : MonoBehaviour
             id--;
         }
         money -= Copter.Cost;
-        unitFactory.CreateCopter().SpawnOn(spawns[id], alignment);
+        unitFactory.CreateCopter(owner).SpawnOn(spawns[id]);
         currentAction = null;
     }
     private void PlaceLaser()
@@ -151,8 +151,8 @@ public class PrimitiveAI : MonoBehaviour
             if (towers[i] == null)
             {
                 money -= LaserTower.Cost;
-                towers[i] = towerFactory.CreateLaserTower();
-                towers[i].PlaceOn(towerPlacements[i], alignment);
+                towers[i] = towerFactory.CreateLaserTower(owner);
+                towers[i].PlaceOn(towerPlacements[i]);
                 currentAction = null;
                 return;
             }
@@ -169,8 +169,8 @@ public class PrimitiveAI : MonoBehaviour
             if (towers[i] == null)
             {
                 money -= MachineGunTower.Cost;
-                towers[i] = towerFactory.CreateMGTower();
-                towers[i].PlaceOn(towerPlacements[i], alignment);
+                towers[i] = towerFactory.CreateMGTower(owner);
+                towers[i].PlaceOn(towerPlacements[i]);
                 currentAction = null;
                 return;
             }

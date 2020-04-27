@@ -4,20 +4,15 @@ using UnityEngine;
 public class DamageableBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private float startHealth;
-    [SerializeField]
-    private ParticleSystem destroyParticles;
-    [SerializeField]
-    private AudioClip destroySound;
-    [SerializeField]
-    private TMP_Text healthBar;
+    private GameObjectConfig config;
+    [HideInInspector]
+    public TMP_Text healthText;
 
     private float currentHealth;
 
     private void Awake()
     {
-        currentHealth = startHealth;
-        healthBar.text = ((int)currentHealth).ToString();
+        currentHealth = config.startHealth;
     }
 
     /// <summary>
@@ -27,17 +22,17 @@ public class DamageableBehaviour : MonoBehaviour
     {
         if (gameObject != null && damage >= currentHealth)
         {
-            var ps = Instantiate(destroyParticles, transform.position, transform.rotation);
+            var ps = Instantiate(config.destroyParticles, transform.position, transform.rotation);
             ps.Play();
-            ps.GetComponent<AudioSource>().PlayOneShot(destroySound, 0.3f);
-            Destroy(ps.gameObject, destroySound.length + 0.5f);
+            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
+            Destroy(ps.gameObject, config.destroySound.length + 0.5f);
             return true;
         }
         else
         {
             currentHealth -= damage;
             int health = (int)(currentHealth);
-            healthBar.text = (health == 0 ? 1 : health).ToString();
+            healthText.text = (health == 0 ? 1 : health).ToString();
             return false;
         }
     }

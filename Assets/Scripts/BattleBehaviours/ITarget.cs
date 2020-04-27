@@ -6,5 +6,5 @@
 public interface ITarget
 {
     Transform TargetPoint { get; }
-    Alignment Alignment { get; }
+    PlayerManager Owner { get; }
 }

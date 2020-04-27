@@ -112,7 +112,7 @@ public class EnemyInput : MonoBehaviour
         if (enemyManager.Money >= LaserTower.Cost)
         {
             currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Alignment = enemyManager.Alignment;
+            //currentGhost.Alignment = enemyManager.Alignment;
             mouseClickLeft = PlaceLaserTower;
             mouseClickRight = Refresh;
         }
@@ -128,7 +128,7 @@ public class EnemyInput : MonoBehaviour
         if (enemyManager.Money >= MachineGunTower.Cost)
         {
             currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Alignment = enemyManager.Alignment;
+            //currentGhost.Alignment = enemyManager.Alignment;
             mouseClickLeft = PlaceMGTower;
             mouseClickRight = Refresh;
         }
