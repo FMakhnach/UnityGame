@@ -1,14 +1,24 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Represents object that can be damaged and destroyed.
+/// </summary>
 public class DamageableBehaviour : MonoBehaviour
 {
+    /// <summary>
+    /// Need it just for start health.
+    /// </summary>
     [SerializeField]
     private GameObjectConfig config;
+    /// <summary>
+    /// UI label that shows current HP to the player.
+    /// </summary>
     [HideInInspector]
     public TMP_Text healthText;
 
     private float currentHealth;
+    public float Health => currentHealth;
 
     private void Awake()
     {
@@ -32,7 +42,10 @@ public class DamageableBehaviour : MonoBehaviour
         {
             currentHealth -= damage;
             int health = (int)(currentHealth);
-            healthText.text = (health == 0 ? 1 : health).ToString();
+            if(healthText != null)
+            {
+                healthText.text = (health == 0 ? 1 : health).ToString();
+            }
             return false;
         }
     }

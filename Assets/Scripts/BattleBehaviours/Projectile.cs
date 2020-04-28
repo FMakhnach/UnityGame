@@ -17,6 +17,7 @@ public class Projectile : MonoBehaviour
     /// </summary>
     private float damage;
     private PlayerManager owner;
+    private ParticleSystem particles;
 
     /// <summary>
     /// The direction in which the projectile will fly.
@@ -26,11 +27,12 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// Initializing a projectile by giving it a direction and an alignment.
     /// </summary>
-    public void Initialize(Vector3 direction, float damage, PlayerManager owner)
+    public void Initialize(Vector3 direction, float damage, PlayerManager owner, ParticleSystem particles)
     {
         this.direction = direction.normalized;
         this.owner = owner;
         this.damage = damage;
+        this.particles = particles;
         Destroy(gameObject, lifeTime);
     }
 
@@ -45,7 +47,9 @@ public class Projectile : MonoBehaviour
         // Check if we hit an enemy
         if (damageable != null && damageable.Owner != owner)
         {
-            damageable.ReceiveDamage(damage);
+            damageable.ReceiveDamage(damage, owner);
+            particles.Stop();
+            Destroy(particles.gameObject);
             gameObject.SetActive(false);
         }
     }

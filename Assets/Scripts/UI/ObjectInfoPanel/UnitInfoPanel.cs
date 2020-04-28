@@ -17,7 +17,7 @@ public class UnitInfoPanel : ObjectInfoPanel
 
     private void Awake()
     {
-        healthText.text = config.startHealth.ToString();
+        healthLabel.text = config.startHealth.ToString();
         maxHealthLabel.text = config.startHealth.ToString();
         damageLabel.text = config.damage.ToString();
         attackSpeedLabel.text = (1 / config.attackingInterval).ToString("#.##");

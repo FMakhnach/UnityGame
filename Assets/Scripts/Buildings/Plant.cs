@@ -2,19 +2,7 @@
 
 public class Plant : MonoBehaviour, ITarget, IDamageable
 {
-    [CreateAssetMenu(menuName = "Plant Factory")]
-    public class Factory : ScriptableObject
-    {
-        [SerializeField]
-        private Plant plantPrefab;
-
-        public Plant CreatePlant(PlayerManager owner)
-        {
-            Plant plant = Instantiate(plantPrefab);
-            plant.owner = owner;
-            return plant;
-        }
-    }
+    
 
     public const int Cost = 25;
 
@@ -26,8 +14,17 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
     private DamageableBehaviour damageableBehaviour;
 
     public Transform TargetPoint => targetPoint;
-
-    public PlayerManager Owner => owner;
+    public PlayerManager Owner
+    {
+        get => owner;
+        set
+        {
+            if (owner == null && value != null)
+            {
+                owner = value;
+            }
+        }
+    }
     public PlantInfoPanel Panel { get; private set; }
 
     private void Awake()
@@ -38,7 +35,7 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
     {
         Panel = ObjectInfoPanelController.Instance.Plant;
         GetComponent<OnMouseOverInfoPanel>().panel = Panel;
-        damageableBehaviour.healthText = Panel.healthText;
+        damageableBehaviour.healthText = Panel.healthLabel;
     }
 
     public void PlaceOn(PlantPlacement place, PlayerManager owner)
@@ -50,7 +47,7 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
         GetComponent<AudioSource>().PlayOneShot(config.spawnSound, 0.3f);
     }
 
-    public void ReceiveDamage(float damage)
+    public void ReceiveDamage(float damage, PlayerManager from)
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {

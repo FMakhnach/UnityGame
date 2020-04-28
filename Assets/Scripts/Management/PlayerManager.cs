@@ -6,18 +6,33 @@ using UnityEngine;
 /// </summary>
 public class PlayerManager : MonoBehaviour
 {
+    public struct Stats
+    {
+        public int UnitsKilled { get; private set; }
+        public int TurretsKilled { get; private set; }
+        public int UnitsLost { get; private set; }
+        public int TurretsLost { get; private set; }
+        public int MoneySpent { get; private set; }
+
+        public void UnitKilled() => UnitsKilled++;
+        public void TurretKilled() => TurretsKilled++;
+        public void UnitLost() => UnitsLost++;
+        public void TurretLost() => TurretsLost++;
+        public void SpendMoney(int money) => MoneySpent += money;
+    }
+
     /// <summary>
     /// The object that is responsible for creating units. 
     /// </summary>
     [SerializeField]
-    private Unit.Factory unitFactory;
+    private UnitFactory unitFactory;
     /// <summary>
     /// The object that is responsible for creating units. 
     /// </summary>
     [SerializeField]
-    private Tower.Factory towerFactory;
+    private TurretFactory turretFactory;
     [SerializeField]
-    private Plant.Factory plantFactory;
+    private BuildingFactory buildingFactory;
     /// <summary>
     /// UI text element that shows current money to the player.
     /// </summary>
@@ -33,6 +48,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private float money;
     private float incomePerSecond;
+    private Stats stats;
 
     /// <summary>
     /// The sum that the player can spend on buying stuff.
@@ -50,11 +66,13 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+    public Stats Stat => stats;
 
     private void Awake()
     {
         Money = startingMoney;
         incomePerSecond = 0;
+        stats = new Stats();
     }
     private void Update()
     {
@@ -76,6 +94,7 @@ public class PlayerManager : MonoBehaviour
     {
         unitFactory.CreateBuggy(this).SpawnOn(spawn);
         Money -= Buggy.Cost;
+        stats.SpendMoney(Buggy.Cost);
     }
     /// <summary>
     /// Creates a new instance of copter and places on spawn.
@@ -84,26 +103,35 @@ public class PlayerManager : MonoBehaviour
     {
         unitFactory.CreateCopter(this).SpawnOn(spawn);
         Money -= Copter.Cost;
+        stats.SpendMoney(Copter.Cost);
     }
     /// <summary>
-    /// Creates a new instance of laser tower and places on given point.
+    /// Creates a new instance of laser turret and places on given point.
     /// </summary>
-    public void PlaceLaserTower(TowerPlacement place)
+    public void PlaceLaserTurret(TurretPlacement place)
     {
-        towerFactory.CreateLaserTower(this).PlaceOn(place);
-        Money -= LaserTower.Cost;
+        turretFactory.CreateLaserTurret(this).PlaceOn(place);
+        Money -= LaserTurret.Cost;
+        stats.SpendMoney(LaserTurret.Cost);
     }
     /// <summary>
-    /// Creates a new instance of machine gun tower and places on given point.
+    /// Creates a new instance of machine gun turret and places on given point.
     /// </summary>
-    public void PlaceMGTower(TowerPlacement place)
+    public void PlaceMGTurret(TurretPlacement place)
     {
-        towerFactory.CreateMGTower(this).PlaceOn(place);
-        Money -= MachineGunTower.Cost;
+        turretFactory.CreateMGTurret(this).PlaceOn(place);
+        Money -= MachineGunTurret.Cost;
+        stats.SpendMoney(MachineGunTurret.Cost);
     }
     public void PlacePlant(PlantPlacement place)
     {
-        plantFactory.CreatePlant(this).PlaceOn(place, this);
+        buildingFactory.CreatePlant(this).PlaceOn(place, this);
         Money -= Plant.Cost;
+        stats.SpendMoney(Plant.Cost);
     }
+    public void UnitKilled() => stats.UnitKilled();
+    public void TurretKilled() => stats.TurretKilled();
+    public void UnitLost() => stats.UnitLost();
+    public void TurretLost() => stats.TurretLost();
+    public void SpendMoney(int money) => stats.SpendMoney(money);
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMenu : MonoBehaviour
 {
     [SerializeField]
-    private GameObject towers;
+    private GameObject turrets;
     [SerializeField]
     private GameObject units;
     [SerializeField]
@@ -42,7 +42,7 @@ public class PlayerMenu : MonoBehaviour
 
     private void Awake()
     {
-        bars = new GameObject[] { towers, units, buildings };
+        bars = new GameObject[] { turrets, units, buildings };
         currentActive = 0;
     }
 }

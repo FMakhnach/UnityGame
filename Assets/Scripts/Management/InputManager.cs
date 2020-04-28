@@ -25,9 +25,9 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private Ghost copterGhostPrefab;
     [SerializeField]
-    private Ghost laserTowerGhostPrefab;
+    private Ghost laserTurretGhostPrefab;
     [SerializeField]
-    private Ghost mgTowerGhostPrefab;
+    private Ghost mgTurretGhostPrefab;
     [SerializeField]
     private Ghost plantGhostPrefab;
     /// <summary>
@@ -83,15 +83,15 @@ public class InputManager : MonoBehaviour
             audioSource.PlayOneShot(wrongPlace);
         }
     }
-    public void LaserTowerButtonClicked()
+    public void LaserTurretButtonClicked()
     {
         ClearGhost();
         enemyInput.Refresh();
-        if (playerManager.Money >= LaserTower.Cost)
+        if (playerManager.Money >= LaserTurret.Cost)
         {
-            currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+            currentGhost = Instantiate(laserTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
             currentGhost.Owner = playerManager;
-            mouseClickLeft = PlaceLaserTower;
+            mouseClickLeft = PlaceLaserTurret;
             mouseClickRight = Refresh;
         }
         else
@@ -99,15 +99,15 @@ public class InputManager : MonoBehaviour
             audioSource.PlayOneShot(wrongPlace);
         }
     }
-    public void MGTowerButtonClicked()
+    public void MGTurretButtonClicked()
     {
         ClearGhost();
         enemyInput.Refresh();
-        if (playerManager.Money >= MachineGunTower.Cost)
+        if (playerManager.Money >= MachineGunTurret.Cost)
         {
-            currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+            currentGhost = Instantiate(mgTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
             currentGhost.Owner = playerManager;
-            mouseClickLeft = PlaceMGTower;
+            mouseClickLeft = PlaceMGTurret;
             mouseClickRight = Refresh;
         }
         else
@@ -134,7 +134,6 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        
         playerManager = GetComponent<PlayerManager>();
         audioSource = GetComponent<AudioSource>();
         eventSystem = EventSystem.current;
@@ -181,10 +180,10 @@ public class InputManager : MonoBehaviour
         => Place<Spawn>(playerManager.SpawnBuggy);
     private void PlaceCopter()
         => Place<Spawn>(playerManager.SpawnCopter);
-    private void PlaceLaserTower()
-        => Place<TowerPlacement>(playerManager.PlaceLaserTower);
-    private void PlaceMGTower()
-        => Place<TowerPlacement>(playerManager.PlaceMGTower);
+    private void PlaceLaserTurret()
+        => Place<TurretPlacement>(playerManager.PlaceLaserTurret);
+    private void PlaceMGTurret()
+        => Place<TurretPlacement>(playerManager.PlaceMGTurret);
     private void PlacePlant()
         => Place<PlantPlacement>(playerManager.PlacePlant);
 
@@ -206,7 +205,7 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Places a particular tower.
+    /// Places a particular turret.
     /// </summary>
     /// <param name="placingMethod"></param>
     private void Place<T>(Action<T> placingMethod) where T : PlaceArea
@@ -220,5 +219,9 @@ public class InputManager : MonoBehaviour
         {
             audioSource.PlayOneShot(wrongPlace);
         }
+    }
+    private void OnEnable()
+    {
+        ClearGhost();
     }
 }

@@ -13,7 +13,7 @@ public class PlantInfoPanel : ObjectInfoPanel
 
     private void Awake()
     {
-        healthText.text = config.startHealth.ToString();
+        healthLabel.text = config.startHealth.ToString();
         energyLabel.text = config.incomePerSecond.ToString();
     }
 }

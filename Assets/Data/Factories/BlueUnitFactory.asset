@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 8af76e5ac6d45d24d9050d1619fa81ae, type: 3}
   m_Name: BlueUnitFactory
-  m_EditorClassIdentifier: Assembly-CSharp::Unit/Factory
+  m_EditorClassIdentifier: 
   buggyPrefab: {fileID: 1915636167648838805, guid: b53b7ddb52af6f34080b992e7b8e5643,
     type: 3}
   copterPrefab: {fileID: 5645066298251432066, guid: acbc140f83cd5d443bbbf40b70b16c64,

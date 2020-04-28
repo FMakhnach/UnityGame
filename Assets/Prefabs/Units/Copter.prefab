@@ -92,7 +92,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091185308118674}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
@@ -19149,11 +19149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: e57353ccddddc6b43806b68da3f64baa, type: 2}
   ownTarget: {fileID: 6425288544149700770}
+  body: {fileID: 1091185308118674}
   firePoint: {fileID: 4147061605537532}
   projectilePrefab: {fileID: 4167555646443569107, guid: cd18e4396e895ed429b8a0e234f27e2c,
     type: 3}
   fireParticles: {fileID: 198235514516507754}
-  body: {fileID: 1091185308118674}
 --- !u!114 &985699099410988409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19178,7 +19178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4077553e94faa10459b5d453342ec1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualization: {fileID: 5809133827747318886}
+  visualization: {fileID: 3167462860922050836}
   panel: {fileID: 0}
 --- !u!114 &1622464426889034877
 MonoBehaviour:

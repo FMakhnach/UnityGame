@@ -3,5 +3,5 @@ using TMPro;
 
 public class ObjectInfoPanel : MonoBehaviour
 {
-    public TMP_Text healthText;
+    public TMP_Text healthLabel;
 }

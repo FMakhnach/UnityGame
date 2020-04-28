@@ -10,6 +10,7 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     [SerializeField]
     private float incomePerSecond;
     private DamageableBehaviour damageableBehaviour;
+    private BaseInfoPanel Panel;
 
     public Transform TargetPoint => transform;
     public PlayerManager Owner => owner;
@@ -17,12 +18,12 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     /// <summary>
     /// Recieves damage. If destroyed, the owner loses.
     /// </summary>
-    public void ReceiveDamage(float damage)
+    public void ReceiveDamage(float damage, PlayerManager from)
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
             owner.DecreaseIncome(incomePerSecond);
-            GameManager.Instance.LoseGame(owner);
+            GameManager.Instance.EndGame(from, owner);
             Destroy(this.gameObject);
         }
     }
@@ -31,5 +32,13 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     {
         damageableBehaviour = GetComponent<DamageableBehaviour>();
         owner.IncreaseIncome(incomePerSecond);
+
+        Panel = ObjectInfoPanelController.Instance.Base;
+        GetComponent<OnMouseOverInfoPanel>().panel = Panel;
+        damageableBehaviour.healthText = Panel.healthLabel;
+        string health = ((int)damageableBehaviour.Health).ToString();
+        Panel.maxHealth.text = health;
+        Panel.healthLabel.text = health;
+        Panel.energyIncome.text = incomePerSecond.ToString("#.##");
     }
 }

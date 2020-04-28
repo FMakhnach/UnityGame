@@ -1,6 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class OnMouseOverInfoPanel : MonoBehaviour
 {
@@ -8,16 +8,15 @@ public class OnMouseOverInfoPanel : MonoBehaviour
     /// Fancy circle around object. Indicates that info panel should be fixed.
     /// </summary>
     [SerializeField]
-    private GameObject visualization;
+    private SpriteRenderer visualization;
     /// <summary>
     /// To store current event system.
     /// </summary>
     private EventSystem eventSystem;
     /// <summary>
-    /// If the panel is currently fixed.
+    /// To set correct HP.
     /// </summary>
-    private static bool panelIsFixed;
-    private static GameObject currentActiveVisualization;
+    private DamageableBehaviour damageableBehaviour;
 
     /// <summary>
     /// Panel that shows stats of the object.
@@ -28,42 +27,25 @@ public class OnMouseOverInfoPanel : MonoBehaviour
     private void Awake()
     {
         eventSystem = EventSystem.current;
+        damageableBehaviour = GetComponent<DamageableBehaviour>();
     }
-    private void Update()
-    {
-        if (panelIsFixed && Input.GetMouseButtonDown(1))
-        {
-            panelIsFixed = false;
-            ObjectInfoPanelController.Instance.gameObject.SetActive(false);
-            currentActiveVisualization?.SetActive(false);
-            if (currentActiveVisualization != null && currentActiveVisualization.ToString() == "null")
-            {
-                currentActiveVisualization = null;
-            }
-        }
-    }
+    
     private void OnMouseEnter()
     {
-        if (eventSystem.IsPointerOverGameObject() || panelIsFixed)
+        if (eventSystem.IsPointerOverGameObject() || ObjectInfoPanelController.Instance.PanelIsFixed)
         {
             return;
         }
 
         ObjectInfoPanelController.Instance.gameObject.SetActive(true);
         ObjectInfoPanelController.Instance.SetPanel(panel);
+        panel.healthLabel.text = ((int)damageableBehaviour.Health).ToString();
     }
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            panelIsFixed = true;
-            if (currentActiveVisualization != null && currentActiveVisualization.ToString() != "null")
-            {
-                currentActiveVisualization.SetActive(false);
-            }
-            visualization.SetActive(true);
-            currentActiveVisualization = visualization;
-            ObjectInfoPanelController.Instance.SetPanel(panel);
+            ObjectInfoPanelController.Instance.LockPanel(visualization);
         }
         if (!ObjectInfoPanelController.Instance.gameObject.activeSelf)
         {
@@ -72,9 +54,17 @@ public class OnMouseOverInfoPanel : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        if (!panelIsFixed)
+        if (!ObjectInfoPanelController.Instance.PanelIsFixed)
         {
             ObjectInfoPanelController.Instance.gameObject.SetActive(false);
+        }
+    }
+    private void OnDestroy()
+    {
+        if (ObjectInfoPanelController.Instance.ActiveVisualization == visualization 
+            || panel == ObjectInfoPanelController.Instance.ActivePanel)
+        {
+            ObjectInfoPanelController.Instance.UnlockPanel();
         }
     }
 }

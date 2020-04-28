@@ -8,13 +8,24 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject pauseMenu;
-    /// <summary>
-    /// What we should disable on pause menu opening.
-    /// </summary>
-    [SerializeField]
-    private DisableGroup disableGroup;
     [SerializeField]
     private ExitToMainMenuPopup exitToMainMenuPopup;
+
+    /// <summary>
+    /// Should disable this on pause.
+    /// </summary>
+    [SerializeField]
+    private GameObject gameUI;
+    /// <summary>
+    /// Should disable this on pause.
+    /// </summary>
+    [SerializeField]
+    private PlayerManager playerManager;
+    /// <summary>
+    /// Should disable this on pause.
+    /// </summary>
+    [SerializeField]
+    private PlayerManager enemyManager;
 
     /// <summary>
     /// Opens options window.
@@ -35,13 +46,21 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-        disableGroup.SetEnabled(true);
+        gameUI.SetActive(true);
         Time.timeScale = 1f;
+        // Checking if the game has started. 
+        if (GameManager.Instance.StartTime != default)
+        {
+            enemyManager.gameObject.SetActive(true);
+            playerManager.gameObject.SetActive(true);
+        }
     }
     public void PauseGame()
     {
         pauseMenu.SetActive(transform);
-        disableGroup.SetEnabled(false);
+        gameUI.SetActive(false);
+        enemyManager.gameObject.SetActive(false);
+        playerManager.gameObject.SetActive(false);
         Time.timeScale = 0f;
     }
 }

@@ -63,13 +63,13 @@ public class EnemyInput : MonoBehaviour
     private Action mouseClickLeft;
     private Action mouseClickRight;
     [SerializeField]
-    private Ghost laserTowerGhostPrefab;
+    private Ghost laserTurretGhostPrefab;
     [SerializeField]
-    private Ghost mgTowerGhostPrefab;
+    private Ghost mgTurretGhostPrefab;
     private void Awake()
     {
         enemyManager = GetComponent<PlayerManager>();
-        ghostWorldPlacementMask = LayerMask.GetMask("Environment", "TowerPlacement", "UnitPlacement");
+        ghostWorldPlacementMask = LayerMask.GetMask("Environment", "TurretPlacement", "UnitPlacement");
         audioSource = GetComponent<AudioSource>();
     }
     private void Update()
@@ -105,15 +105,15 @@ public class EnemyInput : MonoBehaviour
         mouseClickLeft = null;
         mouseClickRight = null;
     }
-    public void LaserTowerButtonClicked()
+    public void LaserTurretButtonClicked()
     {
         ClearGhost();
         playerInput.Refresh();
-        if (enemyManager.Money >= LaserTower.Cost)
+        if (enemyManager.Money >= LaserTurret.Cost)
         {
-            currentGhost = Instantiate(laserTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+            currentGhost = Instantiate(laserTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
             //currentGhost.Alignment = enemyManager.Alignment;
-            mouseClickLeft = PlaceLaserTower;
+            mouseClickLeft = PlaceLaserTurret;
             mouseClickRight = Refresh;
         }
         else
@@ -121,15 +121,15 @@ public class EnemyInput : MonoBehaviour
             audioSource.PlayOneShot(wrongPlace);
         }
     }
-    public void MGTowerButtonClicked()
+    public void MGTurretButtonClicked()
     {
         ClearGhost();
         playerInput.Refresh();
-        if (enemyManager.Money >= MachineGunTower.Cost)
+        if (enemyManager.Money >= MachineGunTurret.Cost)
         {
-            currentGhost = Instantiate(mgTowerGhostPrefab, Input.mousePosition, Quaternion.identity);
+            currentGhost = Instantiate(mgTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
             //currentGhost.Alignment = enemyManager.Alignment;
-            mouseClickLeft = PlaceMGTower;
+            mouseClickLeft = PlaceMGTurret;
             mouseClickRight = Refresh;
         }
         else
@@ -137,10 +137,10 @@ public class EnemyInput : MonoBehaviour
             audioSource.PlayOneShot(wrongPlace);
         }
     }
-    private void PlaceLaserTower()
-        => Place(enemyManager.PlaceLaserTower);
-    private void PlaceMGTower()
-        => Place(enemyManager.PlaceMGTower);
+    private void PlaceLaserTurret()
+        => Place(enemyManager.PlaceLaserTurret);
+    private void PlaceMGTurret()
+        => Place(enemyManager.PlaceMGTurret);
     private void MoveGhostAfterCursor()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -153,11 +153,11 @@ public class EnemyInput : MonoBehaviour
             currentGhost.CheckIfFits();
         }
     }
-    private void Place(Action<TowerPlacement> placingMethod)
+    private void Place(Action<TurretPlacement> placingMethod)
     {
         if (currentGhost.IsFit)
         {
-            placingMethod(currentGhost.PlaceArea as TowerPlacement);
+            placingMethod(currentGhost.PlaceArea as TurretPlacement);
             Refresh();
         }
         else if (!audioSource.isPlaying)

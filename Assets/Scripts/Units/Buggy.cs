@@ -6,14 +6,14 @@ public class Buggy : Unit
 
     protected override void Aim()
     {
-        transform.LookAt(currentTarget.TargetPoint.position);
-        var curRot = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(0f, curRot.y, 0f);
+        body.transform.LookAt(currentTarget.TargetPoint.position);
+        var curRot = body.transform.rotation.eulerAngles;
+        body.transform.rotation = Quaternion.Euler(0f, curRot.y, 0f);
     }
     private void Start()
     {
         Panel = ObjectInfoPanelController.Instance.Buggy;
         GetComponent<OnMouseOverInfoPanel>().panel = Panel;
-        damageableBehaviour.healthText = Panel.healthText;
+        damageableBehaviour.healthText = Panel.healthLabel;
     }
 }

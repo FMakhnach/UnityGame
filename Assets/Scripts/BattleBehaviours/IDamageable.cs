@@ -3,6 +3,6 @@
 /// </summary>
 public interface IDamageable
 {
-    void ReceiveDamage(float damage);
+    void ReceiveDamage(float damage, PlayerManager from);
     PlayerManager Owner { get; }
 }

@@ -10,12 +10,12 @@ public class PrimitiveAI : MonoBehaviour
     private float incomePerSecond;
 
     [SerializeField]
-    private Tower.Factory towerFactory;
+    private TurretFactory turretFactory;
     [SerializeField]
-    private TowerPlacement[] towerPlacements;
+    private TurretPlacement[] turretPlacements;
     [SerializeField]
-    private int numberOfStartTowers;
-    private Tower[] towers;
+    private int numberOfStartTurrets;
+    private Turret[] turrets;
     [SerializeField]
     [Range(0, 1)]
     private float laserProbability;
@@ -24,7 +24,7 @@ public class PrimitiveAI : MonoBehaviour
     private float mgProbability;
 
     [SerializeField]
-    private Unit.Factory unitFactory;
+    private UnitFactory unitFactory;
     [SerializeField]
     private Spawn[] spawns;
     [SerializeField]
@@ -43,8 +43,8 @@ public class PrimitiveAI : MonoBehaviour
     {
         sysRand = new System.Random();
         owner = GetComponent<PlayerManager>();
-        towers = new Tower[towerPlacements.Length];
-        numberOfStartTowers = Math.Min(numberOfStartTowers, towerPlacements.Length);
+        turrets = new Turret[turretPlacements.Length];
+        numberOfStartTurrets = Math.Min(numberOfStartTurrets, turretPlacements.Length);
 
         cooldown = 2f + UnityEngine.Random.value;
         float modifier = 1 / (buggyProbability + copterProbability + laserProbability + mgProbability);
@@ -54,7 +54,7 @@ public class PrimitiveAI : MonoBehaviour
         mgProbability *= modifier;
 
         float startMoney = money;
-        GenerateStartTowers();
+        GenerateStartTurrets();
         money = startMoney;
     }
     private void Update()
@@ -74,21 +74,22 @@ public class PrimitiveAI : MonoBehaviour
             cooldown = 1f + UnityEngine.Random.value;
         }
     }
-    private void GenerateStartTowers()
+    private void GenerateStartTurrets()
     {
-        var startTowerPositions = Enumerable.Range(0, towerPlacements.Length).OrderBy(x => sysRand.Next()).ToArray();
-        for (int i = 0; i < numberOfStartTowers; i++)
+        var startTurretPositions = Enumerable.Range(0, turretPlacements.Length).OrderBy(x => sysRand.Next()).ToArray();
+        for (int i = 0; i < numberOfStartTurrets; i++)
         {
-            int id = startTowerPositions[i];
+            int id = startTurretPositions[i];
             if (sysRand.Next(2) == 0)
             {
-                towers[id] = towerFactory.CreateLaserTower(owner);
+                turrets[id] = turretFactory.CreateLaserTurret(owner);
             }
             else
             {
-                towers[id] = towerFactory.CreateMGTower(owner);
+                turrets[id] = turretFactory.CreateMGTurret(owner);
             }
-            towers[id].PlaceOn(towerPlacements[id]);
+            turrets[id].transform.position = turretPlacements[id].transform.position;
+            turrets[id].transform.rotation = turretPlacements[id].Rotation;
         }
     }
     private Action GetRandomAction()
@@ -142,17 +143,17 @@ public class PrimitiveAI : MonoBehaviour
     }
     private void PlaceLaser()
     {
-        if (money < LaserTower.Cost)
+        if (money < LaserTurret.Cost)
         {
             return;
         }
-        for (int i = 0; i < towers.Length; i++)
+        for (int i = 0; i < turrets.Length; i++)
         {
-            if (towers[i] == null)
+            if (turrets[i] == null)
             {
-                money -= LaserTower.Cost;
-                towers[i] = towerFactory.CreateLaserTower(owner);
-                towers[i].PlaceOn(towerPlacements[i]);
+                money -= LaserTurret.Cost;
+                turrets[i] = turretFactory.CreateLaserTurret(owner);
+                turrets[i].PlaceOn(turretPlacements[i]);
                 currentAction = null;
                 return;
             }
@@ -160,17 +161,17 @@ public class PrimitiveAI : MonoBehaviour
     }
     private void PlaceMG()
     {
-        if (money < MachineGunTower.Cost)
+        if (money < MachineGunTurret.Cost)
         {
             return;
         }
-        for (int i = 0; i < towers.Length; i++)
+        for (int i = 0; i < turrets.Length; i++)
         {
-            if (towers[i] == null)
+            if (turrets[i] == null)
             {
-                money -= MachineGunTower.Cost;
-                towers[i] = towerFactory.CreateMGTower(owner);
-                towers[i].PlaceOn(towerPlacements[i]);
+                money -= MachineGunTurret.Cost;
+                turrets[i] = turretFactory.CreateMGTurret(owner);
+                turrets[i].PlaceOn(turretPlacements[i]);
                 currentAction = null;
                 return;
             }

@@ -4,37 +4,6 @@ using UnityEngine.AI;
 
 public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 {
-    [CreateAssetMenu(menuName = "Unit Factory")]
-    public class Factory : ScriptableObject
-    {
-        [SerializeField]
-        private Buggy buggyPrefab;
-        [SerializeField]
-        private Copter copterPrefab;
-
-        [SerializeField]
-        private Material buggyMaterial;
-        [SerializeField]
-        private Material copterMaterial;
-
-        private Vector3 spawnPosition = new Vector3(0f, 100f, 0f);
-
-        public Buggy CreateBuggy(PlayerManager owner)
-        {
-            Buggy buggy = Instantiate(buggyPrefab, spawnPosition, Quaternion.identity);
-            buggy.owner = owner;
-            buggy.gameObject.GetComponentInChildren<Renderer>().material = buggyMaterial;
-            return buggy;
-        }
-        public Copter CreateCopter(PlayerManager owner)
-        {
-            Copter copter = Instantiate(copterPrefab, spawnPosition, Quaternion.identity);
-            copter.owner = owner;
-            copter.gameObject.GetComponentInChildren<Renderer>().material = copterMaterial;
-            return copter;
-        }
-    }
-
     /// <summary>
     /// Unit's stats and stuff.
     /// </summary>
@@ -45,6 +14,8 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// </summary>
     [SerializeField]
     private Transform ownTarget;
+    [SerializeField]
+    protected GameObject body;
     [SerializeField]
     private Transform firePoint;
     [SerializeField]
@@ -72,7 +43,17 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     private int curDestId;
     private NavMeshAgent agent;
 
-    public PlayerManager Owner => owner;
+    public PlayerManager Owner
+    {
+        get => owner;
+        set
+        {
+            if (owner == null && value != null)
+            {
+                owner = value;
+            }
+        }
+    }
     public Transform TargetPoint => ownTarget;
     public UnitInfoPanel Panel { get; protected set; }
 
@@ -91,10 +72,12 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         agent.enabled = true;
         agent.SetDestination(path[curDestId]);
     }
-    public void ReceiveDamage(float damage)
+    public void ReceiveDamage(float damage, PlayerManager from)
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
+            from.UnitKilled();
+            owner.UnitLost();
             Destroy(this.gameObject);
         }
     }
@@ -149,16 +132,18 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// </summary>
     private void Fire()
     {
-        var rot = fireParticles.transform.rotation.eulerAngles;
+        var fireParticles = Instantiate(this.fireParticles,
+                                        this.fireParticles.transform.position,
+                                        this.fireParticles.transform.rotation);
         fireParticles.transform.LookAt(currentTarget.TargetPoint);
-        fireParticles.transform.rotation = Quaternion.Euler(rot.x, transform.rotation.eulerAngles.y, rot.z);
 
         fireParticles.Play();
+        Destroy(fireParticles.gameObject, 1f);
         audioSource.PlayOneShot(config.attackSound, 0.3f * audioSource.volume);
 
         Projectile proj = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
-        proj.Initialize(direction, config.damage, owner);
+        proj.Initialize(direction, config.damage, owner, fireParticles);
     }
     private void MovingBehavior()
     {
@@ -201,6 +186,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         else
         {
             currentBehavior = MovingBehavior;
+            body.transform.localRotation = Quaternion.identity;
             agent.enabled = true;
             agent.SetDestination(path[curDestId]);
         }
