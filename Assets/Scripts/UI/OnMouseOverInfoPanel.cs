@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class OnMouseOverInfoPanel : MonoBehaviour
 {
@@ -45,6 +44,7 @@ public class OnMouseOverInfoPanel : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            ObjectInfoPanelController.Instance.SetPanel(panel);
             ObjectInfoPanelController.Instance.LockPanel(visualization);
         }
         if (!ObjectInfoPanelController.Instance.gameObject.activeSelf)

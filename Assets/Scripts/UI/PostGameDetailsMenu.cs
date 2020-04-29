@@ -19,9 +19,9 @@ public class PostGameDetailsMenu : MonoBehaviour
     private Button backButton;
     private RoundFinishMenu menu;
 
-    public void Initialize(PlayerManager.Stats stats, int timeSpent, RoundFinishMenu menu)
+    public void Initialize(PlayerManager.Stats stats, RoundFinishMenu menu)
     {
-        this.timeSpent.text = timeSpent.ToString();
+        this.timeSpent.text = GameTimer.Instance.GetTimeString();
         unitsKilled.text = stats.UnitsKilled.ToString();
         turretsKilled.text = stats.TurretsKilled.ToString();
         unitsLost.text = stats.UnitsLost.ToString();

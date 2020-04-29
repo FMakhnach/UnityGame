@@ -26,7 +26,19 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     [SerializeField]
     private PlayerManager enemyManager;
+    private bool gameIsPaused;
 
+    public void PauseButtonClicked()
+    {
+        if (gameIsPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
     /// <summary>
     /// Opens options window.
     /// </summary>
@@ -43,24 +55,26 @@ public class PauseMenu : MonoBehaviour
         exitToMainMenuPopup.gameObject.SetActive(true);
         pauseMenu.SetActive(false);
     }
-    public void ResumeGame()
+    private void ResumeGame()
     {
+        gameIsPaused = false;
         pauseMenu.SetActive(false);
         gameUI.SetActive(true);
-        Time.timeScale = 1f;
+        GameTimer.Instance.ResetTimeScale();
         // Checking if the game has started. 
-        if (GameManager.Instance.StartTime != default)
+        if (GameManager.Instance.GameHasStarted)
         {
             enemyManager.gameObject.SetActive(true);
             playerManager.gameObject.SetActive(true);
         }
     }
-    public void PauseGame()
+    private void PauseGame()
     {
+        gameIsPaused = true;
         pauseMenu.SetActive(transform);
         gameUI.SetActive(false);
         enemyManager.gameObject.SetActive(false);
         playerManager.gameObject.SetActive(false);
-        Time.timeScale = 0f;
+        GameTimer.Instance.PauseGame();
     }
 }

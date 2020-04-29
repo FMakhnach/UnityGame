@@ -8,7 +8,6 @@ public class OnMouseOverButtonPanel : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        print("HERE");
         if (!ObjectInfoPanelController.Instance.PanelIsFixed)
         {
             ObjectInfoPanelController.Instance.gameObject.SetActive(true);

@@ -10,7 +10,8 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     [SerializeField]
     private float incomePerSecond;
     private DamageableBehaviour damageableBehaviour;
-    private BaseInfoPanel Panel;
+    [SerializeField]
+    private BaseInfoPanel panel;
 
     public Transform TargetPoint => transform;
     public PlayerManager Owner => owner;
@@ -33,12 +34,12 @@ public class Base : MonoBehaviour, ITarget, IDamageable
         damageableBehaviour = GetComponent<DamageableBehaviour>();
         owner.IncreaseIncome(incomePerSecond);
 
-        Panel = ObjectInfoPanelController.Instance.Base;
-        GetComponent<OnMouseOverInfoPanel>().panel = Panel;
-        damageableBehaviour.healthText = Panel.healthLabel;
+        GetComponentInChildren<OnMouseOverInfoPanel>().panel = panel;
+        damageableBehaviour.healthText = panel.healthLabel;
         string health = ((int)damageableBehaviour.Health).ToString();
-        Panel.maxHealth.text = health;
-        Panel.healthLabel.text = health;
-        Panel.energyIncome.text = incomePerSecond.ToString("#.##");
+        panel.maxHealth.text = health;        
+        panel.healthLabel.text = health;
+        panel.regeneration.text = damageableBehaviour.Regeneration.ToString("0.##");
+        panel.energyIncome.text = incomePerSecond.ToString("0.##");
     }
 }

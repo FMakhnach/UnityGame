@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4077553e94faa10459b5d453342ec1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualization: {fileID: 4371658672621819550}
+  visualization: {fileID: 1142261514209825352}
   panel: {fileID: 0}
 --- !u!136 &6484851405833547139
 CapsuleCollider:

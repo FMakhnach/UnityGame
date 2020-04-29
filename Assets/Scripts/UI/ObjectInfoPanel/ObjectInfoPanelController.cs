@@ -18,15 +18,12 @@ public class ObjectInfoPanelController : MonoBehaviour
     private TurretInfoPanel mgPanel;
     [SerializeField]
     private PlantInfoPanel plantPanel;
-    [SerializeField]
-    private BaseInfoPanel basePanel;
 
     public UnitInfoPanel Buggy => buggyPanel;
     public UnitInfoPanel Copter => copterPanel;
     public TurretInfoPanel Laser => laserPanel;
     public TurretInfoPanel MG => mgPanel;
     public PlantInfoPanel Plant => plantPanel;
-    public BaseInfoPanel Base => basePanel;
 
     private bool panelIsFixed;
     private SpriteRenderer currentActiveVisualization;
@@ -48,6 +45,7 @@ public class ObjectInfoPanelController : MonoBehaviour
     public void LockPanel(SpriteRenderer visualization)
     {
         panelIsFixed = true;
+        RemoveCurrentVisualization();
         SetVisualization(visualization);
     }
     public void UnlockPanel()
@@ -61,7 +59,6 @@ public class ObjectInfoPanelController : MonoBehaviour
     }
     private void SetVisualization(SpriteRenderer visualization)
     {
-        RemoveCurrentVisualization();
         currentActiveVisualization = visualization;
         currentActiveVisualization.gameObject.SetActive(true);
     }
