@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a ghost of the object.
 /// </summary>
-public class Ghost : MonoBehaviour 
+public class Ghost : MonoBehaviour
 {
     /// <summary>
     /// Green ghost.

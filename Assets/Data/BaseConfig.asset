@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BaseConfig
   m_EditorClassIdentifier: 
   spawnSound: {fileID: 0}
-  startHealth: 100
+  startHealth: 500
   regeneration: 0.5
   destroyParticles: {fileID: 198059975614214484, guid: 42a3690e5d4a841ad958c0e3b9b7b19e,
     type: 3}

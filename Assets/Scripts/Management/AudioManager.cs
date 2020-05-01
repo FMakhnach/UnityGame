@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         currentMasterVolume = volume;
-        masterVolumeChanged?.Invoke(volume); 
+        masterVolumeChanged?.Invoke(volume);
     }
     /// <summary>
     /// Subscribe this method to button onClick event to get click sound.

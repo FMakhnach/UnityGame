@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 
 /// <summary>
 /// Singleton for managing language switching.

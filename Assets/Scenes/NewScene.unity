@@ -505,7 +505,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18074
+  m_Name: pb_Mesh2182266
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10672,7 +10672,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17172
+  m_Name: pb_Mesh2181764
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11506,7 +11506,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24524
+  m_Name: pb_Mesh2185126
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16488,7 +16488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f444d97348239094cb6b15f0a954a263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alignment: 0
+  owner: {fileID: 0}
   rotObject: {fileID: 0}
   roadConfig:
   - {fileID: 0}
@@ -18303,7 +18303,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20552
+  m_Name: pb_Mesh2183306
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20909,7 +20909,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23694
+  m_Name: pb_Mesh2184726
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22058,7 +22058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f444d97348239094cb6b15f0a954a263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alignment: 0
+  owner: {fileID: 0}
   rotObject: {fileID: 0}
   roadConfig:
   - {fileID: 0}
@@ -25812,7 +25812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed131e32a8de8a4cb6739637930d03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towers: {fileID: 856904933}
+  turrets: {fileID: 0}
   units: {fileID: 91936138}
   buildings: {fileID: 1217541924}
 --- !u!1 &706775122 stripped
@@ -26936,8 +26936,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23d38212bcebcf4d95bb17a96f200df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 845420096}
+  owner: {fileID: 0}
   incomePerSecond: 0.5
+  panel: {fileID: 0}
 --- !u!65 &728445672
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26963,11 +26964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139ad721adb95ae4aa080daf98a37d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 100
-  destroyParticles: {fileID: 198059975614214484, guid: 42a3690e5d4a841ad958c0e3b9b7b19e,
-    type: 3}
-  destroySound: {fileID: 8300000, guid: e3b821fbb169f4e4aa0451aad1f72a9c, type: 3}
-  healthBar: {fileID: 1320057057}
+  config: {fileID: 0}
+  healthText: {fileID: 0}
 --- !u!114 &728445674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26980,7 +26978,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4077553e94faa10459b5d453342ec1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: {fileID: 1210529232}
+  visualization: {fileID: 0}
+  panel: {fileID: 0}
 --- !u!1001 &739822370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28380,10 +28379,8 @@ MonoBehaviour:
     type: 3}
   copterGhostPrefab: {fileID: 6101567125302829906, guid: 99bae9870c826e846b894a2016ec6473,
     type: 3}
-  laserTowerGhostPrefab: {fileID: 7322108549692166842, guid: 0f3e7e5fd8e7f7e448ecc01919cc8626,
-    type: 3}
-  mgTowerGhostPrefab: {fileID: 6366785297197303351, guid: 8d9f80b5468d8a0468d0e48eeb8dafb7,
-    type: 3}
+  laserTurretGhostPrefab: {fileID: 0}
+  mgTurretGhostPrefab: {fileID: 0}
   plantGhostPrefab: {fileID: 4374392543432963601, guid: 95807cacca542e74bb1508a9c9948d07,
     type: 3}
   ghostWorldPlacementMask:
@@ -28500,9 +28497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitFactory: {fileID: 11400000, guid: e78c886095f122b43a5a33dfedd6f46b, type: 2}
-  towerFactory: {fileID: 11400000, guid: 306641ab7e9df3a4987f2e3d98576fda, type: 2}
-  buildingFactory: {fileID: 11400000, guid: f2ba60cca8dfad848a6d206942ae1db9, type: 2}
-  alignment: 1
+  turretFactory: {fileID: 0}
+  buildingFactory: {fileID: 0}
   moneyText: {fileID: 793955685}
   startingMoney: 100
 --- !u!4 &766381509
@@ -28876,7 +28872,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22218
+  m_Name: pb_Mesh2184092
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -30874,10 +30870,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8b5600f6521c2459ac5b4b3c0bd965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitFactory: {fileID: 11400000, guid: 944e6b58c2de5c149875acec59d11326, type: 2}
-  towerFactory: {fileID: 11400000, guid: 95946404a0f322a4a81870e488b870ac, type: 2}
+  unitFactory: {fileID: 0}
+  turretFactory: {fileID: 0}
   buildingFactory: {fileID: 0}
-  alignment: 0
   moneyText: {fileID: 0}
   startingMoney: 1000
 --- !u!4 &845420097
@@ -30913,10 +30908,8 @@ MonoBehaviour:
   eastSpawn: {fileID: 0}
   mainCamera: {fileID: 1281649267}
   wrongPlace: {fileID: 8300000, guid: ae7e1c18b26b7fe48a345eb0a4916251, type: 3}
-  laserTowerGhostPrefab: {fileID: 7322108549692166842, guid: 0f3e7e5fd8e7f7e448ecc01919cc8626,
-    type: 3}
-  mgTowerGhostPrefab: {fileID: 6366785297197303351, guid: 8d9f80b5468d8a0468d0e48eeb8dafb7,
-    type: 3}
+  laserTurretGhostPrefab: {fileID: 0}
+  mgTurretGhostPrefab: {fileID: 0}
 --- !u!82 &845420099
 AudioSource:
   m_ObjectHideFlags: 0
@@ -31031,7 +31024,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18554
+  m_Name: pb_Mesh2182470
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36472,7 +36465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1019904439
 Transform:
   m_ObjectHideFlags: 0
@@ -37507,7 +37500,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16252
+  m_Name: pb_Mesh2181364
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -38532,7 +38525,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21654
+  m_Name: pb_Mesh2183844
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -40019,7 +40012,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-15318
+  m_Name: pb_Mesh-617704
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -44766,7 +44759,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23874
+  m_Name: pb_Mesh2184830
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -57971,7 +57964,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21140
+  m_Name: pb_Mesh2183570
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -67808,7 +67801,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22986
+  m_Name: pb_Mesh2184436
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -70079,7 +70072,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24312
+  m_Name: pb_Mesh2185012
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -71301,7 +71294,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh22998
+  m_Name: pb_Mesh2184448
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -71773,7 +71766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f444d97348239094cb6b15f0a954a263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alignment: 0
+  owner: {fileID: 0}
   rotObject: {fileID: 0}
   roadConfig:
   - {fileID: 0}
@@ -72509,7 +72502,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 570041341}
-  disableGroup: {fileID: 356539977}
+  exitToMainMenuPopup: {fileID: 0}
+  gameUI: {fileID: 0}
+  playerManager: {fileID: 0}
+  enemyManager: {fileID: 0}
 --- !u!1 &1652832333 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1872935235364134, guid: d9b3137296eb11547a955d82c9ffcc3b,
@@ -73403,7 +73399,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24478
+  m_Name: pb_Mesh2185098
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -94643,7 +94639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f444d97348239094cb6b15f0a954a263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alignment: 1
+  owner: {fileID: 0}
   rotObject: {fileID: 0}
   roadConfig:
   - {fileID: 0}
@@ -94661,7 +94657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f444d97348239094cb6b15f0a954a263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alignment: 1
+  owner: {fileID: 0}
   rotObject: {fileID: 0}
   roadConfig:
   - {fileID: 0}
@@ -94679,7 +94675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f444d97348239094cb6b15f0a954a263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alignment: 1
+  owner: {fileID: 0}
   rotObject: {fileID: 0}
   roadConfig:
   - {fileID: 0}
@@ -94717,8 +94713,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c23d38212bcebcf4d95bb17a96f200df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 766381508}
+  owner: {fileID: 0}
   incomePerSecond: 0.5
+  panel: {fileID: 0}
 --- !u!65 &7315179924478746909
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94760,11 +94757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139ad721adb95ae4aa080daf98a37d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 100
-  destroyParticles: {fileID: 198059975614214484, guid: 42a3690e5d4a841ad958c0e3b9b7b19e,
-    type: 3}
-  destroySound: {fileID: 8300000, guid: e3b821fbb169f4e4aa0451aad1f72a9c, type: 3}
-  healthBar: {fileID: 1342081521}
+  config: {fileID: 0}
+  healthText: {fileID: 0}
 --- !u!114 &7315179924478746912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94777,7 +94771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4077553e94faa10459b5d453342ec1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: {fileID: 196416648}
+  visualization: {fileID: 0}
+  panel: {fileID: 0}
 --- !u!4 &7350080476390101269
 Transform:
   m_ObjectHideFlags: 0

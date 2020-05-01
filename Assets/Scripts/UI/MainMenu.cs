@@ -1,16 +1,18 @@
-﻿using UnityEngine.SceneManagement;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
     private ExitGamePopup exitGamePopup;
+    [SerializeField]
+    private LevelSelector levelSelector;
     /// <summary>
     /// Starts the game.
     /// </summary>
     public void PlayButtonClicked()
     {
-        SceneManager.LoadScene("Level0");
+        levelSelector.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
     /// <summary>
     /// Opens options window.

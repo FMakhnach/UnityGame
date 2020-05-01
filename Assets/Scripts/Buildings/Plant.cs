@@ -2,9 +2,7 @@
 
 public class Plant : MonoBehaviour, ITarget, IDamageable
 {
-    
-
-    public const int Cost = 25;
+    public const int Cost = 60;
 
     [SerializeField]
     private PlantConfiguration config;
@@ -38,11 +36,10 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
         damageableBehaviour.healthText = Panel.healthLabel;
     }
 
-    public void PlaceOn(PlantPlacement place, PlayerManager owner)
+    public void PlaceOn(PlantPlacement place)
     {
         transform.position = place.transform.position;
         transform.rotation = place.Rotation;
-        this.owner = owner;
         owner.IncreaseIncome(config.incomePerSecond);
         GetComponent<AudioSource>().PlayOneShot(config.spawnSound, 0.3f);
     }

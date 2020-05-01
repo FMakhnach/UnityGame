@@ -15,7 +15,7 @@ public class GameTimer : MonoBehaviour
 
     public void SetTimeScale(float scale)
     {
-        if(scale <= 0f)
+        if (scale <= 0f)
         {
             print("Scale {scale} is not supported. Use PauseGame().");
             return;

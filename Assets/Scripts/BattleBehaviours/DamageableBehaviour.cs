@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 /// <summary>
 /// Represents object that can be damaged and destroyed.
@@ -28,7 +27,7 @@ public class DamageableBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        if(currentHealth < config.startHealth)
+        if (currentHealth < config.startHealth)
         {
             currentHealth += Regeneration * Time.deltaTime;
             healthText.text = ((int)currentHealth).ToString();
@@ -57,6 +56,14 @@ public class DamageableBehaviour : MonoBehaviour
                 healthText.text = (health == 0 ? 1 : health).ToString();
             }
             return false;
+        }
+    }
+    public void ReceiveHeal(float heal)
+    {
+        currentHealth += heal;
+        if (currentHealth > config.startHealth)
+        {
+            currentHealth = config.startHealth;
         }
     }
 }

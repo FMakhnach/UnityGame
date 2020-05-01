@@ -15,7 +15,7 @@ public class SpeedUpButton : MonoBehaviour
     }
     public void SpeedUpButtonClicked()
     {
-        if(++currentSpeedId == speedUpOptions.Length)
+        if (++currentSpeedId == speedUpOptions.Length)
         {
             currentSpeedId = 0;
         }

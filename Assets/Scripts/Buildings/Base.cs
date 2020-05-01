@@ -24,8 +24,16 @@ public class Base : MonoBehaviour, ITarget, IDamageable
         if (damageableBehaviour.ReceiveDamage(damage))
         {
             owner.DecreaseIncome(incomePerSecond);
-            GameManager.Instance.EndGame(from, owner);
+            LevelManager.Instance.EndGame(from, owner);
             Destroy(this.gameObject);
+        }
+    }
+    public void ReceiveHeal(float heal, int cost)
+    {
+        if (cost <= owner.Money)
+        {
+            damageableBehaviour.ReceiveHeal(heal);
+            owner.SpendMoney(cost);
         }
     }
 
@@ -37,7 +45,7 @@ public class Base : MonoBehaviour, ITarget, IDamageable
         GetComponentInChildren<OnMouseOverInfoPanel>().panel = panel;
         damageableBehaviour.healthText = panel.healthLabel;
         string health = ((int)damageableBehaviour.Health).ToString();
-        panel.maxHealth.text = health;        
+        panel.maxHealth.text = health;
         panel.healthLabel.text = health;
         panel.regeneration.text = damageableBehaviour.Regeneration.ToString("0.##");
         panel.energyIncome.text = incomePerSecond.ToString("0.##");

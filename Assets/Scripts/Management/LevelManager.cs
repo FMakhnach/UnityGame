@@ -1,12 +1,10 @@
-﻿using System;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance => instance;
+    private static LevelManager instance;
+    public static LevelManager Instance => instance;
 
     [SerializeField]
     private PlayerManager player;

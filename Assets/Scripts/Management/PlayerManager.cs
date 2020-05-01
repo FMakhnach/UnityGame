@@ -86,15 +86,18 @@ public class PlayerManager : MonoBehaviour
     {
         incomePerSecond -= value;
     }
-
+    public void SpendMoney(int money)
+    {
+        Money -= money;
+        stats.SpendMoney(money);
+    }
     /// <summary>
     /// Creates a new instance of buggy and places on spawn.
     /// </summary>
     public void SpawnBuggy(Spawn spawn)
     {
         unitFactory.CreateBuggy(this).SpawnOn(spawn);
-        Money -= Buggy.Cost;
-        stats.SpendMoney(Buggy.Cost);
+        SpendMoney(Buggy.Cost);
     }
     /// <summary>
     /// Creates a new instance of copter and places on spawn.
@@ -102,8 +105,7 @@ public class PlayerManager : MonoBehaviour
     public void SpawnCopter(Spawn spawn)
     {
         unitFactory.CreateCopter(this).SpawnOn(spawn);
-        Money -= Copter.Cost;
-        stats.SpendMoney(Copter.Cost);
+        SpendMoney(Copter.Cost);
     }
     /// <summary>
     /// Creates a new instance of laser turret and places on given point.
@@ -111,8 +113,7 @@ public class PlayerManager : MonoBehaviour
     public void PlaceLaserTurret(TurretPlacement place)
     {
         turretFactory.CreateLaserTurret(this).PlaceOn(place);
-        Money -= LaserTurret.Cost;
-        stats.SpendMoney(LaserTurret.Cost);
+        SpendMoney(LaserTurret.Cost);
     }
     /// <summary>
     /// Creates a new instance of machine gun turret and places on given point.
@@ -120,18 +121,15 @@ public class PlayerManager : MonoBehaviour
     public void PlaceMGTurret(TurretPlacement place)
     {
         turretFactory.CreateMGTurret(this).PlaceOn(place);
-        Money -= MachineGunTurret.Cost;
-        stats.SpendMoney(MachineGunTurret.Cost);
+        SpendMoney(MachineGunTurret.Cost);
     }
     public void PlacePlant(PlantPlacement place)
     {
-        buildingFactory.CreatePlant(this).PlaceOn(place, this);
-        Money -= Plant.Cost;
-        stats.SpendMoney(Plant.Cost);
+        buildingFactory.CreatePlant(this).PlaceOn(place);
+        SpendMoney(Plant.Cost);
     }
     public void UnitKilled() => stats.UnitKilled();
     public void TurretKilled() => stats.TurretKilled();
     public void UnitLost() => stats.UnitLost();
     public void TurretLost() => stats.TurretLost();
-    public void SpendMoney(int money) => stats.SpendMoney(money);
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -62,7 +61,7 @@ public class PauseMenu : MonoBehaviour
         gameUI.SetActive(true);
         GameTimer.Instance.ResetTimeScale();
         // Checking if the game has started. 
-        if (GameManager.Instance.GameHasStarted)
+        if (LevelManager.Instance.GameHasStarted)
         {
             enemyManager.gameObject.SetActive(true);
             playerManager.gameObject.SetActive(true);

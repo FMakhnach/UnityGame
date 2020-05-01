@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class ObjectInfoPanelController : MonoBehaviour
 {
@@ -52,7 +49,7 @@ public class ObjectInfoPanelController : MonoBehaviour
     {
         panelIsFixed = false;
         RemoveCurrentVisualization();
-        if(Instance != null)
+        if (Instance != null)
         {
             gameObject.SetActive(false);
         }

@@ -34,6 +34,17 @@ public class PrimitiveAI : MonoBehaviour
     [Range(0, 1)]
     private float copterProbability;
 
+    [SerializeField]
+    private BuildingFactory plantFactory;
+    [SerializeField]
+    private PlantPlacement[] plantPlacements;
+    private Plant[] plants;
+    [SerializeField]
+    private int numberOfStartPlants;
+    [SerializeField]
+    [Range(0, 1)]
+    private float plantProbability;
+
     private float cooldown;
     private Action currentAction;
     private System.Random sysRand;
@@ -44,17 +55,21 @@ public class PrimitiveAI : MonoBehaviour
         sysRand = new System.Random();
         owner = GetComponent<PlayerManager>();
         turrets = new Turret[turretPlacements.Length];
+        plants = new Plant[plantPlacements.Length];
         numberOfStartTurrets = Math.Min(numberOfStartTurrets, turretPlacements.Length);
+        numberOfStartPlants = Math.Min(numberOfStartPlants, plantPlacements.Length);
 
-        cooldown = 2f + UnityEngine.Random.value;
-        float modifier = 1 / (buggyProbability + copterProbability + laserProbability + mgProbability);
+        cooldown = 1f + UnityEngine.Random.value * 2f;
+        float modifier = 1 / (buggyProbability + copterProbability + laserProbability + mgProbability + plantProbability);
         buggyProbability *= modifier;
         copterProbability *= modifier;
         laserProbability *= modifier;
         mgProbability *= modifier;
+        plantProbability *= modifier;
 
         float startMoney = money;
         GenerateStartTurrets();
+        GenerateStartPlants();
         money = startMoney;
     }
     private void Update()
@@ -92,6 +107,15 @@ public class PrimitiveAI : MonoBehaviour
             turrets[id].transform.rotation = turretPlacements[id].Rotation;
         }
     }
+    private void GenerateStartPlants()
+    {
+        for (int i = 0; i < numberOfStartPlants; i++)
+        {
+            plants[i] = plantFactory.CreatePlant(owner);
+            plants[i].transform.position = plantPlacements[i].transform.position;
+            plants[i].transform.rotation = plantPlacements[i].Rotation;
+        }
+    }
     private Action GetRandomAction()
     {
         float chance = UnityEngine.Random.value;
@@ -109,7 +133,11 @@ public class PrimitiveAI : MonoBehaviour
         {
             return PlaceLaser;
         }
-        return PlaceMG;
+        if (chance < mgProbability)
+        {
+            return PlaceMG;
+        }
+        return PlacePlant;
     }
     private void SpawnBuggy()
     {
@@ -149,7 +177,7 @@ public class PrimitiveAI : MonoBehaviour
         }
         for (int i = 0; i < turrets.Length; i++)
         {
-            if (turrets[i] == null)
+            if (turrets[i] == null || turrets[i].ToString() == "null")
             {
                 money -= LaserTurret.Cost;
                 turrets[i] = turretFactory.CreateLaserTurret(owner);
@@ -158,6 +186,7 @@ public class PrimitiveAI : MonoBehaviour
                 return;
             }
         }
+        currentAction = null;
     }
     private void PlaceMG()
     {
@@ -167,7 +196,7 @@ public class PrimitiveAI : MonoBehaviour
         }
         for (int i = 0; i < turrets.Length; i++)
         {
-            if (turrets[i] == null)
+            if (turrets[i] == null || turrets[i].ToString() == "null")
             {
                 money -= MachineGunTurret.Cost;
                 turrets[i] = turretFactory.CreateMGTurret(owner);
@@ -176,5 +205,25 @@ public class PrimitiveAI : MonoBehaviour
                 return;
             }
         }
+        currentAction = null;
+    }
+    private void PlacePlant()
+    {
+        if (money < Plant.Cost)
+        {
+            return;
+        }
+        for (int i = 0; i < plants.Length; i++)
+        {
+            if (plants[i] == null || plants[i].ToString() == "null")
+            {
+                money -= Plant.Cost;
+                plants[i] = plantFactory.CreatePlant(owner);
+                plants[i].PlaceOn(plantPlacements[i]);
+                currentAction = null;
+                return;
+            }
+        }
+        currentAction = null;
     }
 }

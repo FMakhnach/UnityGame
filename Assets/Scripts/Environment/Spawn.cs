@@ -11,6 +11,6 @@ public class Spawn : PlaceArea
     /// </summary>
     [SerializeField]
     private Transform[] roadConfig;
-    
+
     public Vector3[] GetRoad() => roadConfig.Select(x => x.position).ToArray();
 }

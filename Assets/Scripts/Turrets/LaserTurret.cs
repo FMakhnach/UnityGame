@@ -1,6 +1,6 @@
 ﻿public class LaserTurret : AttackingTurret
 {
-    public const int Cost = 30;
+    public const int Cost = 60;
 
     private void Start()
     {

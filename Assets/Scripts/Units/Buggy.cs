@@ -2,7 +2,7 @@
 
 public class Buggy : Unit
 {
-    public const int Cost = 10;
+    public const int Cost = 20;
 
     protected override void Aim()
     {

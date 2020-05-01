@@ -1,5 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -15,11 +14,6 @@ public class OptionsMenu : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Slider masterVolumeSlider;
-    /// <summary>
-    /// To change it on game loading.
-    /// </summary>
-    [SerializeField]
-    private TMP_Dropdown languageDropdown;
 
     /// <summary>
     /// We have a common options menu through scenes, so we should 
@@ -44,6 +38,10 @@ public class OptionsMenu : MonoBehaviour
         Instance.gameObject.SetActive(true);
         disableOnOptionsOpen.SetActive(false);
     }
+    public void ChangeLanguage(int value)
+    {
+        LanguageManager.Instance.SetLanguage((Language)value);
+    }
 
     private void Awake()
     {
@@ -55,7 +53,7 @@ public class OptionsMenu : MonoBehaviour
         {
             instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
     /// <summary>
     /// Sets slider and language dropdown values to loaded and turns the menu off.
@@ -64,8 +62,6 @@ public class OptionsMenu : MonoBehaviour
     {
         // Setting slider in proper position
         masterVolumeSlider.value = AudioManager.Instance.MasterVolume;
-        // Setting a correct language
-        languageDropdown.value = (int)LanguageManager.Instance.CurrentLanguage;
 
         // We don't want it on scene loading
         this.gameObject.SetActive(false);

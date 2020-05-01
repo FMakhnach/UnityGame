@@ -28,7 +28,7 @@ public class OnMouseOverInfoPanel : MonoBehaviour
         eventSystem = EventSystem.current;
         damageableBehaviour = GetComponent<DamageableBehaviour>();
     }
-    
+
     private void OnMouseEnter()
     {
         if (eventSystem.IsPointerOverGameObject() || ObjectInfoPanelController.Instance.PanelIsFixed)
@@ -61,7 +61,7 @@ public class OnMouseOverInfoPanel : MonoBehaviour
     }
     private void OnDestroy()
     {
-        if (ObjectInfoPanelController.Instance.ActiveVisualization == visualization 
+        if (ObjectInfoPanelController.Instance.ActiveVisualization == visualization
             || panel == ObjectInfoPanelController.Instance.ActivePanel)
         {
             ObjectInfoPanelController.Instance.UnlockPanel();

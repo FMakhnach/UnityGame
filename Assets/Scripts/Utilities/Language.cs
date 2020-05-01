@@ -3,6 +3,6 @@
 /// </summary>
 public enum Language
 {
-    English, 
+    English,
     Russian
 }

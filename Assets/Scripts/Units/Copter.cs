@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-public class Copter : Unit
+﻿public class Copter : Unit
 {
-    public const int Cost = 15;
+    public const int Cost = 30;
 
     protected override void Aim()
     {
