@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Info panel that represents plant stats.
+/// </summary>
 public class PlantInfoPanel : ObjectInfoPanel
 {
     [SerializeField]
@@ -14,6 +17,7 @@ public class PlantInfoPanel : ObjectInfoPanel
     private void Awake()
     {
         healthLabel.text = config.startHealth.ToString();
+        maxHealthLabel.text = config.startHealth.ToString();
         energyLabel.text = config.incomePerSecond.ToString();
     }
 }

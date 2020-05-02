@@ -1,7 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(TMP_Text))]
 public class MultiLanguageLabel : MonoBehaviour
 {
     private TMP_Text text;

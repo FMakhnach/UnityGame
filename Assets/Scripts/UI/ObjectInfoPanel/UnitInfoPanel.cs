@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Info panel that represents unit stats.
+/// </summary>
 public class UnitInfoPanel : ObjectInfoPanel
 {
     [SerializeField]

@@ -4,11 +4,8 @@ using UnityEngine;
 /// <summary>
 /// Singleton for managing language switching.
 /// </summary>
-public class LanguageManager : MonoBehaviour
+public class LanguageManager : Singleton<LanguageManager>
 {
-    private static LanguageManager instance;
-    public static LanguageManager Instance => instance;
-
     private Language currentLanguage;
     public Language CurrentLanguage => currentLanguage;
 
@@ -19,29 +16,17 @@ public class LanguageManager : MonoBehaviour
 
     public void SetLanguage(Language newLanguage)
     {
-        if (newLanguage == currentLanguage)
-        {
-            return;
-        }
-        else
+        if (newLanguage != currentLanguage)
         {
             currentLanguage = newLanguage;
             onLanguageChanged?.Invoke();
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
         DontDestroyOnLoad(this.gameObject);
-
         currentLanguage = (Language)PlayerPrefs.GetInt("language");
     }
     private void OnApplicationQuit()

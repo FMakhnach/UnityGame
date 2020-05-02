@@ -1,7 +1,8 @@
-﻿public class LaserTurret : AttackingTurret
-{
-    public const int Cost = 60;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(OnMouseOverButtonPanel))]
+public class LaserTurret : AttackingTurret
+{
     private void Start()
     {
         Panel = ObjectInfoPanelController.Instance.Laser;

@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Window with post game stats.
+/// </summary>
 public class PostGameDetailsMenu : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +20,9 @@ public class PostGameDetailsMenu : MonoBehaviour
 
     [SerializeField]
     private Button backButton;
+    /// <summary>
+    /// Should open it on "Back" button click.
+    /// </summary>
     private RoundFinishMenu menu;
 
     public void Initialize(PlayerManager.Stats stats, RoundFinishMenu menu)

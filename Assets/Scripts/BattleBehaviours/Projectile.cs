@@ -7,25 +7,24 @@ public class Projectile : MonoBehaviour
     /// </summary>
     [SerializeField]
     private float lifeTime = 1f;
-    /// <summary>
-    /// Speed of the projectile.
-    /// </summary>
     [SerializeField]
     private float speed;
-    /// <summary>
-    /// Damage that the projectile causes.
-    /// </summary>
     private float damage;
+    /// <summary>
+    /// To check if we hit an enemy.
+    /// </summary>
     private PlayerManager owner;
+    /// <summary>
+    /// Destroying this on collision.
+    /// </summary>
     private ParticleSystem particles;
-
     /// <summary>
     /// The direction in which the projectile will fly.
     /// </summary>
     private Vector3 direction;
 
     /// <summary>
-    /// Initializing a projectile by giving it a direction and an alignment.
+    /// Initializing a projectile by giving it all what it needs.
     /// </summary>
     public void Initialize(Vector3 direction, float damage, PlayerManager owner, ParticleSystem particles)
     {
@@ -34,6 +33,7 @@ public class Projectile : MonoBehaviour
         this.damage = damage;
         this.particles = particles;
         Destroy(gameObject, lifeTime);
+        Destroy(particles.gameObject, lifeTime);
     }
 
     private void Update()

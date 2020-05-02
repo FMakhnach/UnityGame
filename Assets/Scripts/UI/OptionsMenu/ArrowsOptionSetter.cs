@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Represents a multichoice setting that can be changed via arrows from left and right.
+/// Idk really how it is called.
 /// </summary>
 public class ArrowsOptionSetter : MonoBehaviour
 {
@@ -11,22 +12,24 @@ public class ArrowsOptionSetter : MonoBehaviour
     private Button left;
     [SerializeField]
     private Button right;
+    /// <summary>
+    /// Setting name in PlayerPrefs (to save and load it).
+    /// Actually, we're saving and loading id in array, which is essential.
+    /// </summary>
     [SerializeField]
     private string playerPrefsName;
     protected int id;
-    protected int defaultId;
 
     public TMP_Text[] options;
 
-    protected virtual void Awake()
+    private void Awake()
     {
         left.onClick.AddListener(LeftArrowClicked);
         right.onClick.AddListener(RightArrowClicked);
-        defaultId = 0;
     }
-    protected virtual void Start()
+    private void Start()
     {
-        id = PlayerPrefs.GetInt(playerPrefsName, defaultId);
+        id = PlayerPrefs.GetInt(playerPrefsName, 0);
         options[id].gameObject.SetActive(true);
     }
     public void LeftArrowClicked()
@@ -49,7 +52,7 @@ public class ArrowsOptionSetter : MonoBehaviour
         }
         options[id].gameObject.SetActive(true);
     }
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt(playerPrefsName, id);
     }

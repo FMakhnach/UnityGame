@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(PlayerManager))]
+[RequireComponent(typeof(AudioSource))]
 public class InputManager : MonoBehaviour
 {
     /// <summary>
@@ -18,9 +20,6 @@ public class InputManager : MonoBehaviour
     private Action mouseClickRight;
 
     [SerializeField]
-    private Camera mainCamera;
-
-    [SerializeField]
     private Ghost buggyGhostPrefab;
     [SerializeField]
     private Ghost copterGhostPrefab;
@@ -30,11 +29,6 @@ public class InputManager : MonoBehaviour
     private Ghost mgTurretGhostPrefab;
     [SerializeField]
     private Ghost plantGhostPrefab;
-    /// <summary>
-    /// The layer that the ghost floats on.
-    /// </summary>
-    [SerializeField]
-    private LayerMask ghostWorldPlacementMask;
     [SerializeField]
     private AudioClip wrongPlace;
 
@@ -45,92 +39,16 @@ public class InputManager : MonoBehaviour
     private AudioSource audioSource;
     private EventSystem eventSystem;
 
-    /// <summary>
-    /// Need it to avoid two ghosts at the same time.
-    /// </summary>
-    [SerializeField]
-    private EnemyInput enemyInput;
-
     public void BuggyButtonClicked()
-    {
-        ClearGhost();
-        enemyInput.Refresh();
-        if (playerManager.Money >= Buggy.Cost)
-        {
-            currentGhost = Instantiate(buggyGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Owner = playerManager;
-            mouseClickLeft = PlaceBuggy;
-            mouseClickRight = Refresh;
-        }
-        else
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
+        => GameButtonClicked(Cost.Buggy, buggyGhostPrefab, PlaceBuggy);
     public void CopterButtonClicked()
-    {
-        ClearGhost();
-        enemyInput.Refresh();
-        if (playerManager.Money >= Copter.Cost)
-        {
-            currentGhost = Instantiate(copterGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Owner = playerManager;
-            mouseClickLeft = PlaceCopter;
-            mouseClickRight = Refresh;
-        }
-        else
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
+        => GameButtonClicked(Cost.Copter, copterGhostPrefab, PlaceCopter);
     public void LaserTurretButtonClicked()
-    {
-        ClearGhost();
-        enemyInput.Refresh();
-        if (playerManager.Money >= LaserTurret.Cost)
-        {
-            currentGhost = Instantiate(laserTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Owner = playerManager;
-            mouseClickLeft = PlaceLaserTurret;
-            mouseClickRight = Refresh;
-        }
-        else
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
+        => GameButtonClicked(Cost.LaserTurret, laserTurretGhostPrefab, PlaceLaserTurret);
     public void MGTurretButtonClicked()
-    {
-        ClearGhost();
-        enemyInput.Refresh();
-        if (playerManager.Money >= MachineGunTurret.Cost)
-        {
-            currentGhost = Instantiate(mgTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Owner = playerManager;
-            mouseClickLeft = PlaceMGTurret;
-            mouseClickRight = Refresh;
-        }
-        else
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
+        => GameButtonClicked(Cost.MachineGunTurret, mgTurretGhostPrefab, PlaceMGTurret);
     public void PlantButtonClicked()
-    {
-        ClearGhost();
-        enemyInput.Refresh();
-        if (playerManager.Money >= Plant.Cost)
-        {
-            currentGhost = Instantiate(plantGhostPrefab, Input.mousePosition, Quaternion.identity);
-            currentGhost.Owner = playerManager;
-            mouseClickLeft = PlacePlant;
-            mouseClickRight = Refresh;
-        }
-        else
-        {
-            audioSource.PlayOneShot(wrongPlace);
-        }
-    }
+        => GameButtonClicked(Cost.Plant, plantGhostPrefab, PlacePlant);
 
     private void Awake()
     {
@@ -153,10 +71,10 @@ public class InputManager : MonoBehaviour
         {
             mouseClickRight?.Invoke();
         }
-        else if (currentGhost != null)
-        {
-            MoveGhostAfterCursor();
-        }
+    }
+    private void OnEnable()
+    {
+        ClearGhost();
     }
     /// <summary>
     /// Removes a ghost from scene.
@@ -169,6 +87,9 @@ public class InputManager : MonoBehaviour
             currentGhost = null;
         }
     }
+    /// <summary>
+    /// Clears ghost and mouse click actions.
+    /// </summary>
     public void Refresh()
     {
         ClearGhost();
@@ -188,23 +109,6 @@ public class InputManager : MonoBehaviour
         => Place<PlantPlacement>(playerManager.PlacePlant);
 
     /// <summary>
-    /// Makes current ghost object follow mouse cursor.
-    /// </summary>
-    /// <typeparam name="TargetTile"> Target tile type, on which we want our object to be placed. </typeparam>
-    private void MoveGhostAfterCursor()
-    {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        // 1f is for sphere cast radius
-        if (Physics.SphereCast(ray, 1f, out RaycastHit hit, 1000f, ghostWorldPlacementMask))
-        {
-            currentGhost.transform.position = hit.point;
-            currentGhost.transform.rotation
-                = Quaternion.FromToRotation(Vector3.up, hit.normal);
-            currentGhost.CheckIfFits();
-        }
-    }
-
-    /// <summary>
     /// Places a particular turret.
     /// </summary>
     /// <param name="placingMethod"></param>
@@ -220,8 +124,25 @@ public class InputManager : MonoBehaviour
             audioSource.PlayOneShot(wrongPlace);
         }
     }
-    private void OnEnable()
+    /// <summary>
+    /// Just to avoid repeating code. Hope it's not overcomplicated.
+    /// </summary>
+    /// <param name="cost"> Cost of the object to buy. </param>
+    /// <param name="ghostPrefab"> Object prefab. </param>
+    /// <param name="placeMethod"> Method that places the object. </param>
+    private void GameButtonClicked(float cost, Ghost ghostPrefab, Action placeMethod)
     {
         ClearGhost();
+        if (playerManager.Money >= cost)
+        {
+            currentGhost = Instantiate(ghostPrefab, Input.mousePosition, Quaternion.identity);
+            currentGhost.Owner = playerManager;
+            mouseClickLeft = placeMethod;
+            mouseClickRight = Refresh;
+        }
+        else
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
     }
 }

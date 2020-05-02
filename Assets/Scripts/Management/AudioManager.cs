@@ -4,11 +4,8 @@ using UnityEngine;
 /// <summary>
 /// Singleton for managing audio.
 /// </summary>
-public class AudioManager : MonoBehaviour
+public class AudioManager : Singleton<AudioManager>
 {
-    private static AudioManager instance;
-    public static AudioManager Instance => instance;
-
     /// <summary>
     /// Audio source for theme music (child).
     /// </summary>
@@ -32,12 +29,12 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// Current master volume.
     /// </summary>
-    private float currentMasterVolume;
+    private float masterVolume;
 
     /// <summary>
     /// Current master volume.
     /// </summary>
-    public float MasterVolume => currentMasterVolume;
+    public float MasterVolume => masterVolume;
 
     /// <summary>
     /// Triggers on changing master volume.
@@ -46,7 +43,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
-        currentMasterVolume = volume;
+        masterVolume = volume;
         masterVolumeChanged?.Invoke(volume);
     }
     /// <summary>
@@ -57,22 +54,15 @@ public class AudioManager : MonoBehaviour
         uiEffectsSource.PlayOneShot(buttonClickSound);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
         DontDestroyOnLoad(this.gameObject);
 
         masterVolumeChanged += (float vol) => musicSource.volume = vol;
         masterVolumeChanged += (float vol) => uiEffectsSource.volume = vol;
 
-        currentMasterVolume = PlayerPrefs.GetFloat("masterVolume");
+        masterVolume = PlayerPrefs.GetFloat("masterVolume");
     }
     private void Start()
     {
@@ -80,11 +70,11 @@ public class AudioManager : MonoBehaviour
         musicSource.clip = musicClip;
         musicSource.Play();
         // Set volume from loaded
-        SetMasterVolume(currentMasterVolume);
+        SetMasterVolume(masterVolume);
     }
     private void OnApplicationQuit()
     {
         // Save master volume
-        PlayerPrefs.SetFloat("masterVolume", currentMasterVolume);
+        PlayerPrefs.SetFloat("masterVolume", masterVolume);
     }
 }

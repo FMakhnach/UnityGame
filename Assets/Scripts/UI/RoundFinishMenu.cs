@@ -28,12 +28,12 @@ public class RoundFinishMenu : MonoBehaviour
     }
     public void TryAgainButton()
     {
-        Time.timeScale = 1f;
+        GameTimer.Instance.SetTimeScale(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void MainMenuButton()
     {
-        Time.timeScale = 1f;
+        GameTimer.Instance.SetTimeScale(1f);
         SceneManager.LoadScene("MainMenu");
     }
     private void Awake()

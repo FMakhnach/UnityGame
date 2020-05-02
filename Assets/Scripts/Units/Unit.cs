@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(DamageableBehaviour))]
+[RequireComponent(typeof(NavMeshAgent))]
 public abstract class Unit : MonoBehaviour, IDamageable, ITarget
 {
     /// <summary>
@@ -66,7 +69,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         transform.rotation = spawn.transform.rotation;
         audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
 
-        path = spawn.GetRoad();
+        path = spawn.Road;
         currentBehavior = MovingBehavior;
         curDestId = 0;
         agent.enabled = true;
@@ -138,7 +141,6 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         fireParticles.transform.LookAt(currentTarget.TargetPoint);
 
         fireParticles.Play();
-        Destroy(fireParticles.gameObject, 1f);
         audioSource.PlayOneShot(config.attackSound, 0.3f * audioSource.volume);
 
         Projectile proj = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform);
@@ -164,10 +166,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         if (currentTarget != null)
         {
-            // Super fucking weird thing lol
-            // There's something wrong with object destroying
-            if (currentTarget.ToString() == "null"/*
-                || (currentTarget.TargetPoint.position - transform.position).magnitude > (config.radius + 0.25f)*/)
+            if (currentTarget.ToString() == "null")
             {
                 currentTarget = null;
                 return;

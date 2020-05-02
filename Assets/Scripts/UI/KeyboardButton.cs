@@ -4,6 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Simple class for a button that should be activated by keyboard.
 /// </summary>
+[RequireComponent(typeof(Button))]
 public class KeyboardButton : MonoBehaviour
 {
     private Button button;

@@ -32,6 +32,7 @@ public abstract class AttackingTurret : Turret
     /// Timer for managing attacking intervals.
     /// </summary>
     private float attackTimer;
+    private LayerMask targetableMask;
 
     /// <summary>
     /// How long we wait after reaching certain rotation.
@@ -57,14 +58,12 @@ public abstract class AttackingTurret : Turret
         idleRotationSpeed = 15f;
         rotY = turret.transform.rotation.eulerAngles.y;
         idleCooldown = 0f;
+        targetableMask = LayerMask.GetMask("Targetables");
     }
     private void Update()
     {
         if (currentTarget != null)
         {
-            // Super fucking weird thing lol
-            // There's something wrong with object destroying
-            // Also checking if unit went out of range
             if (currentTarget.ToString() == "null"
                 || Vector3.Distance(currentTarget.TargetPoint.position, transform.position) > config.radius)
             {
@@ -99,10 +98,7 @@ public abstract class AttackingTurret : Turret
             foreach (var col in colliders)
             {
                 current = col.gameObject.GetComponentInParent<ITarget>();
-                if (current != null && current.Owner != Owner
-                    // TODELETE someday
-                    && col.gameObject.GetComponentInParent<Base>() == null
-                    )
+                if (current != null && current.Owner != Owner)
                 {
                     dist = Vector3.Distance(current.TargetPoint.position, transform.position);
                     if (dist < minDistance)

@@ -1,12 +1,10 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    /// <summary>
-    /// The pause menu itself.
-    /// </summary>
     [SerializeField]
-    private GameObject pauseMenu;
+    private GameObject pauseMenuObject;
     [SerializeField]
     private ExitToMainMenuPopup exitToMainMenuPopup;
 
@@ -25,6 +23,11 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     [SerializeField]
     private PlayerManager enemyManager;
+    /// <summary>
+    /// Should disable this on pause.
+    /// </summary>
+    [SerializeField]
+    private TMP_Text timerText;
     private bool gameIsPaused;
 
     public void PauseButtonClicked()
@@ -38,27 +41,23 @@ public class PauseMenu : MonoBehaviour
             PauseGame();
         }
     }
-    /// <summary>
-    /// Opens options window.
-    /// </summary>
     public void OptionsButtonClicked()
     {
         OptionsMenu.Instance.disableOnOptionsOpen = this.gameObject;
         OptionsMenu.Instance.OpenOptionsMenu();
     }
-    /// <summary>
-    /// Gets player to the main menu.
-    /// </summary>
     public void MainMenuButtonClicked()
     {
         exitToMainMenuPopup.gameObject.SetActive(true);
-        pauseMenu.SetActive(false);
+        pauseMenuObject.SetActive(false);
     }
+
     private void ResumeGame()
     {
         gameIsPaused = false;
-        pauseMenu.SetActive(false);
+        pauseMenuObject.SetActive(false);
         gameUI.SetActive(true);
+        timerText.gameObject.SetActive(true);
         GameTimer.Instance.ResetTimeScale();
         // Checking if the game has started. 
         if (LevelManager.Instance.GameHasStarted)
@@ -70,8 +69,9 @@ public class PauseMenu : MonoBehaviour
     private void PauseGame()
     {
         gameIsPaused = true;
-        pauseMenu.SetActive(transform);
+        pauseMenuObject.SetActive(true);
         gameUI.SetActive(false);
+        timerText.gameObject.SetActive(false);
         enemyManager.gameObject.SetActive(false);
         playerManager.gameObject.SetActive(false);
         GameTimer.Instance.PauseGame();

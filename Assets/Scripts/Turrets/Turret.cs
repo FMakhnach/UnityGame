@@ -1,14 +1,29 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(DamageableBehaviour))]
 public abstract class Turret : MonoBehaviour, ITarget, IDamageable
 {
+    /// <summary>
+    /// Turret stats are there.
+    /// </summary>
     [SerializeField]
     protected TurretConfiguration config;
+    /// <summary>
+    /// Point for targeting.
+    /// </summary>
     [SerializeField]
     private Transform ownTarget;
-    protected LayerMask targetableMask;
+    /// <summary>
+    /// Protected cause I use it to play fire sounds in AttackingTower.
+    /// </summary>
     protected AudioSource audioSource;
     private PlayerManager owner;
+    /// <summary>
+    /// Thing is responsible for damage and health.
+    /// Protected cause I connect it to a valid UI panel in children
+    /// to show health.
+    /// </summary>
     protected DamageableBehaviour damageableBehaviour;
 
     public Transform TargetPoint => ownTarget;
@@ -25,27 +40,26 @@ public abstract class Turret : MonoBehaviour, ITarget, IDamageable
     }
     public TurretInfoPanel Panel { get; protected set; }
 
-    protected virtual void Awake()
-    {
-        damageableBehaviour = GetComponent<DamageableBehaviour>();
-        audioSource = GetComponent<AudioSource>();
-        targetableMask = LayerMask.GetMask("Targetables");
-    }
     public void PlaceOn(TurretPlacement place)
     {
         transform.position = place.transform.position;
         transform.rotation = place.Rotation;
         audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
     }
-
     public void ReceiveDamage(float damage, PlayerManager from)
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
             from.TurretKilled();
             owner.TurretLost();
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
+    }
+
+    protected virtual void Awake()
+    {
+        damageableBehaviour = GetComponent<DamageableBehaviour>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 #if UNITY_EDITOR

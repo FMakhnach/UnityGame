@@ -2,8 +2,6 @@
 
 public class Buggy : Unit
 {
-    public const int Cost = 20;
-
     protected override void Aim()
     {
         body.transform.LookAt(currentTarget.TargetPoint.position);

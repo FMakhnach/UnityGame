@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Show some stuff when the player hovers mouse over button (turret, unit etc stats/cost).
+/// </summary>
 public class OnMouseOverButtonPanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
@@ -14,7 +17,6 @@ public class OnMouseOverButtonPanel : MonoBehaviour, IPointerEnterHandler, IPoin
             ObjectInfoPanelController.Instance.SetPanel(panel);
         }
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!ObjectInfoPanelController.Instance.PanelIsFixed)

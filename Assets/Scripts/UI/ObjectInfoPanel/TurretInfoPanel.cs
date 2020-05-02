@@ -1,6 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Info panel that represents turret stats.
+/// </summary>
 public class TurretInfoPanel : ObjectInfoPanel
 {
     [SerializeField]

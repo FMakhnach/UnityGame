@@ -1,7 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// My little AI.
+/// Basically, what it does is spawning random game object 
+/// each iteration (which is, for now, random value from 1 to 3 secs) if 
+/// 1) it has enough money;
+/// 2) it is possible (eg no place for turret).
+/// Chances can be set manually, they are normalized automatically btw.
+/// But its nice if you will make it valid from start.
+/// </summary>
+[RequireComponent(typeof(PlayerManager))]
 public class PrimitiveAI : MonoBehaviour
 {
     [SerializeField]
@@ -9,6 +20,7 @@ public class PrimitiveAI : MonoBehaviour
     [SerializeField]
     private float incomePerSecond;
 
+    #region Turret stuff.
     [SerializeField]
     private TurretFactory turretFactory;
     [SerializeField]
@@ -22,7 +34,8 @@ public class PrimitiveAI : MonoBehaviour
     [SerializeField]
     [Range(0, 1)]
     private float mgProbability;
-
+    #endregion
+    #region Unit stuff.
     [SerializeField]
     private UnitFactory unitFactory;
     [SerializeField]
@@ -33,7 +46,8 @@ public class PrimitiveAI : MonoBehaviour
     [SerializeField]
     [Range(0, 1)]
     private float copterProbability;
-
+    #endregion
+    #region Buildings stuff.
     [SerializeField]
     private BuildingFactory plantFactory;
     [SerializeField]
@@ -44,8 +58,8 @@ public class PrimitiveAI : MonoBehaviour
     [SerializeField]
     [Range(0, 1)]
     private float plantProbability;
+    #endregion
 
-    private float cooldown;
     private Action currentAction;
     private System.Random sysRand;
     private PlayerManager owner;
@@ -59,7 +73,7 @@ public class PrimitiveAI : MonoBehaviour
         numberOfStartTurrets = Math.Min(numberOfStartTurrets, turretPlacements.Length);
         numberOfStartPlants = Math.Min(numberOfStartPlants, plantPlacements.Length);
 
-        cooldown = 1f + UnityEngine.Random.value * 2f;
+        // Normalizing probabilities (so they give 1 in sum).
         float modifier = 1 / (buggyProbability + copterProbability + laserProbability + mgProbability + plantProbability);
         buggyProbability *= modifier;
         copterProbability *= modifier;
@@ -72,23 +86,43 @@ public class PrimitiveAI : MonoBehaviour
         GenerateStartPlants();
         money = startMoney;
     }
-    private void Update()
+    private void Start()
     {
-        money += incomePerSecond * Time.deltaTime;
-        if (cooldown > 0f)
+        LevelManager.Instance.onGameStarted += LaunchAI;
+    }
+    private void LaunchAI()
+    {
+        StartCoroutine("IncomeTick");
+        StartCoroutine("RandomAction");
+    }
+    /// <summary>
+    /// Just gives income money every tick.
+    /// </summary>
+    private IEnumerator IncomeTick()
+    {
+        for (; ; )
         {
-            cooldown -= Time.deltaTime;
+            money += incomePerSecond;
+            yield return new WaitForSeconds(1f);
         }
-        else
+    }
+    /// <summary>
+    /// Does random action every [1, 3] seconds.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator RandomAction()
+    {
+        for (; ; )
         {
+            yield return new WaitForSeconds(1f + UnityEngine.Random.value * 2f);
             if (currentAction == null)
             {
                 currentAction = GetRandomAction();
             }
             currentAction();
-            cooldown = 1f + UnityEngine.Random.value;
         }
     }
+
     private void GenerateStartTurrets()
     {
         var startTurretPositions = Enumerable.Range(0, turretPlacements.Length).OrderBy(x => sysRand.Next()).ToArray();
@@ -141,7 +175,7 @@ public class PrimitiveAI : MonoBehaviour
     }
     private void SpawnBuggy()
     {
-        if (money < Buggy.Cost)
+        if (money < Cost.Buggy)
         {
             return;
         }
@@ -150,13 +184,13 @@ public class PrimitiveAI : MonoBehaviour
         {
             id--;
         }
-        money -= Buggy.Cost;
+        money -= Cost.Buggy;
         unitFactory.CreateBuggy(owner).SpawnOn(spawns[id]);
         currentAction = null;
     }
     private void SpawnCopter()
     {
-        if (money < Copter.Cost)
+        if (money < Cost.Copter)
         {
             return;
         }
@@ -165,13 +199,13 @@ public class PrimitiveAI : MonoBehaviour
         {
             id--;
         }
-        money -= Copter.Cost;
+        money -= Cost.Copter;
         unitFactory.CreateCopter(owner).SpawnOn(spawns[id]);
         currentAction = null;
     }
     private void PlaceLaser()
     {
-        if (money < LaserTurret.Cost)
+        if (money < Cost.LaserTurret)
         {
             return;
         }
@@ -179,7 +213,7 @@ public class PrimitiveAI : MonoBehaviour
         {
             if (turrets[i] == null || turrets[i].ToString() == "null")
             {
-                money -= LaserTurret.Cost;
+                money -= Cost.LaserTurret;
                 turrets[i] = turretFactory.CreateLaserTurret(owner);
                 turrets[i].PlaceOn(turretPlacements[i]);
                 currentAction = null;
@@ -190,7 +224,7 @@ public class PrimitiveAI : MonoBehaviour
     }
     private void PlaceMG()
     {
-        if (money < MachineGunTurret.Cost)
+        if (money < Cost.MachineGunTurret)
         {
             return;
         }
@@ -198,7 +232,7 @@ public class PrimitiveAI : MonoBehaviour
         {
             if (turrets[i] == null || turrets[i].ToString() == "null")
             {
-                money -= MachineGunTurret.Cost;
+                money -= Cost.MachineGunTurret;
                 turrets[i] = turretFactory.CreateMGTurret(owner);
                 turrets[i].PlaceOn(turretPlacements[i]);
                 currentAction = null;
@@ -209,7 +243,7 @@ public class PrimitiveAI : MonoBehaviour
     }
     private void PlacePlant()
     {
-        if (money < Plant.Cost)
+        if (money < Cost.Plant)
         {
             return;
         }
@@ -217,7 +251,7 @@ public class PrimitiveAI : MonoBehaviour
         {
             if (plants[i] == null || plants[i].ToString() == "null")
             {
-                money -= Plant.Cost;
+                money -= Cost.Plant;
                 plants[i] = plantFactory.CreatePlant(owner);
                 plants[i].PlaceOn(plantPlacements[i]);
                 currentAction = null;

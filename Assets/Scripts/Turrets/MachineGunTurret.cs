@@ -1,7 +1,8 @@
-﻿public class MachineGunTurret : AttackingTurret
-{
-    public const int Cost = 50;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(OnMouseOverButtonPanel))]
+public class MachineGunTurret : AttackingTurret
+{
     private void Start()
     {
         Panel = ObjectInfoPanelController.Instance.MG;

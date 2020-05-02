@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(DamageableBehaviour))]
+[RequireComponent(typeof(OnMouseOverInfoPanel))]
 public class Base : MonoBehaviour, ITarget, IDamageable
 {
-    /// <summary>
-    /// Base owner.
-    /// </summary>
     [SerializeField]
     private PlayerManager owner;
     [SerializeField]
+    private BaseConfiguration config;
     private float incomePerSecond;
+    /// <summary>
+    /// Damage logic keeper.
+    /// </summary>
     private DamageableBehaviour damageableBehaviour;
+    /// <summary>
+    /// GUI panel for showing information about the base.
+    /// </summary>
     [SerializeField]
     private BaseInfoPanel panel;
 
@@ -23,11 +29,13 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
-            owner.DecreaseIncome(incomePerSecond);
-            LevelManager.Instance.EndGame(from, owner);
             Destroy(this.gameObject);
+            LevelManager.Instance.EndGame(from, owner);
         }
     }
+    /// <summary>
+    /// For heal button.
+    /// </summary>
     public void ReceiveHeal(float heal, int cost)
     {
         if (cost <= owner.Money)
@@ -40,10 +48,12 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     private void Start()
     {
         damageableBehaviour = GetComponent<DamageableBehaviour>();
+        damageableBehaviour.healthText = panel.healthLabel;
+        incomePerSecond = config.incomePerSecond;
         owner.IncreaseIncome(incomePerSecond);
 
-        GetComponentInChildren<OnMouseOverInfoPanel>().panel = panel;
-        damageableBehaviour.healthText = panel.healthLabel;
+        // Initializing info panel with valid data.
+        GetComponent<OnMouseOverInfoPanel>().panel = panel;
         string health = ((int)damageableBehaviour.Health).ToString();
         panel.maxHealth.text = health;
         panel.healthLabel.text = health;

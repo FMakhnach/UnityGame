@@ -109,7 +109,7 @@ public class EnemyInput : MonoBehaviour
     {
         ClearGhost();
         playerInput.Refresh();
-        if (enemyManager.Money >= LaserTurret.Cost)
+        if (enemyManager.Money >= Cost.LaserTurret)
         {
             currentGhost = Instantiate(laserTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
             //currentGhost.Alignment = enemyManager.Alignment;
@@ -125,7 +125,7 @@ public class EnemyInput : MonoBehaviour
     {
         ClearGhost();
         playerInput.Refresh();
-        if (enemyManager.Money >= MachineGunTurret.Cost)
+        if (enemyManager.Money >= Cost.MachineGunTurret)
         {
             currentGhost = Instantiate(mgTurretGhostPrefab, Input.mousePosition, Quaternion.identity);
             //currentGhost.Alignment = enemyManager.Alignment;

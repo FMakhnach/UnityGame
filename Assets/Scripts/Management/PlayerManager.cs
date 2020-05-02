@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -21,14 +22,8 @@ public class PlayerManager : MonoBehaviour
         public void SpendMoney(int money) => MoneySpent += money;
     }
 
-    /// <summary>
-    /// The object that is responsible for creating units. 
-    /// </summary>
     [SerializeField]
     private UnitFactory unitFactory;
-    /// <summary>
-    /// The object that is responsible for creating units. 
-    /// </summary>
     [SerializeField]
     private TurretFactory turretFactory;
     [SerializeField]
@@ -48,7 +43,6 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private float money;
     private float incomePerSecond;
-    private Stats stats;
 
     /// <summary>
     /// The sum that the player can spend on buying stuff.
@@ -66,17 +60,14 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    public Stats Stat => stats;
+    public Stats PlayerStats { get; private set; }
 
     private void Awake()
     {
         Money = startingMoney;
         incomePerSecond = 0;
-        stats = new Stats();
-    }
-    private void Update()
-    {
-        Money += incomePerSecond * Time.deltaTime;
+        PlayerStats = new Stats();
+        StartCoroutine("IncomeTick");
     }
     public void IncreaseIncome(float value)
     {
@@ -89,15 +80,24 @@ public class PlayerManager : MonoBehaviour
     public void SpendMoney(int money)
     {
         Money -= money;
-        stats.SpendMoney(money);
+        PlayerStats.SpendMoney(money);
     }
+    private IEnumerator IncomeTick()
+    {
+        for (; ; )
+        {
+            Money += incomePerSecond;
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     /// <summary>
     /// Creates a new instance of buggy and places on spawn.
     /// </summary>
     public void SpawnBuggy(Spawn spawn)
     {
         unitFactory.CreateBuggy(this).SpawnOn(spawn);
-        SpendMoney(Buggy.Cost);
+        SpendMoney(Cost.Buggy);
     }
     /// <summary>
     /// Creates a new instance of copter and places on spawn.
@@ -105,31 +105,47 @@ public class PlayerManager : MonoBehaviour
     public void SpawnCopter(Spawn spawn)
     {
         unitFactory.CreateCopter(this).SpawnOn(spawn);
-        SpendMoney(Copter.Cost);
+        SpendMoney(Cost.Copter);
     }
     /// <summary>
-    /// Creates a new instance of laser turret and places on given point.
+    /// Creates a new instance of laser turret and places on given area.
     /// </summary>
     public void PlaceLaserTurret(TurretPlacement place)
     {
         turretFactory.CreateLaserTurret(this).PlaceOn(place);
-        SpendMoney(LaserTurret.Cost);
+        SpendMoney(Cost.LaserTurret);
     }
     /// <summary>
-    /// Creates a new instance of machine gun turret and places on given point.
+    /// Creates a new instance of machine gun turret and places on given area.
     /// </summary>
     public void PlaceMGTurret(TurretPlacement place)
     {
         turretFactory.CreateMGTurret(this).PlaceOn(place);
-        SpendMoney(MachineGunTurret.Cost);
+        SpendMoney(Cost.MachineGunTurret);
     }
+    /// <summary>
+    /// Creates a new instance of plant and places on given area.
+    /// </summary>
     public void PlacePlant(PlantPlacement place)
     {
         buildingFactory.CreatePlant(this).PlaceOn(place);
-        SpendMoney(Plant.Cost);
+        SpendMoney(Cost.Plant);
     }
-    public void UnitKilled() => stats.UnitKilled();
-    public void TurretKilled() => stats.TurretKilled();
-    public void UnitLost() => stats.UnitLost();
-    public void TurretLost() => stats.TurretLost();
+
+    /// <summary>
+    /// Should be invoked on enemy unit killed.
+    /// </summary>
+    public void UnitKilled() => PlayerStats.UnitKilled();
+    /// <summary>
+    /// Should be invoked on enemy turret killed.
+    /// </summary>
+    public void TurretKilled() => PlayerStats.TurretKilled();
+    /// <summary>
+    /// Should be invoked on player unit lost.
+    /// </summary>
+    public void UnitLost() => PlayerStats.UnitLost();
+    /// <summary>
+    /// Should be invoked on player turret lost.
+    /// </summary>
+    public void TurretLost() => PlayerStats.TurretLost();
 }

@@ -46,6 +46,12 @@ public class Ghost : MonoBehaviour
     private PlaceArea currentPlaceArea;
 
     /// <summary>
+    /// The layer that the ghost floats on.
+    /// </summary>
+    private LayerMask ghostWorldPlacementMask;
+    private Camera mainCamera;
+
+    /// <summary>
     /// Indicates if the object can be placed in this position.
     /// </summary>
     public bool IsFit
@@ -69,8 +75,9 @@ public class Ghost : MonoBehaviour
     /// </summary>
     public void CheckIfFits()
     {
-        foreach (var point in trackingPoints)
+        for (int i = 0; i < trackingPoints.Length; i++)
         {
+            Vector2 point = trackingPoints[i];
             var x = transform.position.x + point.x;
             var z = transform.position.z + point.y;
 
@@ -101,6 +108,9 @@ public class Ghost : MonoBehaviour
     private void Awake()
     {
         IsFit = false;
+        mainCamera = Camera.main;
+        ghostWorldPlacementMask
+            = LayerMask.GetMask("Floor", "UnitPlacement", "TowerPlacement", "PlantPlacement");
 
         if (numOfBaseTrackingPoints > 0)
         {
@@ -120,9 +130,28 @@ public class Ghost : MonoBehaviour
             trackingPoints = new Vector2[0];
         }
     }
+    private void Update()
+    {
+        MoveGhostAfterCursor();
+    }
     private void UpdateGhost()
     {
         bad.SetActive(!isFit);
         good.SetActive(isFit);
+    }
+    /// <summary>
+    /// Makes current ghost object follow mouse cursor.
+    /// </summary>
+    private void MoveGhostAfterCursor()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        // 1f is for sphere cast radius
+        if (Physics.SphereCast(ray, 1f, out RaycastHit hit, 1000f, ghostWorldPlacementMask))
+        {
+            transform.position = hit.point;
+            transform.rotation
+                = Quaternion.FromToRotation(Vector3.up, hit.normal);
+            CheckIfFits();
+        }
     }
 }

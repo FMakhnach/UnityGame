@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Show some stuff when the player hovers mouse over object (turret, unit etc stats).
+/// Also can be fixed on mouse click.
+/// </summary>
+[RequireComponent(typeof(DamageableBehaviour))]
 public class OnMouseOverInfoPanel : MonoBehaviour
 {
     /// <summary>
@@ -31,7 +36,8 @@ public class OnMouseOverInfoPanel : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (eventSystem.IsPointerOverGameObject() || ObjectInfoPanelController.Instance.PanelIsFixed)
+        if (eventSystem.IsPointerOverGameObject()
+            || ObjectInfoPanelController.Instance.PanelIsFixed)
         {
             return;
         }

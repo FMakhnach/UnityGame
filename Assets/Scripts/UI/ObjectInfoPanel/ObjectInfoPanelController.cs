@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 
-public class ObjectInfoPanelController : MonoBehaviour
+public class ObjectInfoPanelController : Singleton<ObjectInfoPanelController>
 {
-    private static ObjectInfoPanelController instance;
-    public static ObjectInfoPanelController Instance => instance;
-
     [SerializeField]
     private UnitInfoPanel buggyPanel;
     [SerializeField]
@@ -23,21 +20,27 @@ public class ObjectInfoPanelController : MonoBehaviour
     public PlantInfoPanel Plant => plantPanel;
 
     private bool panelIsFixed;
-    private SpriteRenderer currentActiveVisualization;
-    private ObjectInfoPanel currentActivePanel;
+    /// <summary>
+    /// A circle around the selected object.
+    /// </summary>
+    private SpriteRenderer activeVisualization;
+    /// <summary>
+    /// The gui thing on the left side of the screen.
+    /// </summary>
+    private ObjectInfoPanel activePanel;
 
     public bool PanelIsFixed => panelIsFixed;
-    public SpriteRenderer ActiveVisualization => currentActiveVisualization;
-    public ObjectInfoPanel ActivePanel => currentActivePanel;
+    public SpriteRenderer ActiveVisualization => activeVisualization;
+    public ObjectInfoPanel ActivePanel => activePanel;
 
     public void SetPanel(ObjectInfoPanel panel)
     {
-        if (currentActivePanel != null)
+        if (activePanel != null)
         {
-            currentActivePanel.gameObject.SetActive(false);
+            activePanel.gameObject.SetActive(false);
         }
         panel.gameObject.SetActive(true);
-        currentActivePanel = panel;
+        activePanel = panel;
     }
     public void LockPanel(SpriteRenderer visualization)
     {
@@ -54,30 +57,23 @@ public class ObjectInfoPanelController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
     private void SetVisualization(SpriteRenderer visualization)
     {
-        currentActiveVisualization = visualization;
-        currentActiveVisualization.gameObject.SetActive(true);
+        activeVisualization = visualization;
+        activeVisualization.gameObject.SetActive(true);
     }
     private void RemoveCurrentVisualization()
     {
-        if (currentActiveVisualization != null)
+        if (activeVisualization != null)
         {
-            currentActiveVisualization.gameObject.SetActive(false);
-            currentActiveVisualization = null;
+            activeVisualization.gameObject.SetActive(false);
+            activeVisualization = null;
         }
     }
-
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        base.Awake();
         gameObject.SetActive(false);
     }
     private void Update()
