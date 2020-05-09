@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 2586217395313007283}
   - component: {fileID: 6366785297197303351}
   m_Layer: 10
-  m_Name: MachineGunTowerGhost
+  m_Name: MachineGunTurretGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   obstaclesMask:
     serializedVersion: 2
     m_Bits: 512
-  numOfBaseTrackingPoints: 24
+  numOfBaseTrackingPoints: 8
 --- !u!1 &2590561382706030785
 GameObject:
   m_ObjectHideFlags: 0

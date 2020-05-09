@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,6 @@ public class LevelManager : Singleton<LevelManager>
     /// </summary>
     [SerializeField]
     private PostGameDetailsMenu detailsMenu;
-
     [SerializeField]
     private Button startButton;
 
@@ -71,7 +71,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
-        SetActivePreGameGroup(false);
+        Invoke("DisablePreGameGroup", 0.01f);
     }
     /// <summary>
     /// Calculates match score of the player based on some stats.
@@ -87,6 +87,7 @@ public class LevelManager : Singleton<LevelManager>
             - (int)GameTimer.Instance.GameTime;
         return score;
     }
+    private void DisablePreGameGroup() => SetActivePreGameGroup(false);
     private void SetActivePreGameGroup(bool active)
     {
         player.gameObject.SetActive(active);

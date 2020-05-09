@@ -17,7 +17,7 @@ TagManager:
   - Environment
   - Targetables
   - UnitPlacement
-  - TowerPlacement
+  - TurretPlacement
   - PlantPlacement
   - Floor
   - 

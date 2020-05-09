@@ -8,7 +8,6 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     private PlayerManager owner;
     [SerializeField]
     private BaseConfiguration config;
-    private float incomePerSecond;
     /// <summary>
     /// Damage logic keeper.
     /// </summary>
@@ -38,10 +37,10 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     /// </summary>
     public void ReceiveHeal(float heal, int cost)
     {
-        if (cost <= owner.Money)
+        if (cost <= owner.Energy)
         {
             damageableBehaviour.ReceiveHeal(heal);
-            owner.SpendMoney(cost);
+            owner.SpendEnergy(cost);
         }
     }
 
@@ -49,8 +48,6 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     {
         damageableBehaviour = GetComponent<DamageableBehaviour>();
         damageableBehaviour.healthText = panel.healthLabel;
-        incomePerSecond = config.incomePerSecond;
-        owner.IncreaseIncome(incomePerSecond);
 
         // Initializing info panel with valid data.
         GetComponent<OnMouseOverInfoPanel>().panel = panel;
@@ -58,6 +55,5 @@ public class Base : MonoBehaviour, ITarget, IDamageable
         panel.maxHealth.text = health;
         panel.healthLabel.text = health;
         panel.regeneration.text = damageableBehaviour.Regeneration.ToString("0.##");
-        panel.energyIncome.text = incomePerSecond.ToString("0.##");
     }
 }

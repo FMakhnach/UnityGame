@@ -28,65 +28,90 @@ public class PlayerManager : MonoBehaviour
     private TurretFactory turretFactory;
     [SerializeField]
     private BuildingFactory buildingFactory;
-    /// <summary>
-    /// UI text element that shows current money to the player.
-    /// </summary>
-    [SerializeField]
-    private TextMeshProUGUI moneyText;
+    
     /// <summary>
     /// The amount of money the player has at the beggining.
     /// </summary>
     [SerializeField]
-    private int startingMoney;
+    private int startingEnergy;
+    [SerializeField]
+    private float incomePerSecond;
     /// <summary>
     /// The sum that the player can spend on buying stuff.
     /// </summary>
-    private float money;
-    private float incomePerSecond;
+    private float energy;
+    /// <summary>
+    /// UI text element that shows current money to the player.
+    /// </summary>
+    [SerializeField]
+    private TextMeshProUGUI energyText;
+    [SerializeField]
+    private TextMeshProUGUI energyIncomeText;
 
     /// <summary>
     /// The sum that the player can spend on buying stuff.
     /// </summary>
-    public float Money
+    public virtual float Energy
     {
-        get => money;
-        private set
+        get => energy;
+        protected set
         {
             Debug.Assert(value >= 0, $"Putting negative {value} to money!");
-            money = value;
-            if (moneyText != null)
+            energy = value;
+            if (energyText != null)
             {
-                moneyText.text = ((int)money).ToString();
+                energyText.text = ((int)energy).ToString();
             }
         }
     }
     public Stats PlayerStats { get; private set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        Money = startingMoney;
-        incomePerSecond = 0;
+        Energy = startingEnergy;
         PlayerStats = new Stats();
-        StartCoroutine("IncomeTick");
+        if(energyIncomeText != null)
+        {
+            energyIncomeText.text = incomePerSecond.ToString("0.##");
+        }
+    }
+    protected virtual void Start()
+    {
+        LevelManager.Instance.onGameStarted += () => StartCoroutine("IncomeTick");
     }
     public void IncreaseIncome(float value)
     {
         incomePerSecond += value;
+        if (energyIncomeText != null)
+        {
+            energyIncomeText.text = incomePerSecond.ToString("0.##");
+        }
     }
     public void DecreaseIncome(float value)
     {
-        incomePerSecond -= value;
+        if(value > incomePerSecond)
+        {
+            incomePerSecond = 0;
+        }
+        else
+        {
+            incomePerSecond -= value;
+        }
+        if (energyIncomeText != null)
+        {
+            energyIncomeText.text = incomePerSecond.ToString("0.##");
+        }
     }
-    public void SpendMoney(int money)
+    public void SpendEnergy(int money)
     {
-        Money -= money;
+        Energy -= money;
         PlayerStats.SpendMoney(money);
     }
     private IEnumerator IncomeTick()
     {
         for (; ; )
         {
-            Money += incomePerSecond;
+            Energy += incomePerSecond;
             yield return new WaitForSeconds(1f);
         }
     }
@@ -94,42 +119,52 @@ public class PlayerManager : MonoBehaviour
     /// <summary>
     /// Creates a new instance of buggy and places on spawn.
     /// </summary>
-    public void SpawnBuggy(Spawn spawn)
+    public Buggy SpawnBuggy(Spawn spawn)
     {
-        unitFactory.CreateBuggy(this).SpawnOn(spawn);
-        SpendMoney(Cost.Buggy);
+        SpendEnergy(Cost.Buggy);
+        Buggy buggy = unitFactory.CreateBuggy(this);
+        buggy.SpawnOn(spawn);
+        return buggy;
     }
     /// <summary>
     /// Creates a new instance of copter and places on spawn.
     /// </summary>
-    public void SpawnCopter(Spawn spawn)
+    public Copter SpawnCopter(Spawn spawn)
     {
-        unitFactory.CreateCopter(this).SpawnOn(spawn);
-        SpendMoney(Cost.Copter);
+        SpendEnergy(Cost.Copter);
+        Copter copter = unitFactory.CreateCopter(this);
+        copter.SpawnOn(spawn);
+        return copter;
     }
     /// <summary>
     /// Creates a new instance of laser turret and places on given area.
     /// </summary>
-    public void PlaceLaserTurret(TurretPlacement place)
+    public LaserTurret PlaceLaserTurret(TurretPlacement place)
     {
-        turretFactory.CreateLaserTurret(this).PlaceOn(place);
-        SpendMoney(Cost.LaserTurret);
+        SpendEnergy(Cost.LaserTurret);
+        LaserTurret laser = turretFactory.CreateLaserTurret(this);
+        laser.PlaceOn(place);
+        return laser;
     }
     /// <summary>
     /// Creates a new instance of machine gun turret and places on given area.
     /// </summary>
-    public void PlaceMGTurret(TurretPlacement place)
+    public MachineGunTurret PlaceMGTurret(TurretPlacement place)
     {
-        turretFactory.CreateMGTurret(this).PlaceOn(place);
-        SpendMoney(Cost.MachineGunTurret);
+        SpendEnergy(Cost.MachineGunTurret);
+        MachineGunTurret mg = turretFactory.CreateMGTurret(this);
+        mg.PlaceOn(place);
+        return mg;
     }
     /// <summary>
     /// Creates a new instance of plant and places on given area.
     /// </summary>
-    public void PlacePlant(PlantPlacement place)
+    public Plant PlacePlant(PlantPlacement place)
     {
-        buildingFactory.CreatePlant(this).PlaceOn(place);
-        SpendMoney(Cost.Plant);
+        SpendEnergy(Cost.Plant);
+        Plant plant = buildingFactory.CreatePlant(this);
+        plant.PlaceOn(place);
+        return plant;
     }
 
     /// <summary>

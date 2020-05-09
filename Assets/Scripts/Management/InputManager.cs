@@ -98,25 +98,58 @@ public class InputManager : MonoBehaviour
     }
 
     private void PlaceBuggy()
-        => Place<Spawn>(playerManager.SpawnBuggy);
-    private void PlaceCopter()
-        => Place<Spawn>(playerManager.SpawnCopter);
-    private void PlaceLaserTurret()
-        => Place<TurretPlacement>(playerManager.PlaceLaserTurret);
-    private void PlaceMGTurret()
-        => Place<TurretPlacement>(playerManager.PlaceMGTurret);
-    private void PlacePlant()
-        => Place<PlantPlacement>(playerManager.PlacePlant);
-
-    /// <summary>
-    /// Places a particular turret.
-    /// </summary>
-    /// <param name="placingMethod"></param>
-    private void Place<T>(Action<T> placingMethod) where T : PlaceArea
     {
         if (currentGhost.IsFit)
         {
-            placingMethod(currentGhost.PlaceArea as T);
+            playerManager.SpawnBuggy(currentGhost.PlaceArea as Spawn);
+            Refresh();
+        }
+        else if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
+    }
+    private void PlaceCopter()
+    {
+        if (currentGhost.IsFit)
+        {
+            playerManager.SpawnCopter(currentGhost.PlaceArea as Spawn);
+            Refresh();
+        }
+        else if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
+    }
+    private void PlaceLaserTurret()
+    {
+        if (currentGhost.IsFit)
+        {
+            playerManager.PlaceLaserTurret(currentGhost.PlaceArea as TurretPlacement);
+            Refresh();
+        }
+        else if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
+    }
+    private void PlaceMGTurret()
+    {
+        if (currentGhost.IsFit)
+        {
+            playerManager.PlaceMGTurret(currentGhost.PlaceArea as TurretPlacement);
+            Refresh();
+        }
+        else if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(wrongPlace);
+        }
+    }
+    private void PlacePlant()
+    {
+        if (currentGhost.IsFit)
+        {
+            playerManager.PlacePlant(currentGhost.PlaceArea as PlantPlacement);
             Refresh();
         }
         else if (!audioSource.isPlaying)
@@ -133,7 +166,7 @@ public class InputManager : MonoBehaviour
     private void GameButtonClicked(float cost, Ghost ghostPrefab, Action placeMethod)
     {
         ClearGhost();
-        if (playerManager.Money >= cost)
+        if (playerManager.Energy >= cost)
         {
             currentGhost = Instantiate(ghostPrefab, Input.mousePosition, Quaternion.identity);
             currentGhost.Owner = playerManager;

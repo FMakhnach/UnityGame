@@ -18,4 +18,4 @@ MonoBehaviour:
   destroyParticles: {fileID: 198059975614214484, guid: 42a3690e5d4a841ad958c0e3b9b7b19e,
     type: 3}
   destroySound: {fileID: 8300000, guid: e3b821fbb169f4e4aa0451aad1f72a9c, type: 3}
-  incomePerSecond: 1
+  incomePerSecond: 0

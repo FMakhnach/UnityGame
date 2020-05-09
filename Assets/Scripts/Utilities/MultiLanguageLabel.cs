@@ -14,6 +14,7 @@ public class MultiLanguageLabel : MonoBehaviour
 
     public void TranslateText()
     {
+        //print(gameObject.name + " translated to " + LanguageManager.Instance.CurrentLanguage);
         switch (LanguageManager.Instance.CurrentLanguage)
         {
             case Language.English:
@@ -36,6 +37,13 @@ public class MultiLanguageLabel : MonoBehaviour
     {
         TranslateText();
         LanguageManager.Instance.onLanguageChanged += TranslateText;
+    }
+    private void OnEnable()
+    {
+        if (LanguageManager.Instance != null)
+        {
+            TranslateText();
+        }
     }
     private void OnDestroy()
     {

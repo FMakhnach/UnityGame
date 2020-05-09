@@ -4,18 +4,42 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelLoader : MonoBehaviour
+public class LevelLoader : Singleton<LevelLoader>
 {
     [SerializeField]
     private Slider slider;
     [SerializeField]
     private TMP_Text percent;
+    private int levelsUnlocked;
 
+    public string[] levelNames;
+    public int[] scoreToUnlockNextLevel;
+
+    public int LevelsUnlocked => levelsUnlocked;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+        gameObject.SetActive(false);
+        // [TODO] levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 1);
+        levelsUnlocked = 1;
+    }
+
+    public void UnlockLevel(int id)
+    {
+        if (id >= levelsUnlocked)
+        {
+            levelsUnlocked++;
+            PlayerPrefs.SetInt("levelsUnlocked", levelsUnlocked);
+        }
+    }
     /// <summary>
     /// Loads level with fancy loading screen.
     /// </summary>
     public void LoadLevel(string levelName)
     {
+        gameObject.SetActive(true);
         StartCoroutine(LoadLevelAsync(levelName));
     }
     /// <summary>

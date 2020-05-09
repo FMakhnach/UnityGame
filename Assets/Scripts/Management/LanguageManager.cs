@@ -20,17 +20,14 @@ public class LanguageManager : Singleton<LanguageManager>
         {
             currentLanguage = newLanguage;
             onLanguageChanged?.Invoke();
+            PlayerPrefs.SetInt("language", (int)CurrentLanguage);
         }
     }
 
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
         currentLanguage = (Language)PlayerPrefs.GetInt("language");
-    }
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt("language", (int)CurrentLanguage);
     }
 }

@@ -110,7 +110,7 @@ public class Ghost : MonoBehaviour
         IsFit = false;
         mainCamera = Camera.main;
         ghostWorldPlacementMask
-            = LayerMask.GetMask("Floor", "UnitPlacement", "TowerPlacement", "PlantPlacement");
+            = LayerMask.GetMask("Floor", "UnitPlacement", "TurretPlacement", "PlantPlacement");
 
         if (numOfBaseTrackingPoints > 0)
         {

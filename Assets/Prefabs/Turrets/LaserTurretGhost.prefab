@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 5247251318189860470}
   - component: {fileID: 7322108549692166842}
   m_Layer: 10
-  m_Name: LaserTowerGhost
+  m_Name: LaserTurretGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -518,7 +518,7 @@ MonoBehaviour:
   obstaclesMask:
     serializedVersion: 2
     m_Bits: 512
-  numOfBaseTrackingPoints: 24
+  numOfBaseTrackingPoints: 8
 --- !u!1 &5470489861723914108
 GameObject:
   m_ObjectHideFlags: 0

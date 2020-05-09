@@ -3,5 +3,5 @@
 [CreateAssetMenu]
 public class BaseConfiguration : GameObjectConfig
 {
-    public float incomePerSecond;
+
 }
