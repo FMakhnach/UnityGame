@@ -21,9 +21,18 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float upperXBound = 1000;
     [SerializeField]
+    private float lowerYBound = -1000;
+    [SerializeField]
+    private float upperYBound = 1000;
+    [SerializeField]
     private float lowerZBound = -1000;
     [SerializeField]
     private float upperZBound = 1000;
+    [SerializeField]
+    private float minSlope = -20f;
+    [SerializeField]
+    private float maxSlope = 20f;
+
 
     public void ScaleSpeed(float modifier)
     {
@@ -40,6 +49,12 @@ public class CameraMovement : MonoBehaviour
         camera = Camera.main;
         speedModifier = 1f;
         initPosition = transform.position;
+
+        // Slight optimization.
+        draggingSpeed *= Time.fixedDeltaTime;
+        rotationSpeed *= Time.fixedDeltaTime;
+        wasdSpeed *= Time.fixedDeltaTime;
+        scrollSpeed *= Time.fixedDeltaTime;
     }
     private void FixedUpdate()
     {
@@ -62,22 +77,28 @@ public class CameraMovement : MonoBehaviour
         {
             move += rigidbody.transform.right;
         }
-        move = move.normalized * wasdSpeed * Time.fixedDeltaTime;
+        move = move.normalized * wasdSpeed;
         rigidbody.MovePosition(rigidbody.transform.position + move);
 
         // Scrolling for scaling
-        if (Input.mouseScrollDelta.y > 0.1f && camera.transform.position.y > 10f
-         || Input.mouseScrollDelta.y < -0.1f && camera.transform.position.y < 23f)
+        if (Input.mouseScrollDelta.y > 0.1f && camera.transform.position.y > lowerYBound
+         || Input.mouseScrollDelta.y < -0.1f && camera.transform.position.y < upperYBound)
         {
-            rigidbody.MovePosition(rigidbody.transform.position + Input.mouseScrollDelta.y * Vector3.down * scrollSpeed * Time.fixedDeltaTime);
+            rigidbody.MovePosition(rigidbody.transform.position + Input.mouseScrollDelta.y * Vector3.down * scrollSpeed);
         }
 
         // Dragging rotation
         if (Input.GetMouseButton(1))
         {
             var rot = rigidbody.rotation.eulerAngles;
-            rot.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+            rot.y += Input.GetAxis("Mouse X") * rotationSpeed;
             rigidbody.MoveRotation(Quaternion.Euler(rot));
+
+            rot = camera.transform.rotation.eulerAngles;
+            rot.x = Mathf.Clamp(
+                rot.x - Input.GetAxis("Mouse Y") * rotationSpeed * 0.25f,
+                minSlope, maxSlope);
+            camera.transform.rotation = Quaternion.Euler(rot);
         }
 
         if (Input.GetMouseButton(2))
@@ -93,8 +114,8 @@ public class CameraMovement : MonoBehaviour
             float yInput = Mathf.Clamp(Input.GetAxis("Mouse Y"), -4f, 4f);
             float xModifier = modifier1 * xInput - modifier2 * yInput;
             float yModifier = modifier2 * xInput + modifier1 * yInput;
-            pos.x -= xModifier * draggingSpeed * Time.deltaTime;
-            pos.z -= yModifier * draggingSpeed * Time.deltaTime;
+            pos.x -= xModifier * draggingSpeed;
+            pos.z -= yModifier * draggingSpeed;
             rigidbody.MovePosition(pos);
         }
     }
@@ -105,6 +126,11 @@ public class CameraMovement : MonoBehaviour
             || p.z >= upperZBound || p.z <= lowerZBound)
         {
             transform.position = initPosition;
+        }
+        if (p.y >= upperYBound)
+        {
+            p.y = upperYBound;
+            transform.position = p;
         }
     }
 }
