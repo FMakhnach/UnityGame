@@ -69,10 +69,10 @@ public class PrimitiveAI : PlayerManager
         plantProbability *= modifier;
 
         Energy = 10000f;
+        PlayerStats = new Stats();
         GenerateStartTurrets();
         GenerateStartPlants();
-
-        base.Awake();
+        Energy = startingEnergy;
     }
     protected override void Start()
     {
@@ -81,14 +81,14 @@ public class PrimitiveAI : PlayerManager
             () => StartCoroutine("RandomAction");
     }
     /// <summary>
-    /// Does random action every [1, 3] seconds.
+    /// Does random action every [1, 2] seconds.
     /// </summary>
     /// <returns></returns>
     private IEnumerator RandomAction()
     {
         for (; ; )
         {
-            yield return new WaitForSeconds(1f + UnityEngine.Random.value * 2f);
+            yield return new WaitForSeconds(1f + UnityEngine.Random.value);
             if (currentAction == null)
             {
                 currentAction = GetRandomAction();

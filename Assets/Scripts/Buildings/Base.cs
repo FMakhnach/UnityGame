@@ -8,6 +8,8 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     private PlayerManager owner;
     [SerializeField]
     private BaseConfiguration config;
+    [SerializeField]
+    private Transform targetPoint;
     /// <summary>
     /// Damage logic keeper.
     /// </summary>
@@ -18,7 +20,7 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     [SerializeField]
     private BaseInfoPanel panel;
 
-    public Transform TargetPoint => transform;
+    public Transform TargetPoint => targetPoint;
     public PlayerManager Owner => owner;
 
     /// <summary>

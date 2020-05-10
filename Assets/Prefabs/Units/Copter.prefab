@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4510550251865804}
   - component: {fileID: 33797944444314978}
   - component: {fileID: 23663935908097100}
-  - component: {fileID: 1654364796720866433}
+  - component: {fileID: 5345044800415669096}
   m_Layer: 9
   m_Name: Copter
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &1654364796720866433
-MeshCollider:
+--- !u!65 &5345044800415669096
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,10 +94,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8949650317143923947, guid: 51717e33d00008b408d8f4bd3d489651, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.2003164, y: 0.4613336, z: 1.2361493}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1099349158005732
 GameObject:
   m_ObjectHideFlags: 0

@@ -18971,7 +18971,7 @@ GameObject:
   - component: {fileID: 3997564956590871103}
   - component: {fileID: 3971420088984923087}
   - component: {fileID: 3980649808437132989}
-  - component: {fileID: 2999799593556635607}
+  - component: {fileID: 3337111413866410325}
   m_Layer: 9
   m_Name: LaserTower_TURRET_L01
   m_TagString: MaterialChange
@@ -19042,20 +19042,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2999799593556635607
-MeshCollider:
+--- !u!65 &3337111413866410325
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3994287861495576395}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: d158cd1ed36df4fed93c13f4cbf91f99, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.8527115, y: 1.2878312, z: 1.7528176}
+  m_Center: {x: 0.015429749, y: -0.20660669, z: 0.17725222}
 --- !u!1 &3994376428879314281
 GameObject:
   m_ObjectHideFlags: 0
@@ -19357,7 +19356,7 @@ GameObject:
   - component: {fileID: 3991871137013727585}
   - component: {fileID: 3968345870353217647}
   - component: {fileID: 3978984414677749909}
-  - component: {fileID: 1228790431308602995}
+  - component: {fileID: 7150563741508405312}
   m_Layer: 9
   m_Name: LaserTower_BASE_L01
   m_TagString: MaterialChange
@@ -19427,20 +19426,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &1228790431308602995
-MeshCollider:
+--- !u!65 &7150563741508405312
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3994593522168951375}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: b033c863a55c94b0faefde576ffd460a, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.519991, y: 0.4172874, z: 1.5193558}
+  m_Center: {x: -0.034634642, y: 0.2086437, z: 0.021674804}
 --- !u!1 &3994637465004155569
 GameObject:
   m_ObjectHideFlags: 0

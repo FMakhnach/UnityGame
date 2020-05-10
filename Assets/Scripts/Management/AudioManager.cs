@@ -62,7 +62,7 @@ public class AudioManager : Singleton<AudioManager>
         masterVolumeChanged += (float vol) => musicSource.volume = vol;
         masterVolumeChanged += (float vol) => uiEffectsSource.volume = vol;
 
-        masterVolume = PlayerPrefs.GetFloat("masterVolume");
+        masterVolume = PlayerPrefs.GetFloat("masterVolume", 1f);
     }
     private void Start()
     {

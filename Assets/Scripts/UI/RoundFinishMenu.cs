@@ -59,14 +59,13 @@ public class RoundFinishMenu : MonoBehaviour
     }
     private void Awake()
     {
-        bestScore = PlayerPrefs.GetInt("best-score");
+        bestScore = PlayerPrefs.GetInt("best-score" + levelId, 0);
         nextLevelButton.interactable = false;
         nextLevelTooltip.enabled = true;
         nextLevelToolipText.text = LevelLoader.Instance.scoreToUnlockNextLevel[levelId].ToString();
     }
     private void OnDestroy()
     {
-        PlayerPrefs.SetInt("best-score", 0);
-        // [TODO] PlayerPrefs.SetInt("best-score", bestScore);
+        PlayerPrefs.SetInt("best-score" + levelId, 0);
     }
 }

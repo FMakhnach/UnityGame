@@ -19,7 +19,7 @@ MonoBehaviour:
     type: 3}
   destroySound: {fileID: 8300000, guid: fdb46b27d6c4d2841a0bf52ef06bc0aa, type: 3}
   attackSound: {fileID: 8300000, guid: a182fe2885300f24488df3e659e6ad99, type: 3}
-  radius: 5
-  damage: 10
+  radius: 6
+  damage: 6
   attackingInterval: 0.5
   speed: 3

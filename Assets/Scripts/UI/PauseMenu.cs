@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -41,6 +42,11 @@ public class PauseMenu : MonoBehaviour
             PauseGame();
         }
     }
+    public void TryAgainButtonClicked()
+    {
+        GameTimer.Instance.SetTimeScale(1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public void OptionsButtonClicked()
     {
         OptionsMenu.Instance.disableOnOptionsOpen = this.gameObject;
@@ -72,8 +78,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuObject.SetActive(true);
         gameUI.SetActive(false);
         timerText.gameObject.SetActive(false);
-        enemyManager.gameObject.SetActive(false);
-        playerManager.gameObject.SetActive(false);
         GameTimer.Instance.PauseGame();
     }
 }

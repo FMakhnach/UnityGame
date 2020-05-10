@@ -7,13 +7,22 @@ using UnityEngine;
 /// </summary>
 public class PlayerManager : MonoBehaviour
 {
-    public struct Stats
+    public class Stats
     {
         public int UnitsKilled { get; private set; }
         public int TurretsKilled { get; private set; }
         public int UnitsLost { get; private set; }
         public int TurretsLost { get; private set; }
         public int MoneySpent { get; private set; }
+
+        public Stats()
+        {
+            UnitsKilled = 0;
+            TurretsKilled = 0;
+            UnitsLost = 0;
+            TurretsLost = 0;
+            MoneySpent = 0;
+        }
 
         public void UnitKilled() => UnitsKilled++;
         public void TurretKilled() => TurretsKilled++;
@@ -28,12 +37,12 @@ public class PlayerManager : MonoBehaviour
     private TurretFactory turretFactory;
     [SerializeField]
     private BuildingFactory buildingFactory;
-    
+
     /// <summary>
     /// The amount of money the player has at the beggining.
     /// </summary>
     [SerializeField]
-    private int startingEnergy;
+    protected int startingEnergy;
     [SerializeField]
     private float incomePerSecond;
     /// <summary>
@@ -64,13 +73,13 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    public Stats PlayerStats { get; private set; }
+    public Stats PlayerStats { get; protected set; }
 
     protected virtual void Awake()
     {
         Energy = startingEnergy;
         PlayerStats = new Stats();
-        if(energyIncomeText != null)
+        if (energyIncomeText != null)
         {
             energyIncomeText.text = incomePerSecond.ToString("0.##");
         }
@@ -89,7 +98,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void DecreaseIncome(float value)
     {
-        if(value > incomePerSecond)
+        if (value > incomePerSecond)
         {
             incomePerSecond = 0;
         }

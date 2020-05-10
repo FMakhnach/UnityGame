@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 869c484d80ed0c14292de1643bdf8019, type: 2}
 --- !u!1 &75508339
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,8 +714,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 8
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 8"
+  englishText: 'LEVEL 8
+
+    [COMING SOON]'
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 8\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &212443325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,7 +736,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 8
+  m_text: 'LEVEL 8
+
+    [COMING SOON]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -762,7 +766,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.45
+  m_fontSize: 44.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -800,15 +804,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 30.237654, y: 25.99626, z: 25.274496, w: 28.821966}
+  m_margin: {x: 18.365866, y: 25.99626, z: 20.327961, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 212443325}
-    characterCount: 7
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1172,17 +1176,49 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2129240534}
-  - {fileID: 310571591}
-  - {fileID: 401601250}
+  m_Children: []
   m_Father: {fileID: 1068182096}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &234809643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234809644}
+  m_Layer: 5
+  m_Name: Space
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &234809644
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234809643}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1963446101}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 35.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &240415849
 GameObject:
@@ -1234,8 +1270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 4
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 4"
+  englishText: 'LEVEL 4
+
+    [COMING SOON]'
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 4\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &240415852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1254,7 +1292,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 4
+  m_text: 'LEVEL 4
+
+    [COMING SOON]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -1282,7 +1322,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.6
+  m_fontSize: 44
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1320,15 +1360,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 21.495546, y: 25.99626, z: 33.38382, w: 28.821966}
+  m_margin: {x: 16.549011, y: 25.99626, z: 24.47998, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 240415852}
-    characterCount: 7
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1971,6 +2011,177 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297110725}
   m_CullTransparentMesh: 0
+--- !u!1 &301574636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 301574637}
+  - component: {fileID: 301574640}
+  - component: {fileID: 301574639}
+  - component: {fileID: 301574638}
+  m_Layer: 5
+  m_Name: GameNameLabel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &301574637
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301574636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1963446101}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 896.01, y: 189.55}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &301574638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301574636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  englishText: 'SIEGE: CONFLICT'
+  russianText: "\u041E\u0421\u0410\u0414\u0410: \u041F\u0420\u041E\u0422\u0418\u0412\u041E\u0421\u0422\u041E\u042F\u041D\u0418\u0415"
+--- !u!114 &301574639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301574636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'SIEGE: CONFLICT'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
+  m_sharedMaterial: {fileID: 7096382198253044893, guid: 10954dcd25187ae42a3fa0eccfe5d395,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 105.85
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 1
+  m_fontSizeMax: 999
+  m_fontStyle: 1
+  m_textAlignment: 514
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: -1
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 301574639}
+    characterCount: 15
+    spriteCount: 0
+    spaceCount: 1
+    wordCount: 2
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &301574640
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301574636}
+  m_CullTransparentMesh: 0
 --- !u!1 &310571590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,11 +2214,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 228682222}
-  m_Father: {fileID: 231883464}
-  m_RootOrder: 1
+  m_Father: {fileID: 1963446101}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 700.1, y: 129.6}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2634,12 +2845,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1606806892}
-  m_Father: {fileID: 231883464}
-  m_RootOrder: 2
+  m_Father: {fileID: 1963446101}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -194.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 700.1, y: 129.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &401601251
@@ -4798,8 +5009,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 3
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 3"
+  englishText: 'LEVEL 3
+
+    [COMING SOON]'
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 3\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &904772031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4818,7 +5031,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 3
+  m_text: 'LEVEL 3
+
+    [COMING SOON]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -4846,7 +5061,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.35
+  m_fontSize: 44.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4884,15 +5099,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 28.341543, y: 25.99626, z: 27.515707, w: 28.821966}
+  m_margin: {x: 19.437704, y: 25.99626, z: 19.601164, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 904772031}
-    characterCount: 7
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -5564,6 +5779,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1963446101}
   - {fileID: 231883464}
   m_Father: {fileID: 1202228000}
   m_RootOrder: 0
@@ -9026,8 +9242,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 2
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 2"
+  englishText: 'LEVEL 2
+
+    [COMING SOON]'
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 2\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &1939039542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9046,7 +9264,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 2
+  m_text: 'LEVEL 2
+
+    [COMING SOON]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -9074,7 +9294,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.6
+  m_fontSize: 44.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9112,15 +9332,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 27.363459, y: 25.99626, z: 27.515398, w: 28.821966}
+  m_margin: {x: 19.282438, y: 25.99626, z: 16.15105, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 1939039542}
-    characterCount: 7
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -9390,14 +9610,7 @@ MonoBehaviour:
   levelNames:
   - Level0
   - Level1
-  - Level2
-  - Level3
-  - Level4
-  - Level5
-  - Level6
-  - Level7
-  - Level8
-  scoreToUnlockNextLevel: f4010000f4010000f4010000f4010000f4010000f4010000f4010000f4010000f4010000
+  scoreToUnlockNextLevel: 0000000000000000
 --- !u!1 &1961278115
 GameObject:
   m_ObjectHideFlags: 0
@@ -9456,6 +9669,72 @@ MonoBehaviour:
   options:
   - {fileID: 1285006358}
   - {fileID: 1532041053}
+--- !u!1 &1963446100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1963446101}
+  - component: {fileID: 1963446102}
+  m_Layer: 5
+  m_Name: VLayout
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1963446101
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963446100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 301574637}
+  - {fileID: 234809644}
+  - {fileID: 2129240534}
+  - {fileID: 310571591}
+  - {fileID: 401601250}
+  m_Father: {fileID: 1068182096}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 32}
+  m_SizeDelta: {x: 1044.7, y: 855.8}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1963446102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963446100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &1972395155
 GameObject:
   m_ObjectHideFlags: 0
@@ -9735,8 +10014,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 7
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 7"
+  englishText: 'LEVEL 7
+
+    [COMING SOON]'
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 7\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &2006361469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9755,7 +10036,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 7
+  m_text: 'LEVEL 7
+
+    [COMING SOON]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -9783,7 +10066,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.45
+  m_fontSize: 44.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9821,15 +10104,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 30.237843, y: 25.99626, z: 25.27437, w: 28.821966}
+  m_margin: {x: 19.35548, y: 25.99626, z: 18.349249, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 2006361469}
-    characterCount: 7
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -10477,8 +10760,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 5
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 5"
+  englishText: 'LEVEL 5
+
+    [COMING SOON]'
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 5\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &2073009206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10497,7 +10782,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 5
+  m_text: 'LEVEL 5
+
+    [COMING SOON]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -10525,7 +10812,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.6
+  m_fontSize: 44.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10563,15 +10850,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 28.341578, y: 25.99626, z: 26.537539, w: 28.821966}
+  m_margin: {x: 19.43774, y: 25.99626, z: 18.623058, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 2073009206}
-    characterCount: 7
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -10647,8 +10934,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 6
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 6"
+  englishText: 'LEVEL 6
+
+    [COMING SOON]'
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 6\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &2081970468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10667,7 +10956,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 6
+  m_text: 'LEVEL 6
+
+    [COMING SOON]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -10695,7 +10986,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.75
+  m_fontSize: 44.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -10733,15 +11024,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 25.362732, y: 25.99626, z: 28.930578, w: 28.821966}
+  m_margin: {x: 16.458893, y: 25.99626, z: 21.016033, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 2081970468}
-    characterCount: 7
+    characterCount: 21
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 3
+    wordCount: 4
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -11062,12 +11353,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 318735226}
-  m_Father: {fileID: 231883464}
-  m_RootOrder: 0
+  m_Father: {fileID: 1963446101}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 194.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 700.1, y: 129.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2129240535

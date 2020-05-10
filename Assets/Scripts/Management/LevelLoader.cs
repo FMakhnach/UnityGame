@@ -28,7 +28,7 @@ public class LevelLoader : Singleton<LevelLoader>
 
     public void UnlockLevel(int id)
     {
-        if (id >= levelsUnlocked && id <= levelNames.Length)
+        if (id >= levelsUnlocked && id < levelNames.Length)
         {
             levelsUnlocked++;
             PlayerPrefs.SetInt("levelsUnlocked", levelsUnlocked);

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantPrefab: {fileID: 5794213853778346875, guid: f78642e32f1ce534795ccab9422a9e34,
     type: 3}
+  plantMaterial: {fileID: 2100000, guid: 5e3b8668d87c00d4da70f9758f14bbcf, type: 2}

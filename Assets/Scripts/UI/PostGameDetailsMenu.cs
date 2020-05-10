@@ -10,6 +10,8 @@ public class PostGameDetailsMenu : MonoBehaviour
     [SerializeField]
     private TMP_Text timeSpent;
     [SerializeField]
+    private TMP_Text energySpent;
+    [SerializeField]
     private TMP_Text unitsKilled;
     [SerializeField]
     private TMP_Text turretsKilled;
@@ -27,7 +29,8 @@ public class PostGameDetailsMenu : MonoBehaviour
 
     public void Initialize(PlayerManager.Stats stats, RoundFinishMenu menu)
     {
-        this.timeSpent.text = GameTimer.Instance.GetTimeString();
+        timeSpent.text = GameTimer.Instance.GetTimeString();
+        energySpent.text = stats.MoneySpent.ToString();
         unitsKilled.text = stats.UnitsKilled.ToString();
         turretsKilled.text = stats.TurretsKilled.ToString();
         unitsLost.text = stats.UnitsLost.ToString();

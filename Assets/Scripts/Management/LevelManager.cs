@@ -78,14 +78,14 @@ public class LevelManager : Singleton<LevelManager>
     /// </summary>
     private int CalculateScore(PlayerManager.Stats stats)
     {
-        int score = 1000
-            + 50 * stats.UnitsKilled
-            + 75 * stats.TurretsKilled
-            - 20 * stats.UnitsLost
-            - 30 * stats.TurretsLost
-            - stats.MoneySpent
-            - (int)GameTimer.Instance.GameTime;
-        return score;
+        int score = 10000
+            + 20 * stats.UnitsKilled
+            + 30 * stats.TurretsKilled
+            - 10 * stats.UnitsLost
+            - 15 * stats.TurretsLost
+            - stats.MoneySpent * 5
+            - (int)GameTimer.Instance.GameTime * 5;
+        return score > 0 ? score : 100;
     }
     private void DisablePreGameGroup() => SetActivePreGameGroup(false);
     private void SetActivePreGameGroup(bool active)
