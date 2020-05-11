@@ -79,10 +79,7 @@ public class PlayerManager : MonoBehaviour
     {
         Energy = startingEnergy;
         PlayerStats = new Stats();
-        if (energyIncomeText != null)
-        {
-            energyIncomeText.text = incomePerSecond.ToString("0.##");
-        }
+        energyIncomeText.text = incomePerSecond.ToString("0.##");
     }
     protected virtual void Start()
     {

@@ -34,17 +34,6 @@ public class Base : MonoBehaviour, ITarget, IDamageable
             LevelManager.Instance.EndGame(from, owner);
         }
     }
-    /// <summary>
-    /// For heal button.
-    /// </summary>
-    public void ReceiveHeal(float heal, int cost)
-    {
-        if (cost <= owner.Energy)
-        {
-            damageableBehaviour.ReceiveHeal(heal);
-            owner.SpendEnergy(cost);
-        }
-    }
 
     private void Start()
     {

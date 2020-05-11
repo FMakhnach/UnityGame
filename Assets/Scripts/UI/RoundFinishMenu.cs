@@ -66,6 +66,6 @@ public class RoundFinishMenu : MonoBehaviour
     }
     private void OnDestroy()
     {
-        PlayerPrefs.SetInt("best-score" + levelId, 0);
+        PlayerPrefs.SetInt("best-score" + levelId, bestScore);
     }
 }

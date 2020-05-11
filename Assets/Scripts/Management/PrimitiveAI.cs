@@ -68,8 +68,8 @@ public class PrimitiveAI : PlayerManager
         mgProbability *= modifier;
         plantProbability *= modifier;
 
-        Energy = 10000f;
-        PlayerStats = new Stats();
+        base.Awake();
+        Energy = 10000;
         GenerateStartTurrets();
         GenerateStartPlants();
         Energy = startingEnergy;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +8,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField]
     private PlayerManager player;
     [SerializeField]
-    private PlayerManager enemy;
+    private PrimitiveAI[] enemies;
     [SerializeField]
     private Button[] gameButtons;
     [SerializeField]
@@ -47,16 +46,22 @@ public class LevelManager : Singleton<LevelManager>
     /// </summary>
     public void EndGame(PlayerManager winner, PlayerManager loser)
     {
-        Time.timeScale = 0f;
-        disableGroup.SetEnabled(false);
         if (winner == player)
         {
-            winWindow.gameObject.SetActive(true);
-            winWindow.SetScore(CalculateScore(player.PlayerStats));
-            detailsMenu.Initialize(player.PlayerStats, winWindow);
+            loser.gameObject.SetActive(false);
+            if(FindObjectOfType<PrimitiveAI>() == null)
+            {
+                Time.timeScale = 0f;
+                disableGroup.SetEnabled(false);
+                winWindow.gameObject.SetActive(true);
+                winWindow.SetScore(CalculateScore(player.PlayerStats));
+                detailsMenu.Initialize(player.PlayerStats, winWindow);
+            }
         }
         else
         {
+            Time.timeScale = 0f;
+            disableGroup.SetEnabled(false);
             loseWindow.gameObject.SetActive(true);
             loseWindow.SetScore(0);
             detailsMenu.Initialize(player.PlayerStats, loseWindow);
@@ -91,7 +96,10 @@ public class LevelManager : Singleton<LevelManager>
     private void SetActivePreGameGroup(bool active)
     {
         player.gameObject.SetActive(active);
-        enemy.gameObject.SetActive(active);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].gameObject.SetActive(active);
+        }
         for (int i = 0; i < gameButtons.Length; i++)
         {
             gameButtons[i].enabled = active;
