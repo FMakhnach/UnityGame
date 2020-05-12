@@ -86,11 +86,7 @@ public class DamageableBehaviour : MonoBehaviour
     {
         for (; ; )
         {
-            if (currentHealth < config.startHealth)
-            {
-                currentHealth += Regeneration;
-                UpdateHealthLabel();
-            }
+            ReceiveHeal(Regeneration);
             yield return new WaitForSeconds(1f);
         }
     }

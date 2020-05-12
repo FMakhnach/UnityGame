@@ -51,20 +51,12 @@ public class LevelManager : Singleton<LevelManager>
             loser.gameObject.SetActive(false);
             if(FindObjectOfType<PrimitiveAI>() == null)
             {
-                Time.timeScale = 0f;
-                disableGroup.SetEnabled(false);
-                winWindow.gameObject.SetActive(true);
-                winWindow.SetScore(CalculateScore(player.PlayerStats));
-                detailsMenu.Initialize(player.PlayerStats, winWindow);
+                Invoke("PlayerWon", 1f);
             }
         }
         else
         {
-            Time.timeScale = 0f;
-            disableGroup.SetEnabled(false);
-            loseWindow.gameObject.SetActive(true);
-            loseWindow.SetScore(0);
-            detailsMenu.Initialize(player.PlayerStats, loseWindow);
+            Invoke("PlayerLost", 1f);
         }
     }
     public void StartGame()
@@ -83,7 +75,7 @@ public class LevelManager : Singleton<LevelManager>
     /// </summary>
     private int CalculateScore(PlayerManager.Stats stats)
     {
-        int score = 10000
+        int score = 20000
             + 20 * stats.UnitsKilled
             + 30 * stats.TurretsKilled
             - 10 * stats.UnitsLost
@@ -107,5 +99,21 @@ public class LevelManager : Singleton<LevelManager>
         }
         GameTimer.Instance.gameObject.SetActive(active);
         speedUpButton.gameObject.SetActive(active);
+    }
+    private void PlayerWon()
+    {
+        Time.timeScale = 0f;
+        disableGroup.SetEnabled(false);
+        winWindow.gameObject.SetActive(true);
+        winWindow.SetScore(CalculateScore(player.PlayerStats));
+        detailsMenu.Initialize(player.PlayerStats, winWindow);
+    }
+    private void PlayerLost()
+    {
+        Time.timeScale = 0f;
+        disableGroup.SetEnabled(false);
+        loseWindow.gameObject.SetActive(true);
+        loseWindow.SetScore(0);
+        detailsMenu.Initialize(player.PlayerStats, loseWindow);
     }
 }

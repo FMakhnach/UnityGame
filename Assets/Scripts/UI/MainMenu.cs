@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
     }
     public void ExitButtonClicked()
     {
+        exitGamePopup.SetActiveMenuButtons(false);
         exitGamePopup.gameObject.SetActive(true);
     }
 }

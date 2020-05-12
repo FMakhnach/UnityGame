@@ -37,7 +37,7 @@ public class RulesMenu : MonoBehaviour
     }
     public void ContinueButton()
     {
-        LevelLoader.Instance.LoadLevel("Level0");
+        LevelLoader.Instance.LoadLevel("Level1");
     }
 
     private void OnEnable()

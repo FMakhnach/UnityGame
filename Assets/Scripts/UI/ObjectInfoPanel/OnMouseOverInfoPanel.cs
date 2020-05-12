@@ -48,6 +48,11 @@ public class OnMouseOverInfoPanel : MonoBehaviour
     }
     private void OnMouseOver()
     {
+        if (eventSystem.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             ObjectInfoPanelController.Instance.SetPanel(panel);

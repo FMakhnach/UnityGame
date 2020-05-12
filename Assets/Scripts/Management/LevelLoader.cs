@@ -23,7 +23,7 @@ public class LevelLoader : Singleton<LevelLoader>
         DontDestroyOnLoad(gameObject);
         gameObject.SetActive(false);
         // [TODO] levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 1);
-        levelsUnlocked = 3;
+        levelsUnlocked = 2;
     }
 
     public void UnlockLevel(int id)

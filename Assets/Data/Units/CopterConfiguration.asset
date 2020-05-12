@@ -20,6 +20,6 @@ MonoBehaviour:
   destroySound: {fileID: 8300000, guid: e99e4a579935a894d864e43f6c2e3f84, type: 3}
   attackSound: {fileID: 8300000, guid: a182fe2885300f24488df3e659e6ad99, type: 3}
   radius: 6
-  damage: 6
+  damage: 7
   attackingInterval: 0.33333
   speed: 4

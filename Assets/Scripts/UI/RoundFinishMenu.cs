@@ -16,10 +16,6 @@ public class RoundFinishMenu : MonoBehaviour
     [SerializeField]
     private Button nextLevelButton;
     private int bestScore;
-    [SerializeField]
-    private Tooltip nextLevelTooltip;
-    [SerializeField]
-    private TMP_Text nextLevelToolipText;
 
     public void SetScore(int score)
     {
@@ -34,7 +30,6 @@ public class RoundFinishMenu : MonoBehaviour
         {
             LevelLoader.Instance.UnlockLevel(levelId + 1);
             nextLevelButton.interactable = true;
-            nextLevelTooltip.enabled = false;
         }
     }
     public void OpenDetailsMenu()
@@ -61,8 +56,6 @@ public class RoundFinishMenu : MonoBehaviour
     {
         bestScore = PlayerPrefs.GetInt("best-score" + levelId, 0);
         nextLevelButton.interactable = false;
-        nextLevelTooltip.enabled = true;
-        nextLevelToolipText.text = LevelLoader.Instance.scoreToUnlockNextLevel[levelId].ToString();
     }
     private void OnDestroy()
     {

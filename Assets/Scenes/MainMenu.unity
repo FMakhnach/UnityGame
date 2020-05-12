@@ -159,8 +159,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.0875244, y: -0.5}
-  m_SizeDelta: {x: 380.88, y: 333.53}
+  m_AnchoredPosition: {x: 0, y: -24}
+  m_SizeDelta: {x: 656.4, y: 467.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &75508341
 MonoBehaviour:
@@ -174,6 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b738e21ad1a1d7439300297af194a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuButtons:
+  - {fileID: 2129240535}
+  - {fileID: 1098986995}
+  - {fileID: 310571592}
+  - {fileID: 401601251}
 --- !u!114 &75508342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +197,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -395,7 +400,7 @@ GameObject:
   - component: {fileID: 141572422}
   - component: {fileID: 141572421}
   m_Layer: 5
-  m_Name: Level3Button
+  m_Name: Level4Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,18 +480,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 141572423}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 428799729}
-        m_MethodName: LoadLevel
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level3
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &141572423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,7 +604,7 @@ GameObject:
   - component: {fileID: 170757649}
   - component: {fileID: 170757648}
   m_Layer: 5
-  m_Name: Level8Button
+  m_Name: Level9Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,18 +684,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 170757650}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 428799729}
-        m_MethodName: LoadLevel
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level8
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &170757650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -921,7 +904,7 @@ GameObject:
   - component: {fileID: 212443325}
   - component: {fileID: 212443324}
   m_Layer: 5
-  m_Name: Level8Label
+  m_Name: Level9Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -958,10 +941,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: 'LEVEL 8
+  englishText: 'LEVEL 9
 
     [COMING SOON]'
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 8\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 9\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &212443325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -980,7 +963,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LEVEL 8
+  m_text: 'LEVEL 9
 
     [COMING SOON]'
   m_isRightToLeft: 0
@@ -1119,8 +1102,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: -75}
-  m_SizeDelta: {x: 110, y: 35}
+  m_AnchoredPosition: {x: 140, y: -150}
+  m_SizeDelta: {x: 220, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &228122809
 MonoBehaviour:
@@ -1422,47 +1405,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1068182096}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &234809643
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 234809644}
-  m_Layer: 5
-  m_Name: Space
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &234809644
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234809643}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1963446101}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 35.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &240415849
 GameObject:
@@ -1477,7 +1425,7 @@ GameObject:
   - component: {fileID: 240415852}
   - component: {fileID: 240415851}
   m_Layer: 5
-  m_Name: Level4Label
+  m_Name: Level5Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1514,10 +1462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: 'LEVEL 4
+  englishText: 'LEVEL 5
 
     [COMING SOON]'
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 4\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 5\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &240415852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,7 +1484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LEVEL 4
+  m_text: 'LEVEL 5
 
     [COMING SOON]'
   m_isRightToLeft: 0
@@ -1830,8 +1778,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -75, y: -75}
-  m_SizeDelta: {x: 110, y: 35}
+  m_AnchoredPosition: {x: -140, y: -150}
+  m_SizeDelta: {x: 220, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &266575511
 MonoBehaviour:
@@ -2166,7 +2114,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 1.25
+  m_padding: 0
   m_canvasRenderer: {fileID: 293843366}
   m_TextComponent: {fileID: 297110727}
   m_materialReferenceIndex: 1
@@ -2264,7 +2212,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
+  m_fontSize: 61.15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2302,7 +2250,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 5.7372646, y: 13.849084, z: 5.737391, w: 14.457624}
   m_textInfo:
     textComponent: {fileID: 297110727}
     characterCount: 3
@@ -2376,17 +2324,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301574636}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1963446101}
+  m_Father: {fileID: 1068182096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 896.01, y: 189.55}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 356.03955}
+  m_SizeDelta: {x: 896.01, y: 189.54999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &301574638
 MonoBehaviour:
@@ -2554,7 +2502,7 @@ RectTransform:
   m_Children:
   - {fileID: 228682222}
   m_Father: {fileID: 1963446101}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2926,7 +2874,7 @@ RectTransform:
   m_Children:
   - {fileID: 940000269}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3185,7 +3133,7 @@ RectTransform:
   m_Children:
   - {fileID: 1606806892}
   m_Father: {fileID: 1963446101}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3483,7 +3431,7 @@ RectTransform:
   m_Children:
   - {fileID: 734446873}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4127,7 +4075,7 @@ GameObject:
   - component: {fileID: 560073544}
   - component: {fileID: 560073543}
   m_Layer: 5
-  m_Name: Level2Button
+  m_Name: Level3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4216,7 +4164,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level2
+          m_StringArgument: Level3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &560073545
@@ -4527,7 +4475,7 @@ GameObject:
   - component: {fileID: 685881564}
   - component: {fileID: 685881563}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: LoadingScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5572,7 +5520,7 @@ RectTransform:
   m_Children:
   - {fileID: 528147277}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5758,7 +5706,7 @@ GameObject:
   - component: {fileID: 904772031}
   - component: {fileID: 904772030}
   m_Layer: 5
-  m_Name: Level3Label
+  m_Name: Level4Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5795,10 +5743,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: 'LEVEL 3
+  englishText: 'LEVEL 4
 
     [COMING SOON]'
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 3\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 4\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &904772031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5817,7 +5765,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LEVEL 3
+  m_text: 'LEVEL 4
 
     [COMING SOON]'
   m_isRightToLeft: 0
@@ -6523,98 +6471,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1014822542
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1014822544}
-  - component: {fileID: 1014822543}
-  m_Layer: 0
-  m_Name: Directional Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &1014822543
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014822542}
-  m_Enabled: 1
-  serializedVersion: 10
-  m_Type: 1
-  m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!4 &1014822544
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014822542}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1035818911
 GameObject:
   m_ObjectHideFlags: 0
@@ -6799,7 +6655,7 @@ GameObject:
   - component: {fileID: 1040615963}
   - component: {fileID: 1040615962}
   m_Layer: 5
-  m_Name: Level1Label
+  m_Name: Level2Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6836,8 +6692,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 1
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 1"
+  englishText: LEVEL 2
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 2"
 --- !u!114 &1040615963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6856,7 +6712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 1
+  m_text: LEVEL 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -6884,7 +6740,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.6
+  m_fontSize: 91.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6922,7 +6778,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 28.053736, y: 28.156294, z: 26.736298, w: 28.821966}
+  m_margin: {x: 18.134853, y: 28.156294, z: 15.400395, w: 28.821966}
   m_textInfo:
     textComponent: {fileID: 1040615963}
     characterCount: 7
@@ -6985,6 +6841,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 301574637}
   - {fileID: 1963446101}
   - {fileID: 231883464}
   m_Father: {fileID: 1202228000}
@@ -7337,7 +7194,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
+  m_fontSize: 62.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7375,7 +7232,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 3.8481345, y: 12.697423, z: 5.1309514, w: 13.723045}
   m_textInfo:
     textComponent: {fileID: 1092423809}
     characterCount: 4
@@ -7456,7 +7313,7 @@ RectTransform:
   m_Children:
   - {fileID: 989458480}
   m_Father: {fileID: 1963446101}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7940,7 +7797,7 @@ RectTransform:
   - {fileID: 1068182096}
   - {fileID: 75508340}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7975,7 +7832,7 @@ GameObject:
   - component: {fileID: 1202866816}
   - component: {fileID: 1202866815}
   m_Layer: 5
-  m_Name: Level6Button
+  m_Name: Level7Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8055,18 +7912,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1202866817}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 428799729}
-        m_MethodName: LoadLevel
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level6
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1202866817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8132,7 +7978,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1256918200
 MonoBehaviour:
@@ -8160,7 +8006,7 @@ GameObject:
   - component: {fileID: 1279212928}
   - component: {fileID: 1279212927}
   m_Layer: 5
-  m_Name: Level5Button
+  m_Name: Level6Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8240,18 +8086,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1279212929}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 428799729}
-        m_MethodName: LoadLevel
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level5
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1279212929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8900,7 +8735,7 @@ GameObject:
   - component: {fileID: 1349441891}
   - component: {fileID: 1349441890}
   m_Layer: 5
-  m_Name: Level0Label
+  m_Name: Level1Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8937,8 +8772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 0
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 0"
+  englishText: LEVEL 1
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 1"
 --- !u!114 &1349441891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8957,7 +8792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 0
+  m_text: LEVEL 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -8985,7 +8820,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.8
+  m_fontSize: 91.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9023,7 +8858,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 26.59674, y: 29.272009, z: 27.42777, w: 30.459871}
+  m_margin: {x: 15.26096, y: 29.272009, z: 16.09195, w: 30.459871}
   m_textInfo:
     textComponent: {fileID: 1349441891}
     characterCount: 7
@@ -9143,7 +8978,7 @@ GameObject:
   - component: {fileID: 1393199998}
   - component: {fileID: 1393199997}
   m_Layer: 5
-  m_Name: Level7Button
+  m_Name: Level8Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9223,18 +9058,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1393199999}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 428799729}
-        m_MethodName: LoadLevel
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level7
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1393199999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10040,7 +9864,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 1.25
+  m_padding: 0
   m_canvasRenderer: {fileID: 1488969306}
   m_TextComponent: {fileID: 1092423809}
   m_materialReferenceIndex: 1
@@ -11207,6 +11031,7 @@ GameObject:
   - component: {fileID: 1785513476}
   - component: {fileID: 1785513475}
   - component: {fileID: 1785513478}
+  - component: {fileID: 1785513479}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -11336,6 +11161,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fb95bdc3e48e34b94b11ceac248793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1785513479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785513473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b4ea7659041ac478f888344579e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyCode: 27
 --- !u!1 &1800180268
 GameObject:
   m_ObjectHideFlags: 0
@@ -11467,7 +11305,7 @@ Transform:
   - {fileID: 735040156}
   - {fileID: 1956015834}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1836816101
 GameObject:
@@ -11884,7 +11722,7 @@ GameObject:
   - component: {fileID: 1939039542}
   - component: {fileID: 1939039541}
   m_Layer: 5
-  m_Name: Level2Label
+  m_Name: Level3Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11921,8 +11759,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: LEVEL 2
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 2"
+  englishText: LEVEL 3
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 3"
 --- !u!114 &1939039542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11941,7 +11779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LEVEL 2
+  m_text: LEVEL 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10954dcd25187ae42a3fa0eccfe5d395, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 467e90441046c374c92284768719eaf1, type: 2}
@@ -12352,7 +12190,7 @@ GameObject:
   - component: {fileID: 1960352633}
   - component: {fileID: 1960352637}
   m_Layer: 5
-  m_Name: LoadingScreen
+  m_Name: LevelLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12431,7 +12269,7 @@ RectTransform:
   m_Children:
   - {fileID: 685881562}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12453,10 +12291,10 @@ MonoBehaviour:
   slider: {fileID: 446160357}
   percent: {fileID: 1991543776}
   levelNames:
-  - Level0
   - Level1
   - Level2
-  scoreToUnlockNextLevel: 000000000000000000000000
+  - Level3
+  scoreToUnlockNextLevel: 050000000500000005000000
 --- !u!1 &1961278115
 GameObject:
   m_ObjectHideFlags: 0
@@ -12543,19 +12381,17 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 301574637}
-  - {fileID: 234809644}
   - {fileID: 2129240534}
   - {fileID: 1098986993}
   - {fileID: 310571591}
   - {fileID: 401601250}
   m_Father: {fileID: 1068182096}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 32}
-  m_SizeDelta: {x: 1044.7, y: 855.8}
+  m_AnchoredPosition: {x: 0, y: -78.6}
+  m_SizeDelta: {x: 1044.7, y: 634.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1963446102
 MonoBehaviour:
@@ -12824,7 +12660,7 @@ GameObject:
   - component: {fileID: 2006361469}
   - component: {fileID: 2006361468}
   m_Layer: 5
-  m_Name: Level7Label
+  m_Name: Level8Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12861,10 +12697,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: 'LEVEL 7
+  englishText: 'LEVEL 8
 
     [COMING SOON]'
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 7\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 8\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &2006361469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12883,7 +12719,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LEVEL 7
+  m_text: 'LEVEL 8
 
     [COMING SOON]'
   m_isRightToLeft: 0
@@ -12999,7 +12835,7 @@ GameObject:
   - component: {fileID: 2039513062}
   - component: {fileID: 2039513061}
   m_Layer: 5
-  m_Name: Level4Button
+  m_Name: Level5Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13079,18 +12915,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2039513063}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 428799729}
-        m_MethodName: LoadLevel
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Level4
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2039513063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13360,7 +13185,7 @@ GameObject:
   - component: {fileID: 2064093130}
   - component: {fileID: 2064093129}
   m_Layer: 5
-  m_Name: Level0Button
+  m_Name: Level1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13545,8 +13370,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 68.2}
-  m_SizeDelta: {x: 280.78, y: 83.9}
+  m_AnchoredPosition: {x: 0, y: 79}
+  m_SizeDelta: {x: 363.2, y: 226.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2070188739
 MonoBehaviour:
@@ -13609,12 +13434,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 35.75
+  m_fontSize: 80.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 1
+  m_fontSizeMax: 999
   m_fontStyle: 1
   m_textAlignment: 514
   m_characterSpacing: 0
@@ -13694,7 +13519,7 @@ GameObject:
   - component: {fileID: 2073009206}
   - component: {fileID: 2073009205}
   m_Layer: 5
-  m_Name: Level5Label
+  m_Name: Level6Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13731,10 +13556,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: 'LEVEL 5
+  englishText: 'LEVEL 6
 
     [COMING SOON]'
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 5\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 6\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &2073009206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13753,7 +13578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LEVEL 5
+  m_text: 'LEVEL 6
 
     [COMING SOON]'
   m_isRightToLeft: 0
@@ -13940,7 +13765,7 @@ GameObject:
   - component: {fileID: 2081970468}
   - component: {fileID: 2081970467}
   m_Layer: 5
-  m_Name: Level6Label
+  m_Name: Level7Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13977,10 +13802,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b0f58fae8d5724aaff049815a7a4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishText: 'LEVEL 6
+  englishText: 'LEVEL 7
 
     [COMING SOON]'
-  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 6\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
+  russianText: "\u0423\u0420\u041E\u0412\u0415\u041D\u042C 7\n[\u0412 \u0420\u0410\u0417\u0420\u0410\u0411\u041E\u0422\u041A\u0415]"
 --- !u!114 &2081970468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13999,7 +13824,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LEVEL 6
+  m_text: 'LEVEL 7
 
     [COMING SOON]'
   m_isRightToLeft: 0
@@ -14272,7 +14097,7 @@ GameObject:
   - component: {fileID: 2126771708}
   - component: {fileID: 2126771707}
   m_Layer: 5
-  m_Name: Level1Button
+  m_Name: Level2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14361,7 +14186,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level1
+          m_StringArgument: Level2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2126771709
@@ -14433,7 +14258,7 @@ RectTransform:
   m_Children:
   - {fileID: 318735226}
   m_Father: {fileID: 1963446101}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
