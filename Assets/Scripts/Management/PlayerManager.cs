@@ -53,9 +53,9 @@ public class PlayerManager : MonoBehaviour
     /// UI text element that shows current money to the player.
     /// </summary>
     [SerializeField]
-    private TextMeshProUGUI energyText;
+    private TMP_Text energyText;
     [SerializeField]
-    private TextMeshProUGUI energyIncomeText;
+    private TMP_Text energyIncomeText;
 
     /// <summary>
     /// The sum that the player can spend on buying stuff.
@@ -65,7 +65,6 @@ public class PlayerManager : MonoBehaviour
         get => energy;
         protected set
         {
-            Debug.Assert(value >= 0, $"Putting negative {value} to money!");
             energy = value;
             if (energyText != null)
             {
@@ -83,7 +82,9 @@ public class PlayerManager : MonoBehaviour
     }
     protected virtual void Start()
     {
+        LevelManager.Instance.onGameStarted += () => gameObject.SetActive(true);
         LevelManager.Instance.onGameStarted += () => StartCoroutine("IncomeTick");
+        gameObject.SetActive(false);
     }
     public void IncreaseIncome(float value)
     {
@@ -130,6 +131,8 @@ public class PlayerManager : MonoBehaviour
         SpendEnergy(Cost.Buggy);
         Buggy buggy = unitFactory.CreateBuggy(this);
         buggy.SpawnOn(spawn);
+        buggy.gameObject.SetActive(true);
+        buggy.InitializePath();
         return buggy;
     }
     /// <summary>
@@ -140,6 +143,8 @@ public class PlayerManager : MonoBehaviour
         SpendEnergy(Cost.Copter);
         Copter copter = unitFactory.CreateCopter(this);
         copter.SpawnOn(spawn);
+        copter.gameObject.SetActive(true);
+        copter.InitializePath();
         return copter;
     }
     /// <summary>
@@ -150,6 +155,7 @@ public class PlayerManager : MonoBehaviour
         SpendEnergy(Cost.LaserTurret);
         LaserTurret laser = turretFactory.CreateLaserTurret(this);
         laser.PlaceOn(place);
+        laser.gameObject.SetActive(true);
         return laser;
     }
     /// <summary>
@@ -160,6 +166,7 @@ public class PlayerManager : MonoBehaviour
         SpendEnergy(Cost.MachineGunTurret);
         MachineGunTurret mg = turretFactory.CreateMGTurret(this);
         mg.PlaceOn(place);
+        mg.gameObject.SetActive(true);
         return mg;
     }
     /// <summary>
@@ -170,6 +177,7 @@ public class PlayerManager : MonoBehaviour
         SpendEnergy(Cost.Plant);
         Plant plant = buildingFactory.CreatePlant(this);
         plant.PlaceOn(place);
+        plant.gameObject.SetActive(true);
         return plant;
     }
 

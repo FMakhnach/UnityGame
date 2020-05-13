@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
     /// Number of seconds after which the projectile self-destroys.
     /// </summary>
     [SerializeField]
-    private float lifeTime = 1f;
+    private float lifeTime;
     [SerializeField]
     private float speed;
     private float damage;
@@ -19,27 +19,29 @@ public class Projectile : MonoBehaviour
     /// </summary>
     private ParticleSystem particles;
     /// <summary>
-    /// The direction in which the projectile will fly.
+    /// direction * speed * Time.deltaTime
     /// </summary>
-    private Vector3 direction;
+    private Vector3 directionTimesSpeed;
+
 
     /// <summary>
     /// Initializing a projectile by giving it all what it needs.
     /// </summary>
     public void Initialize(Vector3 direction, float damage, PlayerManager owner, ParticleSystem particles)
     {
-        this.direction = direction.normalized;
+        directionTimesSpeed = direction.normalized * speed * Time.deltaTime;
         this.owner = owner;
         this.damage = damage;
         this.particles = particles;
-        Destroy(gameObject, lifeTime);
-        Destroy(particles.gameObject, lifeTime);
+        // It should be destroyed in time.
+        PoolManager.Instance.Reclaim(gameObject, lifeTime);
+        PoolManager.Instance.Reclaim(particles.gameObject, lifeTime);
     }
 
     private void Update()
     {
-        // Just flying towards the destination
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        // Just flying in given direction.
+        transform.Translate(directionTimesSpeed, Space.World);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -48,9 +50,7 @@ public class Projectile : MonoBehaviour
         if (damageable != null && damageable.Owner != owner)
         {
             damageable.ReceiveDamage(damage, owner);
-            particles.Stop();
-            Destroy(particles.gameObject);
-            gameObject.SetActive(false);
+            PoolManager.Instance.Reclaim(particles.gameObject);
         }
     }
 }

@@ -22,16 +22,6 @@ public class ArrowsOptionSetter : MonoBehaviour
 
     public TMP_Text[] options;
 
-    private void Awake()
-    {
-        left.onClick.AddListener(LeftArrowClicked);
-        right.onClick.AddListener(RightArrowClicked);
-    }
-    private void Start()
-    {
-        id = PlayerPrefs.GetInt(playerPrefsName, 0);
-        options[id].gameObject.SetActive(true);
-    }
     public void LeftArrowClicked()
     {
         options[id].gameObject.SetActive(false);
@@ -50,6 +40,17 @@ public class ArrowsOptionSetter : MonoBehaviour
         {
             id = 0;
         }
+        options[id].gameObject.SetActive(true);
+    }
+
+    private void Awake()
+    {
+        left.onClick.AddListener(LeftArrowClicked);
+        right.onClick.AddListener(RightArrowClicked);
+    }
+    private void Start()
+    {
+        id = PlayerPrefs.GetInt(playerPrefsName, 0);
         options[id].gameObject.SetActive(true);
     }
     private void OnApplicationQuit()

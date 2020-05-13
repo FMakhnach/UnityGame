@@ -19,38 +19,29 @@ public class ObjectInfoPanelController : Singleton<ObjectInfoPanelController>
     public TurretInfoPanel MG => mgPanel;
     public PlantInfoPanel Plant => plantPanel;
 
-    private bool panelIsFixed;
-    /// <summary>
-    /// A circle around the selected object.
-    /// </summary>
-    private SpriteRenderer activeVisualization;
-    /// <summary>
-    /// The gui thing on the left side of the screen.
-    /// </summary>
-    private ObjectInfoPanel activePanel;
-
-    public bool PanelIsFixed => panelIsFixed;
-    public SpriteRenderer ActiveVisualization => activeVisualization;
-    public ObjectInfoPanel ActivePanel => activePanel;
+    public bool PanelIsFixed { get; private set; }
+    public SpriteRenderer ActiveVisualization { get; private set; }
+    public ObjectInfoPanel ActivePanel { get; private set; }
+    public DamageableBehaviour Target { get; set; }
 
     public void SetPanel(ObjectInfoPanel panel)
     {
-        if (activePanel != null)
+        if (ActivePanel != null)
         {
-            activePanel.gameObject.SetActive(false);
+            ActivePanel.gameObject.SetActive(false);
         }
         panel.gameObject.SetActive(true);
-        activePanel = panel;
+        ActivePanel = panel;
     }
     public void LockPanel(SpriteRenderer visualization)
     {
-        panelIsFixed = true;
+        PanelIsFixed = true;
         RemoveCurrentVisualization();
         SetVisualization(visualization);
     }
     public void UnlockPanel()
     {
-        panelIsFixed = false;
+        PanelIsFixed = false;
         RemoveCurrentVisualization();
         if (Instance != null)
         {
@@ -60,15 +51,15 @@ public class ObjectInfoPanelController : Singleton<ObjectInfoPanelController>
 
     private void SetVisualization(SpriteRenderer visualization)
     {
-        activeVisualization = visualization;
-        activeVisualization.gameObject.SetActive(true);
+        ActiveVisualization = visualization;
+        ActiveVisualization.gameObject.SetActive(true);
     }
     private void RemoveCurrentVisualization()
     {
-        if (activeVisualization != null)
+        if (ActiveVisualization != null)
         {
-            activeVisualization.gameObject.SetActive(false);
-            activeVisualization = null;
+            ActiveVisualization.gameObject.SetActive(false);
+            ActiveVisualization = null;
         }
     }
     protected override void Awake()
@@ -78,7 +69,7 @@ public class ObjectInfoPanelController : Singleton<ObjectInfoPanelController>
     }
     private void Update()
     {
-        if (panelIsFixed && Input.GetMouseButtonDown(1))
+        if (PanelIsFixed && Input.GetMouseButtonDown(1))
         {
             UnlockPanel();
         }

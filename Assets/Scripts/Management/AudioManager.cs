@@ -15,7 +15,7 @@ public class AudioManager : Singleton<AudioManager>
     /// Audio source for UI sfx (child).
     /// </summary>
     [SerializeField]
-    private AudioSource uiEffectsSource;
+    private AudioSource soundsSource;
     /// <summary>
     /// Theme music clip.
     /// </summary>
@@ -26,32 +26,31 @@ public class AudioManager : Singleton<AudioManager>
     /// </summary>
     [SerializeField]
     private AudioClip buttonClickSound;
-    /// <summary>
-    /// Current master volume.
-    /// </summary>
-    private float masterVolume;
+    private float soundsVolume;
+
+    public float SoundsVolume => soundsVolume;
+    public float MusicVolume => musicSource.volume;
 
     /// <summary>
-    /// Current master volume.
+    /// Triggers on changing sounds volume.
     /// </summary>
-    public float MasterVolume => masterVolume;
+    public event Action<float> soundsVolumeChanged;
 
-    /// <summary>
-    /// Triggers on changing master volume.
-    /// </summary>
-    public event Action<float> masterVolumeChanged;
-
-    public void SetMasterVolume(float volume)
+    public void SetSoundsVolume(float volume)
     {
-        masterVolume = volume;
-        masterVolumeChanged?.Invoke(volume);
+        soundsVolume = volume;
+        soundsVolumeChanged?.Invoke(volume);
+    }
+    public void SetMusicVolume(float volume)
+    {
+        musicSource.volume = volume;
     }
     /// <summary>
     /// Subscribe this method to button onClick event to get click sound.
     /// </summary>
     public void ButtonClicked()
     {
-        uiEffectsSource.PlayOneShot(buttonClickSound);
+        soundsSource.PlayOneShot(buttonClickSound);
     }
 
     protected override void Awake()
@@ -59,10 +58,10 @@ public class AudioManager : Singleton<AudioManager>
         base.Awake();
         DontDestroyOnLoad(this.gameObject);
 
-        masterVolumeChanged += (float vol) => musicSource.volume = vol;
-        masterVolumeChanged += (float vol) => uiEffectsSource.volume = vol;
+        soundsVolumeChanged += (float vol) => soundsSource.volume = vol;
 
-        masterVolume = PlayerPrefs.GetFloat("masterVolume", 1f);
+        soundsVolume = PlayerPrefs.GetFloat("soundsVolume", 1f);
+        musicSource.volume  = PlayerPrefs.GetFloat("musicVolume", 1f);
     }
     private void Start()
     {
@@ -70,11 +69,12 @@ public class AudioManager : Singleton<AudioManager>
         musicSource.clip = musicClip;
         musicSource.Play();
         // Set volume from loaded
-        SetMasterVolume(masterVolume);
+        SetSoundsVolume(soundsVolume);
     }
     private void OnApplicationQuit()
     {
-        // Save master volume
-        PlayerPrefs.SetFloat("masterVolume", masterVolume);
+        // Save volume
+        PlayerPrefs.SetFloat("soundsVolume", soundsVolume);
+        PlayerPrefs.SetFloat("musicVolume", musicSource.volume);
     }
 }

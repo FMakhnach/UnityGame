@@ -21,20 +21,14 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     protected GameObject body;
     [SerializeField]
     private Transform firePoint;
-    [SerializeField]
-    private Projectile projectilePrefab;
-    [SerializeField]
-    private ParticleSystem fireParticles;
     protected ITarget currentTarget;
     private float timer;
     private LayerMask targetableMask;
-    private PlayerManager owner;
     protected DamageableBehaviour damageableBehaviour;
     /// <summary>
     /// Audio source for sound effects.
     /// </summary>
     private AudioSource audioSource;
-
     private Action currentBehavior;
     /// <summary>
     /// Path that the unit is following
@@ -46,17 +40,8 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     private int curDestId;
     private NavMeshAgent agent;
 
-    public PlayerManager Owner
-    {
-        get => owner;
-        set
-        {
-            if (owner == null && value != null)
-            {
-                owner = value;
-            }
-        }
-    }
+    //private PlayerManager owner;
+    public PlayerManager Owner { get; set; }
     public Transform TargetPoint => ownTarget;
     public UnitInfoPanel Panel { get; protected set; }
 
@@ -67,21 +52,40 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         transform.position = spawn.transform.position;
         transform.rotation = spawn.transform.rotation;
-        audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
 
         path = spawn.Road;
         currentBehavior = MovingBehavior;
         curDestId = 0;
+    }
+    public void InitializePath()
+    {
         agent.enabled = true;
         agent.SetDestination(path[curDestId]);
     }
+    public void PlaySpawnSound()
+        => audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
     public void ReceiveDamage(float damage, PlayerManager from)
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
             from.UnitKilled();
-            owner.UnitLost();
-            Destroy(this.gameObject);
+            Owner.UnitLost();
+
+            currentBehavior = null;
+            currentTarget = null;
+            timer = 0f;
+            Owner = null;
+            damageableBehaviour.ResetValues();
+
+            var ps = PoolManager.Instance.GetSmallExplosion();
+            ps.transform.position = transform.position;
+            ps.transform.rotation = transform.rotation;
+            ps.gameObject.SetActive(true);
+            ps.Play();
+            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
+            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.5f);
+
+            PoolManager.Instance.Reclaim(gameObject);
         }
     }
 
@@ -135,18 +139,21 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     /// </summary>
     private void Fire()
     {
-        var fireParticles = Instantiate(this.fireParticles,
-                                        this.fireParticles.transform.position,
-                                        this.fireParticles.transform.rotation);
-        fireParticles.transform.LookAt(currentTarget.TargetPoint);
-
+        var fireParticles = PoolManager.Instance.GetEnemyShootEffect();
+        fireParticles.transform.position = firePoint.transform.position;
+        fireParticles.transform.rotation = firePoint.transform.rotation;
+        fireParticles.gameObject.SetActive(true);
         fireParticles.Play();
         audioSource.PlayOneShot(config.attackSound, 0.3f * audioSource.volume);
 
-        Projectile proj = Instantiate(projectilePrefab, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform);
+        Projectile proj = GetProjectile();
+        proj.transform.position = firePoint.position;
+        proj.transform.rotation = firePoint.transform.rotation;
+        proj.gameObject.SetActive(true);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
-        proj.Initialize(direction, config.damage, owner, fireParticles);
+        proj.Initialize(direction, config.damage, Owner, fireParticles);
     }
+    protected abstract Projectile GetProjectile();
     private void MovingBehavior()
     {
         if ((transform.position - path[curDestId]).sqrMagnitude < 0.5f)
@@ -167,7 +174,8 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         if (currentTarget != null)
         {
             if (currentTarget.ToString() == "null" ||
-                (currentTarget.TargetPoint.position - transform.position).magnitude > (config.radius + 3.5f))
+                (currentTarget.TargetPoint.position - transform.position).magnitude 
+                > (config.radius + 3.5f))
             {
                 currentTarget = null;
                 return;
@@ -187,8 +195,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         {
             currentBehavior = MovingBehavior;
             body.transform.localRotation = Quaternion.identity;
-            agent.enabled = true;
-            agent.SetDestination(path[curDestId]);
+            InitializePath();
         }
     }
 

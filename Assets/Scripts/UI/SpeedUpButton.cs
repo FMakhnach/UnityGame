@@ -9,10 +9,6 @@ public class SpeedUpButton : MonoBehaviour
     private float[] speedUpOptions;
     private int currentSpeedId;
 
-    private void Awake()
-    {
-        currentSpeedId = 0;
-    }
     public void SpeedUpButtonClicked()
     {
         if (++currentSpeedId == speedUpOptions.Length)
@@ -21,5 +17,10 @@ public class SpeedUpButton : MonoBehaviour
         }
         text.text = "x" + speedUpOptions[currentSpeedId].ToString("#.#");
         GameTimer.Instance.SetTimeScale(speedUpOptions[currentSpeedId]);
+    }
+
+    private void Awake()
+    {
+        currentSpeedId = 0;
     }
 }

@@ -3,16 +3,16 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Represents object that can be damaged and healed.
+/// Represents object that can be damaged.
 /// </summary>
 public class DamageableBehaviour : MonoBehaviour
 {
     /// <summary>
-    /// Need it just for start health.
+    /// Need it for start health and regeneration.
     /// </summary>
     [SerializeField]
     private GameObjectConfig config;
-    private float currentHealth;
+    private float health;
 
     /// <summary>
     /// UI label that shows current HP to the player.
@@ -20,7 +20,7 @@ public class DamageableBehaviour : MonoBehaviour
     [HideInInspector]
     public TMP_Text healthText;
 
-    public float Health => currentHealth;
+    public float Health => health;
     /// <summary>
     /// Amount of health points that is regenerated in a second.
     /// </summary>
@@ -31,38 +31,29 @@ public class DamageableBehaviour : MonoBehaviour
     /// </summary>
     public bool ReceiveDamage(float damage)
     {
-        if (gameObject != null && damage >= currentHealth)
+        if (gameObject != null && damage >= health)
         {
-            var ps = Instantiate(config.destroyParticles, transform.position, transform.rotation);
-            ps.Play();
-            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
-            Destroy(ps.gameObject, config.destroySound.length + 0.5f);
+            ObjectInfoPanelController.Instance.UnlockPanel();
             return true;
         }
         else
         {
-            currentHealth -= damage;
+            health -= damage;
             UpdateHealthLabel();
             return false;
         }
     }
     /// <summary>
-    /// Heals the object (can't be more than max hp obviously).
+    /// Is used for Pool manager.
     /// </summary>
-    /// <param name="heal"></param>
-    public void ReceiveHeal(float heal)
+    public void ResetValues()
     {
-        currentHealth += heal;
-        if (currentHealth > config.startHealth)
-        {
-            currentHealth = config.startHealth;
-        }
-        UpdateHealthLabel();
+        health = config.startHealth;
     }
 
     private void Awake()
     {
-        currentHealth = config.startHealth;
+        ResetValues();
         if (Regeneration > 0f)
         {
             StartCoroutine("Regenerate");
@@ -73,20 +64,32 @@ public class DamageableBehaviour : MonoBehaviour
     /// </summary>
     private void UpdateHealthLabel()
     {
-        if (healthText != null)
+        if (healthText != null && ObjectInfoPanelController.Instance.Target == this)
         {
-            int health = (int)(currentHealth);
-            healthText.text = (health == 0 ? 1 : health).ToString();
+            int health = (int)(this.health);
+            if(health == 0)
+            {
+                
+            }
+            else
+            {
+                healthText.text = health.ToString();
+            }
         }
     }
     /// <summary>
-    /// Regenerates health every second if it can be done.
+    /// Regenerates health every second if not max health.
     /// </summary>
     private IEnumerator Regenerate()
     {
         for (; ; )
         {
-            ReceiveHeal(Regeneration);
+            health += Regeneration;
+            if (health > config.startHealth)
+            {
+                health = config.startHealth;
+            }
+            UpdateHealthLabel();
             yield return new WaitForSeconds(1f);
         }
     }

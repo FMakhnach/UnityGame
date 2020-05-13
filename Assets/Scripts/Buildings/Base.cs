@@ -30,7 +30,16 @@ public class Base : MonoBehaviour, ITarget, IDamageable
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
-            Destroy(this.gameObject);
+            // Getting particles and playing them.
+            var ps = PoolManager.Instance.GetBigExplosion();
+            ps.transform.position = transform.position;
+            ps.transform.rotation = transform.rotation;
+            ps.gameObject.SetActive(true);
+            ps.Play();
+            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
+            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.2f);
+
+            gameObject.SetActive(false);
             LevelManager.Instance.EndGame(from, owner);
         }
     }

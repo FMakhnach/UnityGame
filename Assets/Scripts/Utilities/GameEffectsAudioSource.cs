@@ -11,8 +11,8 @@ public class GameEffectsAudioSource : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        source.volume = AudioManager.Instance.MasterVolume;
-        AudioManager.Instance.masterVolumeChanged += SetVolume;
+        source.volume = AudioManager.Instance.SoundsVolume;
+        AudioManager.Instance.soundsVolumeChanged += SetVolume;
     }
     private void SetVolume(float volume)
     {
@@ -20,6 +20,6 @@ public class GameEffectsAudioSource : MonoBehaviour
     }
     private void OnDestroy()
     {
-        AudioManager.Instance.masterVolumeChanged -= SetVolume;
+        AudioManager.Instance.soundsVolumeChanged -= SetVolume;
     }
 }

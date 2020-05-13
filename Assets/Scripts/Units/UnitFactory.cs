@@ -13,18 +13,16 @@ public class UnitFactory : ScriptableObject
     [SerializeField]
     private Material copterMaterial;
 
-    private Vector3 spawnPosition = new Vector3(0f, 100f, 0f);
-
     public Buggy CreateBuggy(PlayerManager owner)
     {
-        Buggy buggy = Instantiate(buggyPrefab, spawnPosition, Quaternion.identity);
+        Buggy buggy = PoolManager.Instance.GetBuggy();
         buggy.Owner = owner;
         buggy.gameObject.GetComponentInChildren<Renderer>().material = buggyMaterial;
         return buggy;
     }
     public Copter CreateCopter(PlayerManager owner)
     {
-        Copter copter = Instantiate(copterPrefab, spawnPosition, Quaternion.identity);
+        Copter copter = PoolManager.Instance.GetCopter();
         copter.Owner = owner;
         copter.gameObject.GetComponentInChildren<Renderer>().material = copterMaterial;
         return copter;

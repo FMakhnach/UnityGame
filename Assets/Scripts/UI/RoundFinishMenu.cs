@@ -52,6 +52,7 @@ public class RoundFinishMenu : MonoBehaviour
         GameTimer.Instance.SetTimeScale(1f);
         SceneManager.LoadScene("MainMenu");
     }
+
     private void Awake()
     {
         bestScore = PlayerPrefs.GetInt("best-score" + levelId, 0);

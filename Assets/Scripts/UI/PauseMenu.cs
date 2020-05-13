@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviour
     private GameObject pauseMenuObject;
     [SerializeField]
     private ExitToMainMenuPopup exitToMainMenuPopup;
-
     /// <summary>
     /// Should disable this on pause.
     /// </summary>

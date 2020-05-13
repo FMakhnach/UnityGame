@@ -8,31 +8,20 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
     private PlantConfiguration config;
     [SerializeField]
     private Transform targetPoint;
-    private PlayerManager owner;
     private DamageableBehaviour damageableBehaviour;
 
     public Transform TargetPoint => targetPoint;
-    public PlayerManager Owner
-    {
-        get => owner;
-        set
-        {
-            if (owner == null && value != null)
-            {
-                owner = value;
-            }
-        }
-    }
+    public PlayerManager Owner { get; set; }
     public PlantInfoPanel Panel { get; private set; }
-
 
     public void PlaceOn(PlantPlacement place)
     {
         transform.position = place.transform.position;
         transform.rotation = place.Rotation;
-        owner.IncreaseIncome(config.incomePerSecond);
-        GetComponent<AudioSource>().PlayOneShot(config.spawnSound, 0.3f);
+        Owner.IncreaseIncome(config.incomePerSecond);
     }
+    public void PlaySpawnSound()
+        => GetComponent<AudioSource>().PlayOneShot(config.spawnSound, 0.3f);
     /// <summary>
     /// Receives damage. If loses all HP, destroys and the owner loses additional income.
     /// </summary>
@@ -40,8 +29,17 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
-            owner.DecreaseIncome(config.incomePerSecond);
-            Destroy(this.gameObject);
+            Owner.DecreaseIncome(config.incomePerSecond);
+
+            var ps = PoolManager.Instance.GetBigExplosion();
+            ps.transform.position = transform.position;
+            ps.transform.rotation = transform.rotation;
+            ps.gameObject.SetActive(true);
+            ps.Play();
+            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
+            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.5f);
+
+            PoolManager.Instance.Reclaim(gameObject);
         }
     }
 

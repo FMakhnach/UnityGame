@@ -8,18 +8,17 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField]
     private PlayerManager player;
     [SerializeField]
-    private PrimitiveAI[] enemies;
+    private EnemyAI[] enemies;
     [SerializeField]
     private Button[] gameButtons;
     [SerializeField]
     private SpeedUpButton speedUpButton;
+    [SerializeField]
+    private GameObject gameUI;
+    [SerializeField]
+    private GameObject timerText;
     #endregion
 
-    /// <summary>
-    /// This thing we turn off on game end (similar to pause menu).
-    /// </summary>
-    [SerializeField]
-    private DisableGroup disableGroup;
     /// <summary>
     /// The menu that is shown is the player loses.
     /// </summary>
@@ -49,7 +48,7 @@ public class LevelManager : Singleton<LevelManager>
         if (winner == player)
         {
             loser.gameObject.SetActive(false);
-            if(FindObjectOfType<PrimitiveAI>() == null)
+            if(FindObjectOfType<EnemyAI>() == null)
             {
                 Invoke("PlayerWon", 1f);
             }
@@ -68,7 +67,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
-        Invoke("DisablePreGameGroup", 0.01f);
+        SetActivePreGameGroup(false);
     }
     /// <summary>
     /// Calculates match score of the player based on some stats.
@@ -84,14 +83,8 @@ public class LevelManager : Singleton<LevelManager>
             - (int)GameTimer.Instance.GameTime * 5;
         return score > 0 ? score : 100;
     }
-    private void DisablePreGameGroup() => SetActivePreGameGroup(false);
     private void SetActivePreGameGroup(bool active)
     {
-        player.gameObject.SetActive(active);
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].gameObject.SetActive(active);
-        }
         for (int i = 0; i < gameButtons.Length; i++)
         {
             gameButtons[i].enabled = active;
@@ -103,7 +96,8 @@ public class LevelManager : Singleton<LevelManager>
     private void PlayerWon()
     {
         Time.timeScale = 0f;
-        disableGroup.SetEnabled(false);
+        gameUI.gameObject.SetActive(false);
+        timerText.gameObject.SetActive(false);
         winWindow.gameObject.SetActive(true);
         winWindow.SetScore(CalculateScore(player.PlayerStats));
         detailsMenu.Initialize(player.PlayerStats, winWindow);
@@ -111,7 +105,8 @@ public class LevelManager : Singleton<LevelManager>
     private void PlayerLost()
     {
         Time.timeScale = 0f;
-        disableGroup.SetEnabled(false);
+        gameUI.gameObject.SetActive(false);
+        timerText.gameObject.SetActive(false);
         loseWindow.gameObject.SetActive(true);
         loseWindow.SetScore(0);
         detailsMenu.Initialize(player.PlayerStats, loseWindow);

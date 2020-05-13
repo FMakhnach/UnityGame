@@ -18,7 +18,6 @@ public abstract class Turret : MonoBehaviour, ITarget, IDamageable
     /// Protected cause I use it to play fire sounds in AttackingTower.
     /// </summary>
     protected AudioSource audioSource;
-    private PlayerManager owner;
     /// <summary>
     /// Thing is responsible for damage and health.
     /// Protected cause I connect it to a valid UI panel in children
@@ -27,32 +26,36 @@ public abstract class Turret : MonoBehaviour, ITarget, IDamageable
     protected DamageableBehaviour damageableBehaviour;
 
     public Transform TargetPoint => ownTarget;
-    public PlayerManager Owner
-    {
-        get => owner;
-        set
-        {
-            if (owner == null && value != null)
-            {
-                owner = value;
-            }
-        }
-    }
+    public PlayerManager Owner { get; set; }
     public TurretInfoPanel Panel { get; protected set; }
 
     public void PlaceOn(TurretPlacement place)
     {
         transform.position = place.transform.position;
         transform.rotation = place.Rotation;
-        audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
     }
+    public void PlaySpawnSound()
+        => audioSource.PlayOneShot(config.spawnSound, 0.3f * audioSource.volume);
     public void ReceiveDamage(float damage, PlayerManager from)
     {
         if (damageableBehaviour.ReceiveDamage(damage))
         {
             from.TurretKilled();
-            owner.TurretLost();
-            Destroy(gameObject);
+            Owner.TurretLost();
+
+            Owner = null;
+            ResetValues();
+            damageableBehaviour.ResetValues();
+
+            var ps = PoolManager.Instance.GetTurretExplosion();
+            ps.transform.position = transform.position;
+            ps.transform.rotation = transform.rotation;
+            ps.gameObject.SetActive(true);
+            ps.Play();
+            ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
+            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.5f);
+
+            PoolManager.Instance.Reclaim(gameObject);
         }
     }
 
@@ -61,6 +64,7 @@ public abstract class Turret : MonoBehaviour, ITarget, IDamageable
         damageableBehaviour = GetComponent<DamageableBehaviour>();
         audioSource = GetComponent<AudioSource>();
     }
+    protected abstract void ResetValues();
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

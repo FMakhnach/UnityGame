@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa014fd777369643992f9d21b7b2f67, type: 3}
   m_Name: CopterConfiguration
   m_EditorClassIdentifier: 
-  spawnSound: {fileID: 8300000, guid: 8d2ec53ab22ee284f8d4e26b741e2d51, type: 3}
   startHealth: 60
   regeneration: 0
   destroyParticles: {fileID: 198059975614214484, guid: 10eef6400678c4c75b2ac94e435a2bd5,
     type: 3}
   destroySound: {fileID: 8300000, guid: e99e4a579935a894d864e43f6c2e3f84, type: 3}
+  spawnSound: {fileID: 8300000, guid: 8d2ec53ab22ee284f8d4e26b741e2d51, type: 3}
   attackSound: {fileID: 8300000, guid: a182fe2885300f24488df3e659e6ad99, type: 3}
   radius: 6
   damage: 7

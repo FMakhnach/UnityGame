@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class InputManager : MonoBehaviour
 {
     /// <summary>
-    /// Handles entities creating, so we need it.
+    /// Handles entities creating, so we need it. Also pass it to the ghost.
     /// </summary>
     private PlayerManager playerManager;
     /// <summary>
@@ -20,16 +20,6 @@ public class InputManager : MonoBehaviour
     private Action mouseClickRight;
 
     [SerializeField]
-    private Ghost buggyGhostPrefab;
-    [SerializeField]
-    private Ghost copterGhostPrefab;
-    [SerializeField]
-    private Ghost laserTurretGhostPrefab;
-    [SerializeField]
-    private Ghost mgTurretGhostPrefab;
-    [SerializeField]
-    private Ghost plantGhostPrefab;
-    [SerializeField]
     private AudioClip wrongPlace;
 
     /// <summary>
@@ -40,15 +30,20 @@ public class InputManager : MonoBehaviour
     private EventSystem eventSystem;
 
     public void BuggyButtonClicked()
-        => GameButtonClicked(Cost.Buggy, buggyGhostPrefab, PlaceBuggy);
+        => GameButtonClicked(Cost.Buggy,
+            PoolManager.Instance.BuggyGhost, PlaceBuggy);
     public void CopterButtonClicked()
-        => GameButtonClicked(Cost.Copter, copterGhostPrefab, PlaceCopter);
+        => GameButtonClicked(Cost.Copter,
+            PoolManager.Instance.CopterGhost, PlaceCopter);
     public void LaserTurretButtonClicked()
-        => GameButtonClicked(Cost.LaserTurret, laserTurretGhostPrefab, PlaceLaserTurret);
+        => GameButtonClicked(Cost.LaserTurret,
+            PoolManager.Instance.LaserTurretGhost, PlaceLaserTurret);
     public void MGTurretButtonClicked()
-        => GameButtonClicked(Cost.MachineGunTurret, mgTurretGhostPrefab, PlaceMGTurret);
+        => GameButtonClicked(Cost.MachineGunTurret,
+            PoolManager.Instance.MGTurretGhost, PlaceMGTurret);
     public void PlantButtonClicked()
-        => GameButtonClicked(Cost.Plant, plantGhostPrefab, PlacePlant);
+        => GameButtonClicked(Cost.Plant,
+            PoolManager.Instance.PlantGhost, PlacePlant);
 
     private void Awake()
     {
@@ -83,7 +78,7 @@ public class InputManager : MonoBehaviour
     {
         if (currentGhost != null)
         {
-            Destroy(currentGhost.gameObject);
+            PoolManager.Instance.Reclaim(currentGhost.gameObject);
             currentGhost = null;
         }
     }
@@ -96,12 +91,13 @@ public class InputManager : MonoBehaviour
         mouseClickLeft = null;
         mouseClickRight = null;
     }
-
     private void PlaceBuggy()
     {
         if (currentGhost.IsFit)
         {
-            playerManager.SpawnBuggy(currentGhost.PlaceArea as Spawn);
+            playerManager
+                .SpawnBuggy(currentGhost.PlaceArea as Spawn)
+                .PlaySpawnSound();
             Refresh();
         }
         else if (!audioSource.isPlaying)
@@ -113,7 +109,9 @@ public class InputManager : MonoBehaviour
     {
         if (currentGhost.IsFit)
         {
-            playerManager.SpawnCopter(currentGhost.PlaceArea as Spawn);
+            playerManager
+                .SpawnCopter(currentGhost.PlaceArea as Spawn)
+                .PlaySpawnSound();
             Refresh();
         }
         else if (!audioSource.isPlaying)
@@ -125,7 +123,9 @@ public class InputManager : MonoBehaviour
     {
         if (currentGhost.IsFit)
         {
-            playerManager.PlaceLaserTurret(currentGhost.PlaceArea as TurretPlacement);
+            playerManager
+                .PlaceLaserTurret(currentGhost.PlaceArea as TurretPlacement)
+                .PlaySpawnSound();
             Refresh();
         }
         else if (!audioSource.isPlaying)
@@ -137,7 +137,9 @@ public class InputManager : MonoBehaviour
     {
         if (currentGhost.IsFit)
         {
-            playerManager.PlaceMGTurret(currentGhost.PlaceArea as TurretPlacement);
+            playerManager
+                .PlaceMGTurret(currentGhost.PlaceArea as TurretPlacement)
+                .PlaySpawnSound();
             Refresh();
         }
         else if (!audioSource.isPlaying)
@@ -149,7 +151,9 @@ public class InputManager : MonoBehaviour
     {
         if (currentGhost.IsFit)
         {
-            playerManager.PlacePlant(currentGhost.PlaceArea as PlantPlacement);
+            playerManager
+                .PlacePlant(currentGhost.PlaceArea as PlantPlacement)
+                .PlaySpawnSound();
             Refresh();
         }
         else if (!audioSource.isPlaying)
@@ -163,13 +167,16 @@ public class InputManager : MonoBehaviour
     /// <param name="cost"> Cost of the object to buy. </param>
     /// <param name="ghostPrefab"> Object prefab. </param>
     /// <param name="placeMethod"> Method that places the object. </param>
-    private void GameButtonClicked(float cost, Ghost ghostPrefab, Action placeMethod)
+    private void GameButtonClicked(float cost, Ghost ghost, Action placeMethod)
     {
         ClearGhost();
         if (playerManager.Energy >= cost)
         {
-            currentGhost = Instantiate(ghostPrefab, Input.mousePosition, Quaternion.identity);
+            currentGhost = ghost;
+            currentGhost.transform.position = Input.mousePosition;
+            currentGhost.transform.rotation = Quaternion.identity;
             currentGhost.Owner = playerManager;
+            currentGhost.gameObject.SetActive(true);
             mouseClickLeft = placeMethod;
             mouseClickRight = Refresh;
         }

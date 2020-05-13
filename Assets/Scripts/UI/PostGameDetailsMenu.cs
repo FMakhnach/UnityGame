@@ -19,7 +19,6 @@ public class PostGameDetailsMenu : MonoBehaviour
     private TMP_Text unitsLost;
     [SerializeField]
     private TMP_Text turretsLost;
-
     [SerializeField]
     private Button backButton;
     /// <summary>
@@ -40,6 +39,7 @@ public class PostGameDetailsMenu : MonoBehaviour
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(BackButton);
     }
+
     private void BackButton()
     {
         menu.gameObject.SetActive(true);

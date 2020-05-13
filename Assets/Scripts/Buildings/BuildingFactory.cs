@@ -10,7 +10,7 @@ public class BuildingFactory : ScriptableObject
 
     public Plant CreatePlant(PlayerManager owner)
     {
-        Plant plant = Instantiate(plantPrefab);
+        Plant plant = PoolManager.Instance.GetPlant();
         plant.Owner = owner;
         foreach (var renderer in plant.gameObject.GetComponentsInChildren<Renderer>())
         {
@@ -18,7 +18,6 @@ public class BuildingFactory : ScriptableObject
             {
                 renderer.material = plantMaterial;
             }
-
         }
         return plant;
     }

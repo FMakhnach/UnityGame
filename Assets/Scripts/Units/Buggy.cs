@@ -8,6 +8,9 @@ public class Buggy : Unit
         var curRot = body.transform.rotation.eulerAngles;
         body.transform.rotation = Quaternion.Euler(0f, curRot.y, 0f);
     }
+    protected override Projectile GetProjectile()
+        => PoolManager.Instance.GetBuggyProjectile();
+
     private void Start()
     {
         Panel = ObjectInfoPanelController.Instance.Buggy;

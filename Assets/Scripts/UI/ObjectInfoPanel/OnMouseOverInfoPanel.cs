@@ -41,7 +41,7 @@ public class OnMouseOverInfoPanel : MonoBehaviour
         {
             return;
         }
-
+        ObjectInfoPanelController.Instance.Target = damageableBehaviour;
         ObjectInfoPanelController.Instance.gameObject.SetActive(true);
         ObjectInfoPanelController.Instance.SetPanel(panel);
         panel.healthLabel.text = ((int)damageableBehaviour.Health).ToString();
@@ -55,6 +55,7 @@ public class OnMouseOverInfoPanel : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            panel.healthLabel.text = ((int)damageableBehaviour.Health).ToString();
             ObjectInfoPanelController.Instance.SetPanel(panel);
             ObjectInfoPanelController.Instance.LockPanel(visualization);
         }

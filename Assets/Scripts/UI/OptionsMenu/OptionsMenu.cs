@@ -10,7 +10,12 @@ public class OptionsMenu : Singleton<OptionsMenu>
     /// To change it on game loading.
     /// </summary>
     [SerializeField]
-    private Slider masterVolumeSlider;
+    private Slider soundsVolumeSlider;
+    /// <summary>
+    /// To change it on game loading.
+    /// </summary>
+    [SerializeField]
+    private Slider musicVolumeSlider;
     /// <summary>
     /// We have a common options menu through scenes, so we should 
     /// disable different objects on opening it in different scenes.
@@ -45,8 +50,9 @@ public class OptionsMenu : Singleton<OptionsMenu>
     /// </summary>
     private void Start()
     {
-        // Setting slider in proper position
-        masterVolumeSlider.value = AudioManager.Instance.MasterVolume;
+        // Setting sliders in proper position
+        soundsVolumeSlider.value = AudioManager.Instance.SoundsVolume;
+        musicVolumeSlider.value = AudioManager.Instance.MusicVolume;
         // We don't want it on scene loading
         gameObject.SetActive(false);
     }

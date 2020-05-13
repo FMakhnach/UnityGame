@@ -5,16 +5,6 @@ public abstract class AttackingTurret : Turret
     private const float maxTurretSlope = 10f;
 
     /// <summary>
-    /// Prefab of a projectile the turret shoots.
-    /// </summary>
-    [SerializeField]
-    private Projectile projectilePrefab;
-    /// <summary>
-    /// Particle effect for firing.
-    /// </summary>
-    [SerializeField]
-    private ParticleSystem fireParticles;
-    /// <summary>
     /// Turret transform for rotating.
     /// </summary>
     [SerializeField]
@@ -65,7 +55,7 @@ public abstract class AttackingTurret : Turret
         if (currentTarget != null)
         {
             if (currentTarget.ToString() == "null"
-                || Vector3.Distance(currentTarget.TargetPoint.position, transform.position) > config.radius)
+                || Vector3.Distance(currentTarget.TargetPoint.position, transform.position) > (config.radius + 2f))
             {
                 currentTarget = null;
                 return;
@@ -87,6 +77,11 @@ public abstract class AttackingTurret : Turret
             ScanTerritory();
             Idle();
         }
+    }
+    protected override void ResetValues()
+    {
+        attackTimer = 0f;
+        currentTarget = null;
     }
     private void ScanTerritory()
     {
@@ -160,14 +155,20 @@ public abstract class AttackingTurret : Turret
     /// </summary>
     private void Fire()
     {
-        var fireParticles = Instantiate(this.fireParticles,
-                                        this.fireParticles.transform.position,
-                                        this.fireParticles.transform.rotation);
+        var fireParticles = GetShootEffect();
+        fireParticles.transform.position = firePoint.transform.position;
+        fireParticles.transform.rotation = firePoint.transform.rotation;
+        fireParticles.gameObject.SetActive(true);
         fireParticles.Play();
         audioSource.PlayOneShot(config.attackSound, 0.3f * audioSource.volume);
 
-        Projectile proj = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation, firePoint);
+        Projectile proj = GetProjectile();
+        proj.transform.position = firePoint.position;
+        proj.transform.rotation = firePoint.transform.rotation;
+        proj.gameObject.SetActive(true);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
         proj.Initialize(direction, config.damage, Owner, fireParticles);
     }
+    protected abstract Projectile GetProjectile();
+    protected abstract ParticleSystem GetShootEffect();
 }

@@ -13,11 +13,9 @@ public class TurretFactory : ScriptableObject
     [SerializeField]
     private Material mgTurretMaterial;
 
-    private Vector3 spawnPosition = new Vector3(0f, 100f, 0f);
-
     public LaserTurret CreateLaserTurret(PlayerManager owner)
     {
-        LaserTurret turret = Instantiate(laserTurretPrefab, spawnPosition, Quaternion.identity);
+        LaserTurret turret = PoolManager.Instance.GetLaser();
         turret.Owner = owner;
         foreach (var renderer in turret.gameObject.GetComponentsInChildren<Renderer>())
         {
@@ -25,13 +23,12 @@ public class TurretFactory : ScriptableObject
             {
                 renderer.material = laserTurretMaterial;
             }
-
         }
         return turret;
     }
     public MachineGunTurret CreateMGTurret(PlayerManager owner)
     {
-        MachineGunTurret turret = Instantiate(mgTurretPrefab, spawnPosition, Quaternion.identity);
+        MachineGunTurret turret = PoolManager.Instance.GetMG();
         turret.Owner = owner;
         foreach (var renderer in turret.gameObject.GetComponentsInChildren<Renderer>())
         {

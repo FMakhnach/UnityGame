@@ -4,6 +4,8 @@
     {
         body.transform.LookAt(currentTarget.TargetPoint.position);
     }
+    protected override Projectile GetProjectile()
+        => PoolManager.Instance.GetCopterProjectile();
 
     private void Start()
     {

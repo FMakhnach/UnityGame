@@ -23,7 +23,7 @@ public class LevelLoader : Singleton<LevelLoader>
         DontDestroyOnLoad(gameObject);
         gameObject.SetActive(false);
         // [TODO] levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 1);
-        levelsUnlocked = 2;
+        levelsUnlocked = 3;
     }
 
     public void UnlockLevel(int id)
@@ -52,10 +52,11 @@ public class LevelLoader : Singleton<LevelLoader>
         AsyncOperation operation = SceneManager.LoadSceneAsync(levelName);
         while (!operation.isDone)
         {
-            slider.value = operation.progress * 1.1111112f; // <=> / 0.9
+            slider.value = operation.progress * 1.1111111f; // <=> / 0.9
             percent.text = ((int)(slider.value * 100)).ToString();
             yield return null;
         }
+        FindObjectOfType<PoolManager>().Initialize();
         gameObject.SetActive(false);
     }
 }

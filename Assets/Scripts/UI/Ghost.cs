@@ -43,7 +43,6 @@ public class Ghost : MonoBehaviour
     /// Indicates if the object can be placed in this position.
     /// </summary>
     private bool isFit;
-    private PlaceArea currentPlaceArea;
 
     /// <summary>
     /// The layer that the ghost floats on.
@@ -67,7 +66,7 @@ public class Ghost : MonoBehaviour
             }
         }
     }
-    public PlaceArea PlaceArea => currentPlaceArea;
+    public PlaceArea PlaceArea { get; private set; }
     public PlayerManager Owner { get; set; }
 
     /// <summary>
@@ -96,7 +95,7 @@ public class Ghost : MonoBehaviour
                     transform.position = area.transform.position;
                     transform.rotation = area.Rotation;
                     IsFit = true;
-                    currentPlaceArea = area;
+                    PlaceArea = area;
                     return;
                 }
             }
