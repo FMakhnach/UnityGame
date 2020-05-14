@@ -61,7 +61,7 @@ public class AudioManager : Singleton<AudioManager>
         soundsVolumeChanged += (float vol) => soundsSource.volume = vol;
 
         soundsVolume = PlayerPrefs.GetFloat("soundsVolume", 1f);
-        musicSource.volume  = PlayerPrefs.GetFloat("musicVolume", 1f);
+        musicSource.volume = PlayerPrefs.GetFloat("musicVolume", 1f);
     }
     private void Start()
     {

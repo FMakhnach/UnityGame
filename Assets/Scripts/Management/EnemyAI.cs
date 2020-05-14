@@ -68,7 +68,7 @@ public class EnemyAI : PlayerManager
         plantProbability *= modifier;
 
         base.Awake();
-        
+
     }
     protected override void Start()
     {
@@ -76,7 +76,7 @@ public class EnemyAI : PlayerManager
         PoolManager.Instance.onInitialized += Initialize;
         LevelManager.Instance.onGameStarted += () => StartCoroutine("RandomAction");
     }
-    
+
     /// <summary>
     /// Places turrets and plants. Need to be invoke only after Pool manager initialization.
     /// </summary>

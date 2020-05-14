@@ -44,6 +44,12 @@ public class InputManager : MonoBehaviour
     public void PlantButtonClicked()
         => GameButtonClicked(Cost.Plant,
             PoolManager.Instance.PlantGhost, PlacePlant);
+    public void Refresh()
+    {
+        ClearGhost();
+        mouseClickLeft = null;
+        mouseClickRight = null;
+    }
 
     private void Awake()
     {
@@ -85,12 +91,6 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// Clears ghost and mouse click actions.
     /// </summary>
-    public void Refresh()
-    {
-        ClearGhost();
-        mouseClickLeft = null;
-        mouseClickRight = null;
-    }
     private void PlaceBuggy()
     {
         if (currentGhost.IsFit)

@@ -67,9 +67,9 @@ public class DamageableBehaviour : MonoBehaviour
         if (healthText != null && ObjectInfoPanelController.Instance.Target == this)
         {
             int health = (int)(this.health);
-            if(health == 0)
+            if (health == 0)
             {
-                
+
             }
             else
             {

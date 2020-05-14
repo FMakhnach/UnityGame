@@ -48,7 +48,7 @@ public class LevelManager : Singleton<LevelManager>
         if (winner == player)
         {
             loser.gameObject.SetActive(false);
-            if(FindObjectOfType<EnemyAI>() == null)
+            if (FindObjectOfType<EnemyAI>() == null)
             {
                 Invoke("PlayerWon", 1f);
             }

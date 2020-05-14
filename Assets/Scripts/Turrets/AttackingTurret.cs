@@ -169,6 +169,12 @@ public abstract class AttackingTurret : Turret
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
         proj.Initialize(direction, config.damage, Owner, fireParticles);
     }
+    /// <summary>
+    /// Gets a proper projectile (depends on the child).
+    /// </summary>
     protected abstract Projectile GetProjectile();
+    /// <summary>
+    /// Gets a proper shoot effect (depends on the child).
+    /// </summary>
     protected abstract ParticleSystem GetShootEffect();
 }

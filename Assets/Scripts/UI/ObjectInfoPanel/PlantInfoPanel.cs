@@ -8,7 +8,6 @@ public class PlantInfoPanel : ObjectInfoPanel
 {
     [SerializeField]
     private PlantConfiguration config;
-
     [SerializeField]
     private TMP_Text maxHealthLabel;
     [SerializeField]

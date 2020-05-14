@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Represents a multichoice setting that can be changed via arrows from left and right.
-/// Idk really how it is called.
+/// Idk really how it is called. Аlso saves value to the playerprefs.
 /// </summary>
 public class ArrowsOptionSetter : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class ArrowsOptionSetter : MonoBehaviour
     /// </summary>
     [SerializeField]
     private string playerPrefsName;
-    protected int id;
+    private int id;
 
     public TMP_Text[] options;
 

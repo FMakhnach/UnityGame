@@ -24,6 +24,9 @@ public class ObjectInfoPanelController : Singleton<ObjectInfoPanelController>
     public ObjectInfoPanel ActivePanel { get; private set; }
     public DamageableBehaviour Target { get; set; }
 
+    /// <summary>
+    /// Removes previous panel and sets a new.
+    /// </summary>
     public void SetPanel(ObjectInfoPanel panel)
     {
         if (ActivePanel != null)
@@ -33,12 +36,18 @@ public class ObjectInfoPanelController : Singleton<ObjectInfoPanelController>
         panel.gameObject.SetActive(true);
         ActivePanel = panel;
     }
+    /// <summary>
+    /// Locks the current panel and sets a visualization (fancy circle around the object).
+    /// </summary>
     public void LockPanel(SpriteRenderer visualization)
     {
         PanelIsFixed = true;
         RemoveCurrentVisualization();
         SetVisualization(visualization);
     }
+    /// <summary>
+    /// Unlocks the current panel.
+    /// </summary>
     public void UnlockPanel()
     {
         PanelIsFixed = false;

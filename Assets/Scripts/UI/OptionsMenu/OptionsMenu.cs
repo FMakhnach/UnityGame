@@ -50,10 +50,10 @@ public class OptionsMenu : Singleton<OptionsMenu>
     /// </summary>
     private void Start()
     {
-        // Setting sliders in proper position
+        // Setting sliders in proper position.
         soundsVolumeSlider.value = AudioManager.Instance.SoundsVolume;
         musicVolumeSlider.value = AudioManager.Instance.MusicVolume;
-        // We don't want it on scene loading
+        // We don't want it on scene loading.
         gameObject.SetActive(false);
     }
 }

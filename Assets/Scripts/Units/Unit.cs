@@ -174,7 +174,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
         if (currentTarget != null)
         {
             if (currentTarget.ToString() == "null" ||
-                (currentTarget.TargetPoint.position - transform.position).magnitude 
+                (currentTarget.TargetPoint.position - transform.position).magnitude
                 > (config.radius + 3.5f))
             {
                 currentTarget = null;

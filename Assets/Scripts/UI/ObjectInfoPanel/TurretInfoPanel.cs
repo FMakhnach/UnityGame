@@ -8,7 +8,6 @@ public class TurretInfoPanel : ObjectInfoPanel
 {
     [SerializeField]
     private TurretConfiguration config;
-
     [SerializeField]
     private TMP_Text maxHealthLabel;
     [SerializeField]
