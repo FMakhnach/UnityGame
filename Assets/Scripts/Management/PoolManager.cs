@@ -291,14 +291,25 @@ public class PoolManager : Singleton<PoolManager>
 
         onInitialized?.Invoke();
     }
-    public void Reclaim(GameObject gameObject)
+    public void Reclaim<T>(T poolable) where T : MonoBehaviour, IPoolable
     {
-        gameObject.SetActive(false);
-        gameObject.transform.position = storingPosition;
+        poolable.ResetValues();
+        poolable.transform.position = storingPosition;
+        poolable.gameObject.SetActive(false);
     }
-    public void Reclaim(GameObject gameObject, float seconds)
+    public void Reclaim(ParticleSystem particles)
     {
-        StartCoroutine(ReclaimWithDelay(gameObject, seconds));
+        particles.Stop();
+        particles.gameObject.transform.position = storingPosition;
+        particles.gameObject.SetActive(false);
+    }
+    public void Reclaim<T>(T poolable, float seconds) where T : MonoBehaviour, IPoolable
+    {
+        StartCoroutine(ReclaimWithDelay(poolable, seconds));
+    }
+    public void Reclaim(ParticleSystem particles, float seconds)
+    {
+        StartCoroutine(ReclaimWithDelay(particles, seconds));
     }
 
     public Buggy GetBuggy()
@@ -474,9 +485,14 @@ public class PoolManager : Singleton<PoolManager>
         base.Awake();
         storingPosition = new Vector3(0f, 100f, 0f);
     }
-    private IEnumerator ReclaimWithDelay(GameObject gameObject, float seconds)
+    private IEnumerator ReclaimWithDelay<T>(T poolable, float seconds) where T : MonoBehaviour, IPoolable
     {
         yield return new WaitForSeconds(seconds);
-        Reclaim(gameObject);
+        Reclaim(poolable);
+    }
+    private IEnumerator ReclaimWithDelay(ParticleSystem particles, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Reclaim(particles);
     }
 }

@@ -37,7 +37,7 @@ public class Base : MonoBehaviour, ITarget, IDamageable
             ps.gameObject.SetActive(true);
             ps.Play();
             ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
-            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.2f);
+            PoolManager.Instance.Reclaim(ps, config.destroySound.length + 0.2f);
 
             gameObject.SetActive(false);
             LevelManager.Instance.EndGame(from, owner);

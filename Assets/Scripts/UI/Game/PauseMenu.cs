@@ -17,16 +17,6 @@ public class PauseMenu : MonoBehaviour
     /// Should disable this on pause.
     /// </summary>
     [SerializeField]
-    private PlayerManager playerManager;
-    /// <summary>
-    /// Should disable this on pause.
-    /// </summary>
-    [SerializeField]
-    private PlayerManager enemyManager;
-    /// <summary>
-    /// Should disable this on pause.
-    /// </summary>
-    [SerializeField]
     private TMP_Text timerText;
     private bool gameIsPaused;
 
@@ -43,8 +33,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void TryAgainButtonClicked()
     {
+        LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
         GameTimer.Instance.SetTimeScale(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void OptionsButtonClicked()
     {
@@ -64,12 +54,6 @@ public class PauseMenu : MonoBehaviour
         gameUI.SetActive(true);
         timerText.gameObject.SetActive(true);
         GameTimer.Instance.ResetTimeScale();
-        // Checking if the game has started. 
-        if (LevelManager.Instance.GameHasStarted)
-        {
-            enemyManager.gameObject.SetActive(true);
-            playerManager.gameObject.SetActive(true);
-        }
     }
     private void PauseGame()
     {

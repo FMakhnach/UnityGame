@@ -84,7 +84,7 @@ public class InputManager : MonoBehaviour
     {
         if (currentGhost != null)
         {
-            PoolManager.Instance.Reclaim(currentGhost.gameObject);
+            PoolManager.Instance.Reclaim(currentGhost);
             currentGhost = null;
         }
     }

@@ -2,7 +2,7 @@
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(DamageableBehaviour))]
-public class Plant : MonoBehaviour, ITarget, IDamageable
+public class Plant : MonoBehaviour, ITarget, IDamageable, IPoolable
 {
     [SerializeField]
     private PlantConfiguration config;
@@ -37,10 +37,15 @@ public class Plant : MonoBehaviour, ITarget, IDamageable
             ps.gameObject.SetActive(true);
             ps.Play();
             ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
-            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.5f);
+            PoolManager.Instance.Reclaim(ps, config.destroySound.length + 0.5f);
 
-            PoolManager.Instance.Reclaim(gameObject);
+            PoolManager.Instance.Reclaim(this);
         }
+    }
+    public void ResetValues()
+    {
+        Owner = default;
+        damageableBehaviour.ResetValues();
     }
 
     private void Awake()

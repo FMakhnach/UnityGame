@@ -70,12 +70,4 @@ public class OnMouseOverInfoPanel : MonoBehaviour
             ObjectInfoPanelController.Instance.gameObject.SetActive(false);
         }
     }
-    private void OnDestroy()
-    {
-        if (ObjectInfoPanelController.Instance.ActiveVisualization == visualization
-            || ObjectInfoPanelController.Instance.ActivePanel == panel)
-        {
-            ObjectInfoPanelController.Instance.UnlockPanel();
-        }
-    }
 }

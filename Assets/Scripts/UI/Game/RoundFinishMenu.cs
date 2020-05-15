@@ -23,6 +23,7 @@ public class RoundFinishMenu : MonoBehaviour
         if (score > bestScore)
         {
             bestScore = score;
+            PlayerPrefs.SetInt("best-score" + levelId, bestScore);
         }
 
         bestScoreText.text = bestScore.ToString();
@@ -57,9 +58,5 @@ public class RoundFinishMenu : MonoBehaviour
     {
         bestScore = PlayerPrefs.GetInt("best-score" + levelId, 0);
         nextLevelButton.interactable = false;
-    }
-    private void OnDestroy()
-    {
-        PlayerPrefs.SetInt("best-score" + levelId, bestScore);
     }
 }

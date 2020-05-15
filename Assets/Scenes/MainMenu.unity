@@ -12863,7 +12863,7 @@ MonoBehaviour:
   - Level1
   - Level2
   - Level3
-  scoreToUnlockNextLevel: 050000000500000005000000
+  scoreToUnlockNextLevel: 05000000050000000500000005000000
 --- !u!1 &1961278115
 GameObject:
   m_ObjectHideFlags: 0

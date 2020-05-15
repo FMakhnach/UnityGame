@@ -54,7 +54,7 @@ public abstract class AttackingTurret : Turret
     {
         if (currentTarget != null)
         {
-            if (currentTarget.ToString() == "null"
+            if (currentTarget.TargetPoint.parent.gameObject.activeSelf == false
                 || Vector3.Distance(currentTarget.TargetPoint.position, transform.position) > (config.radius + 2f))
             {
                 currentTarget = null;
@@ -78,10 +78,13 @@ public abstract class AttackingTurret : Turret
             Idle();
         }
     }
-    protected override void ResetValues()
+    public override void ResetValues()
     {
-        attackTimer = 0f;
-        currentTarget = null;
+        attackTimer = default;
+        currentTarget = default;
+        Owner = default;
+        turret.transform.rotation = Quaternion.identity;
+        damageableBehaviour.ResetValues();
     }
     private void ScanTerritory()
     {
@@ -156,9 +159,9 @@ public abstract class AttackingTurret : Turret
     private void Fire()
     {
         var fireParticles = GetShootEffect();
+        fireParticles.gameObject.SetActive(true);
         fireParticles.transform.position = firePoint.transform.position;
         fireParticles.transform.rotation = firePoint.transform.rotation;
-        fireParticles.gameObject.SetActive(true);
         fireParticles.Play();
         audioSource.PlayOneShot(config.attackSound, 0.3f * audioSource.volume);
 

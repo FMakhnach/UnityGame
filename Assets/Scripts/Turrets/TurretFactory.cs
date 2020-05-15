@@ -4,11 +4,6 @@
 public class TurretFactory : ScriptableObject
 {
     [SerializeField]
-    private LaserTurret laserTurretPrefab;
-    [SerializeField]
-    private MachineGunTurret mgTurretPrefab;
-
-    [SerializeField]
     private Material laserTurretMaterial;
     [SerializeField]
     private Material mgTurretMaterial;

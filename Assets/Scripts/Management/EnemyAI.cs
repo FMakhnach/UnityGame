@@ -190,7 +190,7 @@ public class EnemyAI : PlayerManager
         }
         for (int i = 0; i < turrets.Length; i++)
         {
-            if (turrets[i] == null || turrets[i].ToString() == "null")
+            if (turrets[i] == null || turrets[i].gameObject.activeSelf == false)
             {
                 turrets[i] = PlaceLaserTurret(turretPlacements[i]);
                 turrets[i].PlaySpawnSound();
@@ -208,7 +208,7 @@ public class EnemyAI : PlayerManager
         }
         for (int i = 0; i < turrets.Length; i++)
         {
-            if (turrets[i] == null || turrets[i].ToString() == "null")
+            if (turrets[i] == null || turrets[i].gameObject.activeSelf == false)
             {
                 turrets[i] = PlaceMGTurret(turretPlacements[i]);
                 turrets[i].PlaySpawnSound();
@@ -226,7 +226,7 @@ public class EnemyAI : PlayerManager
         }
         for (int i = 0; i < plants.Length; i++)
         {
-            if (plants[i] == null || plants[i].ToString() == "null")
+            if (plants[i] == null || plants[i].gameObject.activeSelf == false)
             {
                 plants[i] = PlacePlant(plantPlacements[i]);
                 plants[i].PlaySpawnSound();

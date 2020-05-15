@@ -11,20 +11,10 @@ public class LevelLoader : Singleton<LevelLoader>
     [SerializeField]
     private TMP_Text percent;
     private int levelsUnlocked;
-
     public string[] levelNames;
     public int[] scoreToUnlockNextLevel;
 
     public int LevelsUnlocked => levelsUnlocked;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        DontDestroyOnLoad(gameObject);
-        gameObject.SetActive(false);
-        // [TODO] levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 1);
-        levelsUnlocked = 3;
-    }
 
     public void UnlockLevel(int id)
     {
@@ -42,6 +32,15 @@ public class LevelLoader : Singleton<LevelLoader>
         gameObject.SetActive(true);
         StartCoroutine(LoadLevelAsync(levelName));
     }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+        gameObject.SetActive(false);
+        // [TODO] levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 1);
+        levelsUnlocked = 3;
+    }
     /// <summary>
     /// Loads level with fancy loading screen.
     /// </summary>
@@ -52,7 +51,7 @@ public class LevelLoader : Singleton<LevelLoader>
         AsyncOperation operation = SceneManager.LoadSceneAsync(levelName);
         while (!operation.isDone)
         {
-            slider.value = operation.progress * 1.1111111f; // <=> / 0.9
+            slider.value = operation.progress * 1.1111112f; // <=> / 0.9
             percent.text = ((int)(slider.value * 100)).ToString();
             yield return null;
         }

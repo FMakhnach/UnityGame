@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IPoolable
 {
     /// <summary>
     /// Number of seconds after which the projectile self-destroys.
@@ -23,7 +23,6 @@ public class Projectile : MonoBehaviour
     /// </summary>
     private Vector3 directionTimesSpeed;
 
-
     /// <summary>
     /// Initializing a projectile by giving it all what it needs.
     /// </summary>
@@ -34,8 +33,15 @@ public class Projectile : MonoBehaviour
         this.damage = damage;
         this.particles = particles;
         // It should be destroyed in time.
-        PoolManager.Instance.Reclaim(gameObject, lifeTime);
-        PoolManager.Instance.Reclaim(particles.gameObject, lifeTime);
+        PoolManager.Instance.Reclaim(this, lifeTime);
+        PoolManager.Instance.Reclaim(particles, lifeTime);
+    }
+    public void ResetValues()
+    {
+        damage = default;
+        owner = default;
+        particles = default;
+        directionTimesSpeed = default;
     }
 
     private void Update()
@@ -50,7 +56,7 @@ public class Projectile : MonoBehaviour
         if (damageable != null && damageable.Owner != owner)
         {
             damageable.ReceiveDamage(damage, owner);
-            PoolManager.Instance.Reclaim(particles.gameObject);
+            PoolManager.Instance.Reclaim(particles);
         }
     }
 }

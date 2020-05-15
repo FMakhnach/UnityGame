@@ -4,11 +4,6 @@
 public class UnitFactory : ScriptableObject
 {
     [SerializeField]
-    private Buggy buggyPrefab;
-    [SerializeField]
-    private Copter copterPrefab;
-
-    [SerializeField]
     private Material buggyMaterial;
     [SerializeField]
     private Material copterMaterial;

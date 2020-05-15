@@ -37,7 +37,6 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField]
     private Button startButton;
 
-    public bool GameHasStarted => !startButton.gameObject.activeSelf;
     public event Action onGameStarted;
 
     /// <summary>
@@ -90,8 +89,8 @@ public class LevelManager : Singleton<LevelManager>
             gameButtons[i].enabled = active;
             gameButtons[i].GetComponent<KeyboardButton>().enabled = active;
         }
-        GameTimer.Instance.gameObject.SetActive(active);
         speedUpButton.gameObject.SetActive(active);
+        timerText.SetActive(active);
     }
     private void PlayerWon()
     {

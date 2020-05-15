@@ -86,6 +86,15 @@ public class PlayerManager : MonoBehaviour
         LevelManager.Instance.onGameStarted += () => StartCoroutine("IncomeTick");
         gameObject.SetActive(false);
     }
+    private IEnumerator IncomeTick()
+    {
+        for (; ; )
+        {
+            Energy += incomePerSecond;
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     public void IncreaseIncome(float value)
     {
         incomePerSecond += value;
@@ -109,18 +118,10 @@ public class PlayerManager : MonoBehaviour
             energyIncomeText.text = incomePerSecond.ToString("0.##");
         }
     }
-    public void SpendEnergy(int money)
+    public void SpendEnergy(int energy)
     {
-        Energy -= money;
-        PlayerStats.SpendMoney(money);
-    }
-    private IEnumerator IncomeTick()
-    {
-        for (; ; )
-        {
-            Energy += incomePerSecond;
-            yield return new WaitForSeconds(1f);
-        }
+        Energy -= energy;
+        PlayerStats.SpendMoney(energy);
     }
 
     /// <summary>

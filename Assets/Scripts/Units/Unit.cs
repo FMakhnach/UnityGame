@@ -5,7 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(DamageableBehaviour))]
 [RequireComponent(typeof(NavMeshAgent))]
-public abstract class Unit : MonoBehaviour, IDamageable, ITarget
+public abstract class Unit : MonoBehaviour, IDamageable, ITarget, IPoolable
 {
     /// <summary>
     /// Unit's stats and stuff.
@@ -83,10 +83,18 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
             ps.gameObject.SetActive(true);
             ps.Play();
             ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
-            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.5f);
+            PoolManager.Instance.Reclaim(ps, config.destroySound.length + 0.5f);
 
-            PoolManager.Instance.Reclaim(gameObject);
+            PoolManager.Instance.Reclaim(this);
         }
+    }
+    public void ResetValues()
+    {
+        Owner = default;
+        path = default;
+        currentTarget = default;
+        body.transform.localRotation = Quaternion.identity;
+        damageableBehaviour.ResetValues();
     }
 
     private void Awake()
@@ -173,7 +181,7 @@ public abstract class Unit : MonoBehaviour, IDamageable, ITarget
     {
         if (currentTarget != null)
         {
-            if (currentTarget.ToString() == "null" ||
+            if (currentTarget.TargetPoint.parent.gameObject.activeSelf == false ||
                 (currentTarget.TargetPoint.position - transform.position).magnitude
                 > (config.radius + 3.5f))
             {

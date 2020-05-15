@@ -4,8 +4,6 @@
 public class BuildingFactory : ScriptableObject
 {
     [SerializeField]
-    private Plant plantPrefab;
-    [SerializeField]
     private Material plantMaterial;
 
     public Plant CreatePlant(PlayerManager owner)

@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a ghost of the object.
 /// </summary>
-public class Ghost : MonoBehaviour
+public class Ghost : MonoBehaviour, IPoolable
 {
     /// <summary>
     /// Green ghost.
@@ -100,6 +100,12 @@ public class Ghost : MonoBehaviour
             }
         }
 
+        IsFit = false;
+        PlaceArea = default;
+    }
+    public void ResetValues()
+    {
+        PlaceArea = default;
         IsFit = false;
     }
 

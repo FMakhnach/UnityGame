@@ -2,7 +2,7 @@
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(DamageableBehaviour))]
-public abstract class Turret : MonoBehaviour, ITarget, IDamageable
+public abstract class Turret : MonoBehaviour, ITarget, IDamageable, IPoolable
 {
     /// <summary>
     /// Turret stats are there.
@@ -43,19 +43,15 @@ public abstract class Turret : MonoBehaviour, ITarget, IDamageable
             from.TurretKilled();
             Owner.TurretLost();
 
-            Owner = null;
-            ResetValues();
-            damageableBehaviour.ResetValues();
-
             var ps = PoolManager.Instance.GetTurretExplosion();
             ps.transform.position = transform.position;
             ps.transform.rotation = transform.rotation;
             ps.gameObject.SetActive(true);
             ps.Play();
             ps.GetComponent<AudioSource>().PlayOneShot(config.destroySound, 0.3f);
-            PoolManager.Instance.Reclaim(ps.gameObject, config.destroySound.length + 0.5f);
+            PoolManager.Instance.Reclaim(ps, config.destroySound.length + 0.5f);
 
-            PoolManager.Instance.Reclaim(gameObject);
+            PoolManager.Instance.Reclaim(this);
         }
     }
 
@@ -64,7 +60,7 @@ public abstract class Turret : MonoBehaviour, ITarget, IDamageable
         damageableBehaviour = GetComponent<DamageableBehaviour>();
         audioSource = GetComponent<AudioSource>();
     }
-    protected abstract void ResetValues();
+    public abstract void ResetValues();
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

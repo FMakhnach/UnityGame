@@ -8,7 +8,6 @@ public class UnitInfoPanel : ObjectInfoPanel
 {
     [SerializeField]
     private UnitConfiguration config;
-
     [SerializeField]
     private TMP_Text maxHealthLabel;
     [SerializeField]

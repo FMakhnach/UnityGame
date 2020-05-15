@@ -60,7 +60,7 @@ public class GameTimer : Singleton<GameTimer>
     }
     private void Start()
     {
-        LevelManager.Instance.onGameStarted += () => StartCoroutine("Tick");
+        LevelManager.Instance.onGameStarted += () => StartCoroutine(Tick());
     }
     /// <summary>
     /// Ticks every scaled second
@@ -76,8 +76,8 @@ public class GameTimer : Singleton<GameTimer>
             }
             else
             {
-                yield return new WaitForSeconds(scaledSecond);
-                time += scaledSecond;
+                yield return new WaitForSeconds(1f);
+                time += 1f;
                 text.text = GetTimeString();
             }
         }
