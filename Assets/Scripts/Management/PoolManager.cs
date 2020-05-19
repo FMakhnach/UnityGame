@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolManager : Singleton<PoolManager>
@@ -38,11 +39,11 @@ public class PoolManager : Singleton<PoolManager>
     [SerializeField]
     private int numberOfPlants;
 
-    private Buggy[] buggies;
-    private Copter[] copters;
-    private MachineGunTurret[] machineGuns;
-    private LaserTurret[] lasers;
-    private Plant[] plants;
+    private List<Buggy> buggies;
+    private List<Copter> copters;
+    private List<MachineGunTurret> machineGuns;
+    private List<LaserTurret> lasers;
+    private List<Plant> plants;
     #endregion
 
     #region Projectiles
@@ -73,10 +74,10 @@ public class PoolManager : Singleton<PoolManager>
     [SerializeField]
     private int numberOfLaserProjectiles;
 
-    private Projectile[] buggyProjectiles;
-    private Projectile[] copterProjectiles;
-    private Projectile[] mgProjectiles;
-    private Projectile[] laserProjectiles;
+    private List<Projectile> buggyProjectiles;
+    private List<Projectile> copterProjectiles;
+    private List<Projectile> mgProjectiles;
+    private List<Projectile> laserProjectiles;
     #endregion
 
     #region Particles
@@ -109,12 +110,12 @@ public class PoolManager : Singleton<PoolManager>
     [SerializeField]
     private int numberOfMGShootEffects;
 
-    private ParticleSystem[] smallExplosions;
-    private ParticleSystem[] turretExplosions;
-    private ParticleSystem[] bigExplosions;
-    private ParticleSystem[] enemyShootEffects;
-    private ParticleSystem[] laserShootEffects;
-    private ParticleSystem[] mgShootEffects;
+    private List<ParticleSystem> smallExplosions;
+    private List<ParticleSystem> turretExplosions;
+    private List<ParticleSystem> bigExplosions;
+    private List<ParticleSystem> enemyShootEffects;
+    private List<ParticleSystem> laserShootEffects;
+    private List<ParticleSystem> mgShootEffects;
     #endregion
 
     #region Ghosts
@@ -146,77 +147,77 @@ public class PoolManager : Singleton<PoolManager>
     public void Initialize()
     {
         #region Objects
-        buggies = new Buggy[numberOfBuggies];
-        for (int i = 0; i < buggies.Length; i++)
+        buggies = new List<Buggy>(numberOfBuggies);
+        for (int i = 0; i < numberOfBuggies; i++)
         {
-            buggies[i] = Instantiate(buggyPrefab, storingPosition,
-                Quaternion.identity, buggiesParent.transform);
+            buggies.Add(Instantiate(buggyPrefab, storingPosition,
+                Quaternion.identity, buggiesParent.transform));
             buggies[i].gameObject.SetActive(false);
         }
 
-        copters = new Copter[numberOfCopters];
-        for (int i = 0; i < copters.Length; i++)
+        copters = new List<Copter>(numberOfCopters);
+        for (int i = 0; i < numberOfCopters; i++)
         {
-            copters[i] = Instantiate(copterPrefab, storingPosition,
-                Quaternion.identity, coptersParent.transform);
+            copters.Add(Instantiate(copterPrefab, storingPosition,
+                Quaternion.identity, coptersParent.transform));
             copters[i].gameObject.SetActive(false);
         }
 
-        machineGuns = new MachineGunTurret[numberOfMachineGuns];
-        for (int i = 0; i < machineGuns.Length; i++)
+        machineGuns = new List<MachineGunTurret>(numberOfMachineGuns);
+        for (int i = 0; i < numberOfMachineGuns; i++)
         {
-            machineGuns[i] = Instantiate(mgPrefab, storingPosition,
-                Quaternion.identity, mgsParent.transform);
+            machineGuns.Add(Instantiate(mgPrefab, storingPosition,
+                Quaternion.identity, mgsParent.transform));
             machineGuns[i].gameObject.SetActive(false);
         }
 
-        lasers = new LaserTurret[numberOfLasers];
-        for (int i = 0; i < lasers.Length; i++)
+        lasers = new List<LaserTurret>(numberOfLasers);
+        for (int i = 0; i < numberOfLasers; i++)
         {
-            lasers[i] = Instantiate(laserPrefab, storingPosition,
-                Quaternion.identity, lasersParent.transform);
+            lasers.Add(Instantiate(laserPrefab, storingPosition,
+                Quaternion.identity, lasersParent.transform));
             lasers[i].gameObject.SetActive(false);
         }
 
-        plants = new Plant[numberOfPlants];
-        for (int i = 0; i < plants.Length; i++)
+        plants = new List<Plant>(numberOfPlants);
+        for (int i = 0; i < numberOfPlants; i++)
         {
-            plants[i] = Instantiate(plantPrefab, storingPosition,
-                Quaternion.identity, plantsParent.transform);
+            plants.Add(Instantiate(plantPrefab, storingPosition,
+                Quaternion.identity, plantsParent.transform));
             plants[i].gameObject.SetActive(false);
         }
         #endregion
 
         #region Projectile
-        buggyProjectiles = new Projectile[numberOfBuggyProjectiles];
-        for (int i = 0; i < buggyProjectiles.Length; i++)
+        buggyProjectiles = new List<Projectile>(numberOfBuggyProjectiles);
+        for (int i = 0; i < numberOfBuggyProjectiles; i++)
         {
-            buggyProjectiles[i] = Instantiate(buggyProjectilePrefab, storingPosition,
-                Quaternion.identity, buggyProjectilesParent.transform);
+            buggyProjectiles.Add(Instantiate(buggyProjectilePrefab, storingPosition,
+                Quaternion.identity, buggyProjectilesParent.transform));
             buggyProjectiles[i].gameObject.SetActive(false);
         }
 
-        copterProjectiles = new Projectile[numberOfCopterProjectiles];
-        for (int i = 0; i < copterProjectiles.Length; i++)
+        copterProjectiles = new List<Projectile>(numberOfCopterProjectiles);
+        for (int i = 0; i < numberOfCopterProjectiles; i++)
         {
-            copterProjectiles[i] = Instantiate(copterProjectilePrefab, storingPosition,
-                Quaternion.identity, copterProjectilesParent.transform);
+            copterProjectiles.Add(Instantiate(copterProjectilePrefab, storingPosition,
+                Quaternion.identity, copterProjectilesParent.transform));
             copterProjectiles[i].gameObject.SetActive(false);
         }
 
-        mgProjectiles = new Projectile[numberOfMGProjectiles];
-        for (int i = 0; i < mgProjectiles.Length; i++)
+        mgProjectiles = new List<Projectile>(numberOfMGProjectiles);
+        for (int i = 0; i < numberOfMGProjectiles; i++)
         {
-            mgProjectiles[i] = Instantiate(mgProjectilePrefab, storingPosition,
-                Quaternion.identity, mgProjectilesParent.transform);
+            mgProjectiles.Add(Instantiate(mgProjectilePrefab, storingPosition,
+                Quaternion.identity, mgProjectilesParent.transform));
             mgProjectiles[i].gameObject.SetActive(false);
         }
 
-        laserProjectiles = new Projectile[numberOfLaserProjectiles];
-        for (int i = 0; i < laserProjectiles.Length; i++)
+        laserProjectiles = new List<Projectile>(numberOfLaserProjectiles);
+        for (int i = 0; i < numberOfLaserProjectiles; i++)
         {
-            laserProjectiles[i] = Instantiate(laserProjectilePrefab, storingPosition,
-                Quaternion.identity, laserProjectilesParent.transform);
+            laserProjectiles.Add(Instantiate(laserProjectilePrefab, storingPosition,
+                Quaternion.identity, laserProjectilesParent.transform));
             laserProjectiles[i].gameObject.SetActive(false);
         }
         #endregion
@@ -240,51 +241,51 @@ public class PoolManager : Singleton<PoolManager>
         #endregion
 
         #region Particles
-        smallExplosions = new ParticleSystem[numberOfSmallExplosions];
-        for (int i = 0; i < smallExplosions.Length; i++)
+        smallExplosions = new List<ParticleSystem>(numberOfSmallExplosions);
+        for (int i = 0; i < numberOfSmallExplosions; i++)
         {
-            smallExplosions[i] = Instantiate(smallExplosionPrefab, storingPosition,
-                Quaternion.identity, particlesParent.transform);
+            smallExplosions.Add(Instantiate(smallExplosionPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform));
             smallExplosions[i].gameObject.SetActive(false);
         }
 
-        turretExplosions = new ParticleSystem[numberOfTurretExplosions];
-        for (int i = 0; i < turretExplosions.Length; i++)
+        turretExplosions = new List<ParticleSystem>(numberOfTurretExplosions);
+        for (int i = 0; i < numberOfTurretExplosions; i++)
         {
-            turretExplosions[i] = Instantiate(turretExplosionPrefab, storingPosition,
-                Quaternion.identity, particlesParent.transform);
+            turretExplosions.Add(Instantiate(turretExplosionPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform));
             turretExplosions[i].gameObject.SetActive(false);
         }
 
-        bigExplosions = new ParticleSystem[numberOfBigExplosions];
-        for (int i = 0; i < bigExplosions.Length; i++)
+        bigExplosions = new List<ParticleSystem>(numberOfBigExplosions);
+        for (int i = 0; i < numberOfBigExplosions; i++)
         {
-            bigExplosions[i] = Instantiate(bigExplosionPrefab, storingPosition,
-                Quaternion.identity, particlesParent.transform);
+            bigExplosions.Add(Instantiate(bigExplosionPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform));
             bigExplosions[i].gameObject.SetActive(false);
         }
 
-        enemyShootEffects = new ParticleSystem[numberOfEnemyShootEffects];
-        for (int i = 0; i < enemyShootEffects.Length; i++)
+        enemyShootEffects = new List<ParticleSystem>(numberOfEnemyShootEffects);
+        for (int i = 0; i < numberOfEnemyShootEffects; i++)
         {
-            enemyShootEffects[i] = Instantiate(enemyShootPrefab, storingPosition,
-                Quaternion.identity, particlesParent.transform);
+            enemyShootEffects.Add(Instantiate(enemyShootPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform));
             enemyShootEffects[i].gameObject.SetActive(false);
         }
 
-        laserShootEffects = new ParticleSystem[numberOfLaserShootEffects];
-        for (int i = 0; i < laserShootEffects.Length; i++)
+        laserShootEffects = new List<ParticleSystem>(numberOfLaserShootEffects);
+        for (int i = 0; i < numberOfLaserShootEffects; i++)
         {
-            laserShootEffects[i] = Instantiate(laserShootPrefab, storingPosition,
-                Quaternion.identity, particlesParent.transform);
+            laserShootEffects.Add(Instantiate(laserShootPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform));
             laserShootEffects[i].gameObject.SetActive(false);
         }
 
-        mgShootEffects = new ParticleSystem[numberOfMGShootEffects];
-        for (int i = 0; i < mgShootEffects.Length; i++)
+        mgShootEffects = new List<ParticleSystem>(numberOfMGShootEffects);
+        for (int i = 0; i < numberOfMGShootEffects; i++)
         {
-            mgShootEffects[i] = Instantiate(mgShootPrefab, storingPosition,
-                Quaternion.identity, particlesParent.transform);
+            mgShootEffects.Add(Instantiate(mgShootPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform));
             mgShootEffects[i].gameObject.SetActive(false);
         }
         #endregion
@@ -314,170 +315,230 @@ public class PoolManager : Singleton<PoolManager>
 
     public Buggy GetBuggy()
     {
-        for (int i = 0; i < buggies.Length; i++)
+        for (int i = 0; i < buggies.Count; i++)
         {
             if (!buggies[i].gameObject.activeSelf)
             {
                 return buggies[i];
             }
         }
-        return null;
+        Buggy buggy = Instantiate(buggyPrefab, storingPosition,
+                Quaternion.identity, buggiesParent.transform);
+        buggy.gameObject.SetActive(false);
+        buggies.Add(buggy);
+        return buggy;
     }
     public Copter GetCopter()
     {
-        for (int i = 0; i < copters.Length; i++)
+        for (int i = 0; i < copters.Count; i++)
         {
             if (!copters[i].gameObject.activeSelf)
             {
                 return copters[i];
             }
         }
-        return null;
+        Copter copter = Instantiate(copterPrefab, storingPosition,
+                Quaternion.identity, coptersParent.transform);
+        copter.gameObject.SetActive(false);
+        copters.Add(copter);
+        return copter;
     }
     public MachineGunTurret GetMG()
     {
-        for (int i = 0; i < machineGuns.Length; i++)
+        for (int i = 0; i < machineGuns.Count; i++)
         {
             if (!machineGuns[i].gameObject.activeSelf)
             {
                 return machineGuns[i];
             }
         }
-        return null;
+        MachineGunTurret mg = Instantiate(mgPrefab, storingPosition,
+                Quaternion.identity, mgsParent.transform);
+        mg.gameObject.SetActive(false);
+        machineGuns.Add(mg);
+        return mg;
     }
     public LaserTurret GetLaser()
     {
-        for (int i = 0; i < lasers.Length; i++)
+        for (int i = 0; i < lasers.Count; i++)
         {
             if (!lasers[i].gameObject.activeSelf)
             {
                 return lasers[i];
             }
         }
-        return null;
+        LaserTurret laser = Instantiate(laserPrefab, storingPosition,
+                Quaternion.identity, lasersParent.transform);
+        laser.gameObject.SetActive(false);
+        lasers.Add(laser);
+        return laser;
     }
     public Plant GetPlant()
     {
-        for (int i = 0; i < plants.Length; i++)
+        for (int i = 0; i < plants.Count; i++)
         {
             if (!plants[i].gameObject.activeSelf)
             {
                 return plants[i];
             }
         }
-        return null;
+        Plant plant = Instantiate(plantPrefab, storingPosition,
+                Quaternion.identity, plantsParent.transform);
+        plant.gameObject.SetActive(false);
+        plants.Add(plant);
+        return plant;
     }
 
     public Projectile GetBuggyProjectile()
     {
-        for (int i = 0; i < buggyProjectiles.Length; i++)
+        for (int i = 0; i < buggyProjectiles.Count; i++)
         {
             if (!buggyProjectiles[i].gameObject.activeSelf)
             {
                 return buggyProjectiles[i];
             }
         }
-        return null;
+        Projectile proj = Instantiate(buggyProjectilePrefab, storingPosition,
+                Quaternion.identity, buggyProjectilesParent.transform);
+        proj.gameObject.SetActive(false);
+        buggyProjectiles.Add(proj);
+        return proj;
     }
     public Projectile GetCopterProjectile()
     {
-        for (int i = 0; i < copterProjectiles.Length; i++)
+        for (int i = 0; i < copterProjectiles.Count; i++)
         {
             if (!copterProjectiles[i].gameObject.activeSelf)
             {
                 return copterProjectiles[i];
             }
         }
-        return null;
+        Projectile proj = Instantiate(copterProjectilePrefab, storingPosition,
+                Quaternion.identity, copterProjectilesParent.transform);
+        proj.gameObject.SetActive(false);
+        copterProjectiles.Add(proj);
+        return proj;
     }
     public Projectile GetMGProjectile()
     {
-        for (int i = 0; i < mgProjectiles.Length; i++)
+        for (int i = 0; i < mgProjectiles.Count; i++)
         {
             if (!mgProjectiles[i].gameObject.activeSelf)
             {
                 return mgProjectiles[i];
             }
         }
-        return null;
+        Projectile proj = Instantiate(mgProjectilePrefab, storingPosition,
+                Quaternion.identity, mgProjectilesParent.transform);
+        proj.gameObject.SetActive(false);
+        mgProjectiles.Add(proj);
+        return proj;
     }
     public Projectile GetLaserProjectile()
     {
-        for (int i = 0; i < laserProjectiles.Length; i++)
+        for (int i = 0; i < laserProjectiles.Count; i++)
         {
             if (!laserProjectiles[i].gameObject.activeSelf)
             {
                 return laserProjectiles[i];
             }
         }
-        return null;
+        Projectile proj = Instantiate(laserProjectilePrefab, storingPosition,
+                Quaternion.identity, laserProjectilesParent.transform);
+        proj.gameObject.SetActive(false);
+        laserProjectiles.Add(proj);
+        return proj;
     }
 
     public ParticleSystem GetSmallExplosion()
     {
-        for (int i = 0; i < smallExplosions.Length; i++)
+        for (int i = 0; i < smallExplosions.Count; i++)
         {
             if (!smallExplosions[i].gameObject.activeSelf)
             {
                 return smallExplosions[i];
             }
         }
-        return null;
+        ParticleSystem ps = Instantiate(smallExplosionPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform);
+        ps.gameObject.SetActive(false);
+        smallExplosions.Add(ps);
+        return ps;
     }
     public ParticleSystem GetTurretExplosion()
     {
-        for (int i = 0; i < turretExplosions.Length; i++)
+        for (int i = 0; i < turretExplosions.Count; i++)
         {
             if (!turretExplosions[i].gameObject.activeSelf)
             {
                 return turretExplosions[i];
             }
         }
-        return null;
+        ParticleSystem ps = Instantiate(turretExplosionPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform);
+        ps.gameObject.SetActive(false);
+        turretExplosions.Add(ps);
+        return ps;
     }
     public ParticleSystem GetBigExplosion()
     {
-        for (int i = 0; i < bigExplosions.Length; i++)
+        for (int i = 0; i < bigExplosions.Count; i++)
         {
             if (!bigExplosions[i].gameObject.activeSelf)
             {
                 return bigExplosions[i];
             }
         }
-        return null;
+        ParticleSystem ps = Instantiate(bigExplosionPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform);
+        ps.gameObject.SetActive(false);
+        bigExplosions.Add(ps);
+        return ps;
     }
     public ParticleSystem GetEnemyShootEffect()
     {
-        for (int i = 0; i < enemyShootEffects.Length; i++)
+        for (int i = 0; i < enemyShootEffects.Count; i++)
         {
             if (!enemyShootEffects[i].gameObject.activeSelf)
             {
                 return enemyShootEffects[i];
             }
         }
-        return null;
+        ParticleSystem ps = Instantiate(enemyShootPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform);
+        ps.gameObject.SetActive(false);
+        enemyShootEffects.Add(ps);
+        return ps;
     }
     public ParticleSystem GetMGShootEffect()
     {
-        for (int i = 0; i < mgShootEffects.Length; i++)
+        for (int i = 0; i < mgShootEffects.Count; i++)
         {
             if (!mgShootEffects[i].gameObject.activeSelf)
             {
                 return mgShootEffects[i];
             }
         }
-        return null;
+        ParticleSystem ps = Instantiate(mgShootPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform);
+        ps.gameObject.SetActive(false);
+        mgShootEffects.Add(ps);
+        return ps;
     }
     public ParticleSystem GetLaserShootEffect()
     {
-        for (int i = 0; i < laserShootEffects.Length; i++)
+        for (int i = 0; i < laserShootEffects.Count; i++)
         {
             if (!laserShootEffects[i].gameObject.activeSelf)
             {
                 return laserShootEffects[i];
             }
         }
-        return null;
+        ParticleSystem ps = Instantiate(laserShootPrefab, storingPosition,
+                Quaternion.identity, particlesParent.transform);
+        ps.gameObject.SetActive(false);
+        laserShootEffects.Add(ps);
+        return ps;
     }
 
     protected override void Awake()

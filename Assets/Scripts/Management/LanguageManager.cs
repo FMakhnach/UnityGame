@@ -28,6 +28,6 @@ public class LanguageManager : Singleton<LanguageManager>
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
-        currentLanguage = (Language)PlayerPrefs.GetInt("language");
+        currentLanguage = (Language)PlayerPrefs.GetInt("language", 0);
     }
 }

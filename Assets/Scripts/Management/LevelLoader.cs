@@ -38,8 +38,7 @@ public class LevelLoader : Singleton<LevelLoader>
         base.Awake();
         DontDestroyOnLoad(gameObject);
         gameObject.SetActive(false);
-        // [TODO] levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 1);
-        levelsUnlocked = 3;
+        levelsUnlocked = PlayerPrefs.GetInt("levelsUnlocked", 1);
     }
     /// <summary>
     /// Loads level with fancy loading screen.

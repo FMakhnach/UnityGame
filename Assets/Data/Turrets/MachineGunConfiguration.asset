@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9d0d92268f4dd40980a0a7805c470f, type: 3}
   m_Name: MachineGunConfiguration
   m_EditorClassIdentifier: 
-  spawnSound: {fileID: 8300000, guid: db5b153c440dd2e459dc407251b20022, type: 3}
-  startHealth: 120
+  startHealth: 150
   regeneration: 0
   destroyParticles: {fileID: 198059975614214484, guid: 7a0476686964e41ac8320b7cf37868c2,
     type: 3}
   destroySound: {fileID: 8300000, guid: 59728e105bae5b8459c6f2ab495f583e, type: 3}
+  spawnSound: {fileID: 8300000, guid: db5b153c440dd2e459dc407251b20022, type: 3}
   attackSound: {fileID: 8300000, guid: 42df9271cb69574408fc5a753cbf30fb, type: 3}
-  radius: 7
-  damage: 4
-  attackingInterval: 0.2
+  radius: 8
+  damage: 3
+  attackingInterval: 0.25

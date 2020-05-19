@@ -41,7 +41,7 @@ public class RoundFinishMenu : MonoBehaviour
     public void TryAgainButton()
     {
         GameTimer.Instance.SetTimeScale(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LevelLoader.Instance.LoadLevel(SceneManager.GetActiveScene().name);
     }
     public void NextLevelButton()
     {

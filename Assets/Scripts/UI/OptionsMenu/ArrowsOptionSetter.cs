@@ -53,7 +53,7 @@ public class ArrowsOptionSetter : MonoBehaviour
         id = PlayerPrefs.GetInt(playerPrefsName, 0);
         options[id].gameObject.SetActive(true);
     }
-    private void OnApplicationQuit()
+    private void OnDisable()
     {
         PlayerPrefs.SetInt(playerPrefsName, id);
     }

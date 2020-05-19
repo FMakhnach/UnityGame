@@ -168,7 +168,6 @@ public abstract class AttackingTurret : Turret
         Projectile proj = GetProjectile();
         proj.transform.position = firePoint.position;
         proj.transform.rotation = firePoint.transform.rotation;
-        proj.gameObject.SetActive(true);
         var direction = currentTarget.TargetPoint.position - proj.transform.position;
         proj.Initialize(direction, config.damage, Owner, fireParticles);
     }

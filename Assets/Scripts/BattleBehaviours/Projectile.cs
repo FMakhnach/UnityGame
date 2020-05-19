@@ -28,13 +28,14 @@ public class Projectile : MonoBehaviour, IPoolable
     /// </summary>
     public void Initialize(Vector3 direction, float damage, PlayerManager owner, ParticleSystem particles)
     {
-        directionTimesSpeed = direction.normalized * speed * Time.deltaTime;
+        directionTimesSpeed = direction.normalized * speed;
         this.owner = owner;
         this.damage = damage;
         this.particles = particles;
         // It should be destroyed in time.
         PoolManager.Instance.Reclaim(this, lifeTime);
         PoolManager.Instance.Reclaim(particles, lifeTime);
+        gameObject.SetActive(true);
     }
     public void ResetValues()
     {
@@ -47,7 +48,7 @@ public class Projectile : MonoBehaviour, IPoolable
     private void Update()
     {
         // Just flying in given direction.
-        transform.Translate(directionTimesSpeed, Space.World);
+        transform.Translate(directionTimesSpeed * Time.deltaTime, Space.World);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -57,6 +58,7 @@ public class Projectile : MonoBehaviour, IPoolable
         {
             damageable.ReceiveDamage(damage, owner);
             PoolManager.Instance.Reclaim(particles);
+            PoolManager.Instance.Reclaim(this);
         }
     }
 }

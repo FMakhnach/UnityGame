@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa014fd777369643992f9d21b7b2f67, type: 3}
   m_Name: BuggyConfiguration
   m_EditorClassIdentifier: 
-  spawnSound: {fileID: 8300000, guid: 8d2ec53ab22ee284f8d4e26b741e2d51, type: 3}
-  startHealth: 80
+  startHealth: 50
   regeneration: 0
   destroyParticles: {fileID: 198059975614214484, guid: 10eef6400678c4c75b2ac94e435a2bd5,
     type: 3}
   destroySound: {fileID: 8300000, guid: fdb46b27d6c4d2841a0bf52ef06bc0aa, type: 3}
+  spawnSound: {fileID: 8300000, guid: 8d2ec53ab22ee284f8d4e26b741e2d51, type: 3}
   attackSound: {fileID: 8300000, guid: a182fe2885300f24488df3e659e6ad99, type: 3}
-  radius: 6
-  damage: 6
+  radius: 5
+  damage: 5
   attackingInterval: 0.5
   speed: 3

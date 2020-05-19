@@ -12,6 +12,6 @@ public class ResetPlayerPrefs : MonoBehaviour
         PlayerPrefs.SetInt("best-score1", 0);
         PlayerPrefs.SetInt("best-score2", 0);
         PlayerPrefs.SetInt("best-score3", 0);
-        PlayerPrefs.SetInt("language", 1);
+        PlayerPrefs.SetInt("language", 0);
     }
 }
